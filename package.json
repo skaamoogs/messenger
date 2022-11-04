@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "parcel index.html",
-    "build": "parcel build index.html"
+    "build": "parcel build index.hbs"
   },
   "repository": {
     "type": "git",
@@ -19,7 +19,9 @@
   },
   "homepage": "https://github.com/skaamoogs/chat-webapp#readme",
   "devDependencies": {
+    "@anikin/parcel-transformer-handlebars": "^1.0.9",
     "@inventory/parcel-plugin-handlebars": "^1.0.0",
+    "@parcel/transformer-sass": "^2.7.0",
     "parcel": "^2.7.0"
   },
   "dependencies": {

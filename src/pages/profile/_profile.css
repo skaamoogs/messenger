@@ -1,0 +1,25 @@
+html, body {
+  margin: 0;
+}
+
+.round-button {
+  width: 28px;
+  height: 28px;
+  border-radius: 100%;
+  border: none;
+  background-color: rgba(51, 105, 243, 1);
+  color: white;
+}
+
+.profile-page {
+    display: flex;
+}
+
+.back-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 64px;
+    min-height: 100vh;
+    background-color: rgb(241, 239, 239);
+}
