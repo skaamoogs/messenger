@@ -1,5 +1,5 @@
 {
-  "name": "chat-webapp",
+  "name": "middle.messenger.praktikum.yandex",
   "version": "1.0.0",
   "description": "Start of sprint #1",
   "source": "index.html",
@@ -16,15 +16,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/skaamoogs/chat-webapp.git"
+    "url": "git+https://github.com/skaamoogs/middle.messenger.praktikum.yandex.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/skaamoogs/chat-webapp/issues"
+    "url": "https://github.com/skaamoogs/middle.messenger.praktikum.yandex/issues"
   },
-  "homepage": "https://github.com/skaamoogs/chat-webapp#readme",
+  "homepage": "https://github.com/skaamoogs/middle.messenger.praktikum.yandex#readme",
   "devDependencies": {
     "@anikin/parcel-transformer-handlebars": "^1.0.9",
     "@inventory/parcel-plugin-handlebars": "^1.0.0",
