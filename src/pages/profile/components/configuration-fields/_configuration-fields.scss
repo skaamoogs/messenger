@@ -1,0 +1,23 @@
+.configuration-table {
+    a {
+      color: $primary-color;
+    }
+
+    tr {
+      a {
+        &:hover {
+          color: $primary-hover-color;
+        }
+      }
+
+      &:last-child {
+        a {
+          color: $red-color;
+
+          &:hover {
+            color: $red-hover-color;
+          }
+        }
+      }
+    }
+  }

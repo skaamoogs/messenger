@@ -1,8 +1,10 @@
+import { ROUTES } from "../../const";
+
 export const signInData = {
   title: "Регистрация",
   buttonName: "Зарегистрироваться",
   footerText: "Уже есть аккаунт?",
-  route: "/login",
+  route: ROUTES.login,
   inputs: [
     {
       name: "email",

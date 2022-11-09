@@ -1,8 +1,10 @@
+import { ROUTES } from "../../const";
+
 export const loginData = {
   title: "Вход",
   buttonName: "Войти",
   footerText: "Ещё не зарегистрированы?",
-  route: "/",
+  route: ROUTES.signIn,
   inputs: [
     {
       name: "login",

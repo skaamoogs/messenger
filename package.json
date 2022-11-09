@@ -2,10 +2,14 @@
   "name": "chat-webapp",
   "version": "1.0.0",
   "description": "Start of sprint #1",
-  "main": "index.js",
+  "source": "index.html",
   "scripts": {
-    "dev": "parcel index.html",
-    "build": "parcel build index.hbs"
+    "clean-dist": "rm -rf dist && mkdir dist",
+    "copy-img": "cp -vR ./src/images ./dist",
+    "copy-files": "npm run copy-img",
+    "init": "npm run clean-dist && npm run copy-files",
+    "start": "npm run init && parcel",
+    "build": "npm run init && parcel build"
   },
   "repository": {
     "type": "git",
