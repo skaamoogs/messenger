@@ -5,8 +5,7 @@
   "source": "index.html",
   "scripts": {
     "clean-dist": "rm -rf dist && mkdir dist",
-    "copy-img": "cp -vR ./src/images ./dist",
-    "copy-files": "npm run copy-img",
+    "copy-files": "cp -vR ./src/images ./dist && cp -v _redirects ./dist",
     "init": "npm run clean-dist && npm run copy-files",
     "start": "npm run build && node ./server.js",
     "build": "npm run init && parcel build"
