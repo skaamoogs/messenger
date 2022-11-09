@@ -1,7 +1,9 @@
+import { ROUTES } from "../../const";
+
 export const formTemplate = `
 <div class="form-page">
     <div class="form-container">
-        <form action="" id="login-form">
+        <form action="${ROUTES.chat}" id="login-form">
             <h2 class="form-title">{{title}}</h2>
             {{#each inputs}}
             <label for="{{this.name}}">{{this.label}}</label>
@@ -9,7 +11,7 @@ export const formTemplate = `
             {{/each}}
         </form>
         <div class="button-container">    
-            <button class="primary-button" form="login-form">{{buttonName}}</button>
+            <button class="primary-button" form="login-form" type="submit">{{buttonName}}</button>
             <a href={{route}} );">{{footerText}}</a>
         </div>
     </div>
