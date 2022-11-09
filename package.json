@@ -8,8 +8,11 @@
     "copy-img": "cp -vR ./src/images ./dist",
     "copy-files": "npm run copy-img",
     "init": "npm run clean-dist && npm run copy-files",
-    "start": "npm run init && parcel",
+    "start": "npm run build && node ./server.js",
     "build": "npm run init && parcel build"
+  },
+  "engines": {
+    "node": ">=12.0.0"
   },
   "repository": {
     "type": "git",
@@ -26,6 +29,7 @@
     "@anikin/parcel-transformer-handlebars": "^1.0.9",
     "@inventory/parcel-plugin-handlebars": "^1.0.0",
     "@parcel/transformer-sass": "^2.7.0",
+    "express": "^4.18.2",
     "parcel": "^2.7.0"
   },
   "dependencies": {
