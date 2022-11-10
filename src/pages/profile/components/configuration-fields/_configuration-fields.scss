@@ -1,23 +1,23 @@
 .configuration-table {
-    a {
-      color: $primary-color;
+  .configuration-link {
+    color: $primary-color;
+  }
+
+  .configuration-row {
+    .configuration-link {
+      &:hover {
+        color: $primary-hover-color;
+      }
     }
 
-    tr {
-      a {
+    &:last-child {
+      .configuration-link {
+        color: $red-color;
+
         &:hover {
-          color: $primary-hover-color;
-        }
-      }
-
-      &:last-child {
-        a {
-          color: $red-color;
-
-          &:hover {
-            color: $red-hover-color;
-          }
+          color: $red-hover-color;
         }
       }
     }
   }
+}

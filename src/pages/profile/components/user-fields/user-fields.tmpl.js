@@ -3,8 +3,8 @@ export const userFieldsTemplate = `
     <tbody>
     {{#each userFields}}
         <tr>
-            <td>{{this}}</td>
-            <td>user data</td>
+            <td class="profile-table-cell">{{this}}</td>
+            <td class="profile-table-cell">user data</td>
         </tr>
     {{/each}}
     </tbody>

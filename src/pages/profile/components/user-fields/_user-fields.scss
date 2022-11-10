@@ -2,13 +2,15 @@
   width: 510px;
   margin-top: 60px;
 
-  td {
+  .profile-table-cell {
     border-bottom: $default-border;
     padding: 10px 0;
   }
 }
 
-.user-data-table td:last-child {
-  text-align: right;
-  color: $grey-color;
+.user-data-table {
+  .profile-table-cell:last-child {
+    text-align: right;
+    color: $grey-color;
+  }
 }

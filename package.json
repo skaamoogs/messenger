@@ -4,16 +4,14 @@
   "description": "Start of sprint #1",
   "source": "index.html",
   "scripts": {
-    "clean-dist": "rm -rf dist && mkdir dist",
+    "clean-cache": "rimraf .parcel-cache",
+    "clean-dist": "rimraf dist && mkdir dist",
     "copy-files": "cp -vR ./src/images ./dist && cp -v _redirects ./dist",
-    "init": "npm run clean-dist && npm run copy-files",
+    "prebuild": "npm run clean-dist && npm run clean-cache && npm run copy-files",
     "start": "npm run build && node ./server.js",
-    "build": "npm run init && parcel build"
+    "build": "npm run prebuild && parcel build"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/skaamoogs/middle.messenger.praktikum.yandex.git"
-  },
+  "repository": "git+https://github.com/skaamoogs/middle.messenger.praktikum.yandex.git",
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -22,15 +20,16 @@
   },
   "homepage": "https://github.com/skaamoogs/middle.messenger.praktikum.yandex#readme",
   "devDependencies": {
-    "@anikin/parcel-transformer-handlebars": "^1.0.9",
-    "@inventory/parcel-plugin-handlebars": "^1.0.0",
-    "@parcel/transformer-sass": "^2.7.0",
-    "express": "^4.18.2",
-    "parcel": "^2.7.0"
+    "@anikin/parcel-transformer-handlebars": "1.0.9",
+    "@inventory/parcel-plugin-handlebars": "1.0.0",
+    "@parcel/transformer-sass": "2.7.0",
+    "parcel": "2.7.0",
+    "sass": "1.56.1"
   },
   "dependencies": {
-    "handlebars": "^4.7.7",
-    "sass": "^1.55.0"
+    "handlebars": "4.7.7",
+    "express": "4.18.2"
+
   },
   "engines": {
     "node": ">=12.0.0"

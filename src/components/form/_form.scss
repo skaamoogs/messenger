@@ -16,24 +16,24 @@
     align-items: center;
     justify-content: space-between;
 
-    form {
+    .registration-form {
       align-self: stretch;
       display: flex;
       flex-direction: column;
 
-      .form-title {
+      .registration-form-title {
         text-align: center;
         margin-bottom: 30px;
       }
 
-      label {
+      .registration-input-label {
         font-size: $sm-text;
         margin-top: 16px;
         margin-bottom: 7px;
         color: $grey-color;
       }
 
-      input {
+      .registration-input {
         border-bottom: 1px solid $primary-color;
         padding-bottom: 7px;
       }
@@ -42,7 +42,7 @@
       margin-top: 45px;
       text-align: center;
 
-      a {
+      .registration-form-link {
         display: block;
         margin-top: 14px;
         font-size: $sm-text;

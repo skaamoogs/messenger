@@ -22,7 +22,7 @@ const profileTemplate = `
     </div>
     <div class="profile-container">
         <div class="avatar-container">
-            <img src={{emptyAvatarImage}} alt="empty avatar" />
+            <img class="avatar-image" src={{emptyAvatarImage}} alt="empty avatar" />
             <div class="avatar-mask"><span>{{{changeAvatarText}}}</span></div>
         </div>
         {{#if ${currentPath === ROUTES.profile}}}
@@ -38,7 +38,7 @@ const profileTemplate = `
         {{/if}}
         {{#if ${currentPath !== ROUTES.profile}}}
             <form action="${ROUTES.profile}">
-                <button class="primary-button" type="submit">{{saveButtonName}}</button>
+                <button class="primary-button profile-save-button" type="submit">{{saveButtonName}}</button>
             </form>
         {{/if}}
     </div>

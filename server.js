@@ -1,23 +1,14 @@
 const express = require("express");
-const path = require('path');
-
-const ROUTES = {
-  chat: "/",
-  login: "/login",
-  signIn: "/signin",
-  profile: "/profile",
-  password: "/profile/password",
-  data: "/profile/data",
-  page404: "/404",
-  page500: "/500",
-};
+const path = require("path");
 
 const app = express();
 const PORT = 3000;
+let port = process.env.PORT || PORT;
+const rootDirectory = path.join(__dirname, "/dist");
 
-for (let route in ROUTES) {
-  app.use(ROUTES[route], express.static(path.join(__dirname, "/dist")));
-}
-app.listen(PORT, () => {
-    console.log(`Сервер запущен на http://localhost:${PORT}`);
-  });
+app.use(express.static(rootDirectory));
+app.use((req, res) => res.sendFile(`${rootDirectory}/index.html`));
+
+app.listen(port, () => {
+  console.log(`Сервер запущен на http://localhost:${port}`);
+});

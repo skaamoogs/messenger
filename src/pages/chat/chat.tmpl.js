@@ -28,12 +28,12 @@ export const chatTemplate = `
   <div class="chat-area">
     <div class="chat-area-header">
       <div class="user-info">
-        <img class="avatar" src="/images/avatar.jpg" alt="user avatar" />
-        <span class="bold-text">{{user.name}}</span>
+        <img class="avatar user-avatar" src="/images/avatar.jpg" alt="user avatar" />
+        <span class="bold-text user-info-name">{{user.name}}</span>
       </div>
       <div class="user-settings-icon">
         {{#times 3}}
-          <span>&#8226;</span>
+          <span class="user-settings-symbol">&#8226;</span>
         {{/times}}
       </div>
     </div>
@@ -48,7 +48,7 @@ export const chatTemplate = `
         id="{{user.message.inputName}}"
         placeholder="{{user.message.placeholder}}"
       />
-      <form>
+      <form class="send-message-form">
         <button class="round-button" type="submit"><img
             src="/images/arrow-right.svg"
             alt="right arrow"

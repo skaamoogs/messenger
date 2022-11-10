@@ -109,12 +109,12 @@ $chat-list-width: 310px;
       padding-bottom: 10px;
 
       .user-info {
-        span {
+        .user-info-name {
           vertical-align: middle;
           margin-left: 10px;
         }
 
-        img {
+        .user-avatar {
           width: 34px;
           height: 34px;
           vertical-align: middle;
@@ -131,7 +131,7 @@ $chat-list-width: 310px;
         font-size: $default-font-size;
         cursor: pointer;
 
-        span {
+        .user-settings-symbol {
           line-height: 40%;
         }
       }
@@ -152,7 +152,7 @@ $chat-list-width: 310px;
         cursor: pointer;
       }
 
-      form {
+      .send-message-form {
         display: flex;
         align-items: center;
       }

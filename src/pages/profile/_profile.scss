@@ -32,7 +32,7 @@
       cursor: pointer;
       text-align: center;
 
-      img {
+      .avatar-image {
         position: absolute;
         top: 0;
         right: 0;
@@ -64,7 +64,7 @@
       }
     }
 
-    button {
+    .profile-save-button {
       margin-top: 60px;
     }
   }
