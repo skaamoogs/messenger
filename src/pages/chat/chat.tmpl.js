@@ -1,8 +1,8 @@
 export const chatTemplate = `
 <div class="chat-page">
   <div class="chat-list-container">
-    <a class="profile-link" href={{profileRoute}}>Профиль &gt;</a>
-    <input class="chat-search-field" type="search" placeholder="Поиск" />
+    <a class="anchor profile-link" href={{profileRoute}}>Профиль &gt;</a>
+    <input class="input chat-search-field" type="search" placeholder="Поиск" />
     <div class="chat-list">
       <div class="chat-container">
         <img
@@ -42,7 +42,7 @@ export const chatTemplate = `
     <div class="chat-area-message-container">
       <img class="clip-icon" src="/images/clip-icon.svg" alt="" />
       <input
-        class="chat-area-message-input"
+        class="input chat-area-message-input"
         type="text"
         name="{{user.message.inputName}}"
         id="{{user.message.inputName}}"

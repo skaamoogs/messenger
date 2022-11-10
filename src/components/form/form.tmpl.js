@@ -7,12 +7,12 @@ export const formTemplate = `
             <h2 class="form-title">{{title}}</h2>
             {{#each inputs}}
             <label class="registration-input-label" for="{{this.name}}">{{this.label}}</label>
-            <input class="registration-form-input" id="{{this.name}}" type="{{this.type}}" name="{{this.name}}">
+            <input class="input registration-form-input" id="{{this.name}}" type="{{this.type}}" name="{{this.name}}">
             {{/each}}
         </form>
         <div class="button-container">    
             <button class="primary-button" form="registration-form" type="submit">{{buttonName}}</button>
-            <a class="registration-form-link" href={{route}} );">{{footerText}}</a>
+            <a class="anchor registration-form-link" href={{route}} );">{{footerText}}</a>
         </div>
     </div>
 </div>

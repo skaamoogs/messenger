@@ -3,7 +3,7 @@ export const configurationFieldsTemplate = `
     <tbody>
         {{#each configFields}}
         <tr class="configuration-row">
-            <td class="profile-table-cell"><a class="configuration-link" href="{{this.path}}">{{this.text}}</a></td>
+            <td class="profile-table-cell"><a class="anchor configuration-link" href="{{this.path}}">{{this.text}}</a></td>
         </tr>
         {{/each}}
     </tbody>

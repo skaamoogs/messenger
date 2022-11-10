@@ -9,12 +9,12 @@ body {
   font-weight: 400;
   color: $black-text;
   
-  a {
+  .anchor {
     cursor: pointer;
     text-decoration: none;
   }
 
-  input {
+  .input {
     border: none;
     text-align: inherit;
 

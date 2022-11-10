@@ -3,8 +3,8 @@ export const passwordFieldsTemplate = `
     <tbody>
     {{#each passwordFields}}
         <tr>
-            <td>{{this.text}}</td>
-            <td><input type="{{this.type}}" name="{{this.name}}"></td>
+            <td class="profile-table-cell">{{this.text}}</td>
+            <td class="profile-table-cell"><input class="input" type="{{this.type}}" name="{{this.name}}"></td>
         </tr>
     {{/each}}
     </tbody>
