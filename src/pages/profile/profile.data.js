@@ -1,9 +1,11 @@
 import { ROUTES } from "../../const";
+import leftArrowImg from "../../images/arrow-left.svg";
+import emptyAvatarImg from "../../images/empty-avatar.svg";
 
 export const profileData = {
   backButtonRoute: ROUTES.chat,
-  leftArrowImage: "/images/arrow-left.svg",
-  emptyAvatarImage: "/images/empty-avatar.svg",
+  leftArrowImage: leftArrowImg,
+  emptyAvatarImage: emptyAvatarImg,
   changeAvatarText: "Поменять<br>аватар",
   userFields: ["Почта", "Логин", "Имя", "Фамилия", "Имя в чате", "Телефон"],
   configFields: [

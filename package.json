@@ -6,8 +6,9 @@
   "scripts": {
     "clean-cache": "rimraf .parcel-cache",
     "clean-dist": "rimraf dist && mkdir dist",
-    "copy-files": "cp -vR ./src/images ./dist && cp -v _redirects ./dist",
+    "copy-files": "cp -v _redirects ./dist",
     "prebuild": "npm run clean-dist && npm run clean-cache && npm run copy-files",
+    "dev": "parcel",
     "start": "npm run build && node ./server.js",
     "build": "npm run prebuild && parcel build"
   },

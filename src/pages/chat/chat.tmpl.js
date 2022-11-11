@@ -28,7 +28,7 @@ export const chatTemplate = `
   <div class="chat-area">
     <div class="chat-area-header">
       <div class="user-info">
-        <img class="avatar user-avatar" src="/images/avatar.jpg" alt="user avatar" />
+        <img class="avatar user-avatar" src={{user.avatar}} alt="user avatar" />
         <span class="bold-text user-info-name">{{user.name}}</span>
       </div>
       <div class="user-settings-icon">
@@ -40,7 +40,7 @@ export const chatTemplate = `
     <div class="chat-area-main">
     </div>
     <div class="chat-area-message-container">
-      <img class="clip-icon" src="/images/clip-icon.svg" alt="" />
+      <img class="clip-icon" src="{{clipIcon}}" alt="" />
       <input
         class="input chat-area-message-input"
         type="text"
@@ -50,7 +50,7 @@ export const chatTemplate = `
       />
       <form class="send-message-form">
         <button class="round-button" type="submit"><img
-            src="/images/arrow-right.svg"
+            src="{{rightArrow}}"
             alt="right arrow"
           /></button>
       </form>
