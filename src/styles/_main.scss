@@ -1,0 +1,34 @@
+html,
+body {
+  margin: 0;
+}
+
+.root {
+  font-size: $default-font-size;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  color: $black-text;
+  
+  .anchor {
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .input {
+    border: none;
+    text-align: inherit;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.bold-text {
+  font-weight: 500;
+}
+
+.avatar {
+  border-radius: 100%;
+  object-fit: cover;
+}

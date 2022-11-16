@@ -1,0 +1,22 @@
+.primary-button {
+  background-color: $primary-color;
+  color: $white-text;
+  border: none;
+  cursor: pointer;
+  width: 280px;
+  padding: 12px;
+  border-radius: 8px;
+
+  &:hover {
+    background-color: $primary-hover-color;
+  }
+}
+
+.round-button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 0;
+  border-radius: 100%;
+  line-height: 0;
+}
