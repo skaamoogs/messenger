@@ -1,4 +1,4 @@
-export const configurationFieldsTemplate = `
+const configurationFieldsTemplate = `
 <table class="profile-table configuration-table">
     <tbody>
         {{#each configFields}}
@@ -8,3 +8,5 @@ export const configurationFieldsTemplate = `
         {{/each}}
     </tbody>
 </table>`;
+
+export default configurationFieldsTemplate;

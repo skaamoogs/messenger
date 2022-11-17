@@ -1,10 +1,10 @@
 import Handlebars from "handlebars";
-import { configurationFieldsTemplate } from "./components/configuration-fields/configuration-fields.tmpl";
-import { passwordFieldsTemplate } from "./components/password-fields/password-fields.tmpl";
-import { userFieldsTemplate } from "./components/user-fields/user-fields.tmpl";
-import { userNameTemplate } from "./components/user-name/user-name.tmpl";
-import { ROUTES } from "../../const";
-import { profileData } from "./profile.data";
+import configurationFieldsTemplate from "./components/configuration-fields/configuration-fields.tmpl";
+import passwordFieldsTemplate from "./components/password-fields/password-fields.tmpl";
+import userFieldsTemplate from "./components/user-fields/user-fields.tmpl";
+import userNameTemplate from "./components/user-name/user-name.tmpl";
+import ROUTES from "../../const";
+import profileData from "./profile.data";
 
 const currentPath = window.location.pathname;
 
@@ -46,4 +46,6 @@ const profileTemplate = `
 `;
 
 const template = Handlebars.compile(profileTemplate);
-export const profileContent = template(profileData);
+const profileContent = template(profileData);
+
+export default profileContent;

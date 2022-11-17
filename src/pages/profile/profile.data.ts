@@ -1,8 +1,8 @@
-import { ROUTES } from "../../const";
+import ROUTES from "../../const";
 import leftArrowImg from "../../images/arrow-left.svg";
 import emptyAvatarImg from "../../images/empty-avatar.svg";
 
-export const profileData = {
+const profileData = {
   backButtonRoute: ROUTES.chat,
   leftArrowImage: leftArrowImg,
   emptyAvatarImage: emptyAvatarImg,
@@ -24,3 +24,5 @@ export const profileData = {
   ],
   saveButtonName: "Сохранить",
 };
+
+export default profileData;

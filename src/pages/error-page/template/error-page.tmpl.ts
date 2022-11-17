@@ -1,4 +1,4 @@
-export const errorPageTemplate = `
+const errorPageTemplate = `
 <div class="error-page">
     <div class="error-page-content">
         <p class="error-code">{{errorCode}}</p>
@@ -6,3 +6,5 @@ export const errorPageTemplate = `
         <a class="anchor" href="{{link}}" class="error-page-link">{{linkText}}</a>
     </div>
 </div>`;
+
+export default errorPageTemplate;

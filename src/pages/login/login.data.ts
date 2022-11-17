@@ -1,6 +1,6 @@
-import { ROUTES } from "../../const";
+import ROUTES from "../../const";
 
-export const loginData = {
+const loginData = {
   title: "Вход",
   buttonName: "Войти",
   footerText: "Ещё не зарегистрированы?",
@@ -18,3 +18,5 @@ export const loginData = {
     },
   ],
 };
+
+export default loginData;

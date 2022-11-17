@@ -1,9 +1,9 @@
-import { ROUTES } from "../../const";
+import ROUTES from "../../const";
 import avatarImg from "../../images/avatar.jpg";
 import clipIconImg from "../../images/clip-icon.svg";
-import rightArrowImg from "../../images/arrow-right.svg"
+import rightArrowImg from "../../images/arrow-right.svg";
 
-export const chatData = {
+const chatData = {
   profileRefText: "Профиль",
   profileRoute: ROUTES.profile,
   clipIcon: clipIconImg,
@@ -24,3 +24,5 @@ export const chatData = {
     },
   },
 };
+
+export default chatData;

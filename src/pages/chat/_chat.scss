@@ -47,6 +47,7 @@ $chat-list-width: 310px;
           height: 47px;
           flex-shrink: 0;
         }
+
         .chat-content {
           padding-left: 10px;
           color: $grey-color;
@@ -120,6 +121,7 @@ $chat-list-width: 310px;
           vertical-align: middle;
         }
       }
+
       .user-settings-icon {
         display: flex;
         flex-direction: column;

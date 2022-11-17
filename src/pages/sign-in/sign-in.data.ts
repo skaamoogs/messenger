@@ -1,6 +1,6 @@
-import { ROUTES } from "../../const";
+import ROUTES from "../../const";
 
-export const signInData = {
+const signInData = {
   title: "Регистрация",
   buttonName: "Зарегистрироваться",
   footerText: "Уже есть аккаунт?",
@@ -43,3 +43,5 @@ export const signInData = {
     },
   ],
 };
+
+export default signInData;

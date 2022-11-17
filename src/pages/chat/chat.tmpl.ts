@@ -1,4 +1,4 @@
-export const chatTemplate = `
+const chatTemplate = `
 <div class="chat-page">
   <div class="chat-list-container">
     <a class="anchor profile-link" href={{profileRoute}}>Профиль &gt;</a>
@@ -57,3 +57,5 @@ export const chatTemplate = `
     </div>
   </div>
 </div>`;
+
+export default chatTemplate;

@@ -1,6 +1,6 @@
-import { ROUTES } from "../../const";
+import ROUTES from "../../const";
 
-export const formTemplate = `
+const formTemplate = `
 <div class="form-page">
     <div class="form-container">
         <form class="registration-form" action="${ROUTES.chat}" id="registration-form">
@@ -17,3 +17,5 @@ export const formTemplate = `
     </div>
 </div>
 `;
+
+export default formTemplate;

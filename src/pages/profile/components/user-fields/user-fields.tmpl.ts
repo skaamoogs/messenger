@@ -1,4 +1,4 @@
-export const userFieldsTemplate = `
+const userFieldsTemplate = `
 <table class="profile-table user-data-table">
     <tbody>
     {{#each userFields}}
@@ -10,3 +10,5 @@ export const userFieldsTemplate = `
     </tbody>
 </table>
 `;
+
+export default userFieldsTemplate;

@@ -1,4 +1,4 @@
-export const ROUTES = {
+const ROUTES = {
   chat: "/",
   login: "/login/",
   signIn: "/signin/",
@@ -8,3 +8,5 @@ export const ROUTES = {
   page404: "/404/",
   page500: "/500/",
 };
+
+export default ROUTES;
