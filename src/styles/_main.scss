@@ -8,20 +8,6 @@ body {
   font-family: "Roboto", sans-serif;
   font-weight: 400;
   color: $black-text;
-
-  .anchor {
-    cursor: pointer;
-    text-decoration: none;
-  }
-
-  .input {
-    border: none;
-    text-align: inherit;
-
-    &:focus {
-      outline: none;
-    }
-  }
 }
 
 .bold-text {

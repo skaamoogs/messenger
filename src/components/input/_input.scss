@@ -1,0 +1,13 @@
+.input-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  border: none;
+  text-align: inherit;
+
+  &:focus {
+    outline: none;
+  }
+}

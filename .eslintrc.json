@@ -21,12 +21,29 @@
   "rules": {
     "quotes": ["error", "double", { "avoidEscape": true }],
     "no-plusplus": "off",
+    "no-underscore-dangle": [
+      "warn",
+      {
+        "allowAfterThis": true
+      }
+    ],
+    "no-param-reassign": ["error", { "props": false }],
+    "operator-linebreak": ["error", "after"],
+    "class-methods-use-this": "off",
+    "no-unused-vars": "off",
+    "implicit-arrow-linebreak": "off",
+    "object-curly-newline": "off",
     "import/no-unresolved": "error",
     "import/extensions": ["error", "always", { "js": "never", "ts": "never" }],
     "import/named": "error",
     "import/namespace": "error",
     "import/default": "error",
-    "import/export": "error"
+    "import/export": "error",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      { "argsIgnorePattern": "^_" }
+    ],
+    "@typescript-eslint/no-empty-function": "off"
   },
   "settings": {
     "import/parsers": {

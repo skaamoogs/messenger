@@ -1,11 +1,14 @@
 import ROUTES from "../../const";
 
-const loginData = {
-  title: "Вход",
-  buttonName: "Войти",
-  footerText: "Ещё не зарегистрированы?",
-  route: ROUTES.signIn,
-  inputs: [
+const loginProps = {
+  mainProps: {
+    title: "Вход",
+    footerText: "Ещё не зарегистрированы?",
+    route: ROUTES.signIn,
+  },
+  labelClassName: "registration-input-label",
+  inputClassName: "input registration-form-input",
+  inputsList: [
     {
       name: "login",
       type: "text",
@@ -17,6 +20,10 @@ const loginData = {
       label: "Пароль",
     },
   ],
+  buttonProps: {
+    className: "primary-button",
+    label: "Войти",
+  },
 };
 
-export default loginData;
+export default loginProps;

@@ -42,19 +42,6 @@
     .button-container {
       margin-top: 45px;
       text-align: center;
-
-      .registration-form-link {
-        display: block;
-        margin-top: 14px;
-        font-size: $sm-text;
-        text-decoration: none;
-        color: $primary-color;
-        cursor: pointer;
-
-        &:hover {
-          color: $primary-hover-color;
-        }
-      }
     }
   }
 }
