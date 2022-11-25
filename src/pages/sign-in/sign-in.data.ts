@@ -1,11 +1,15 @@
 import ROUTES from "../../const";
 
-const signInData = {
+const signInProps = {
   title: "Регистрация",
-  buttonName: "Зарегистрироваться",
-  footerText: "Уже есть аккаунт?",
-  route: ROUTES.login,
-  inputs: [
+  linkProps: {
+    text: "Уже есть аккаунт?",
+    route: ROUTES.login,
+    className: "registration-form-link",
+  },
+  labelClassName: "registration-input-label",
+  inputClassName: "registration-input",
+  inputsList: [
     {
       name: "email",
       type: "email",
@@ -42,6 +46,10 @@ const signInData = {
       label: "Пароль (еще раз)",
     },
   ],
+  buttonProps: {
+    className: "primary-button",
+    label: "Зарегистрироваться",
+  },
 };
 
-export default signInData;
+export default signInProps;

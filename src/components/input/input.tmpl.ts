@@ -1,7 +1,9 @@
 const inputTemplate = `
 <div class="input-container">
-    <label class="{{ labelClassName }}" for="{{ name }}">{{ label }}</label>
-    <input class="{{ inputClassName }}" id="{{ name }}" type="{{ type }}" name="{{ name }}">
+    {{#if label}}
+      <label class="{{ labelClassName }}" for="{{ name }}">{{ label }}</label>
+    {{/if}}
+    <input class="input {{ inputClassName }}" id="{{ name }}" type="{{ type }}" name="{{ name }}">
 </div>
 `;
 

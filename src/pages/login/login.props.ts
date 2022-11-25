@@ -1,13 +1,14 @@
 import ROUTES from "../../const";
 
 const loginProps = {
-  mainProps: {
-    title: "Вход",
-    footerText: "Ещё не зарегистрированы?",
+  title: "Вход",
+  linkProps: {
+    text: "Ещё не зарегистрированы?",
     route: ROUTES.signIn,
+    className: "registration-form-link",
   },
   labelClassName: "registration-input-label",
-  inputClassName: "input registration-form-input",
+  inputClassName: "registration-input",
   inputsList: [
     {
       name: "login",

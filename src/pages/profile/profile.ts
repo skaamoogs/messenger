@@ -1,51 +1,44 @@
 import Handlebars from "handlebars";
-import configurationFieldsTemplate from "./components/configuration-fields/configuration-fields.tmpl";
-import passwordFieldsTemplate from "./components/password-fields/password-fields.tmpl";
-import userFieldsTemplate from "./components/user-fields/user-fields.tmpl";
-import userNameTemplate from "./components/user-name/user-name.tmpl";
-import ROUTES from "../../const";
-import profileData from "./profile.data";
+import Button from "../../components/button/button";
+import Block from "../../modules/block";
+import ProfileTable from "./components/profile-table/profile-table";
+import profileProps from "./profile.props";
+import profileTemplate from "./profile.tmpl";
 
-const currentPath = window.location.pathname;
+export default class Profile extends Block {
+  constructor() {
+    super(profileProps);
+  }
 
-Handlebars.registerPartial("userFields", userFieldsTemplate);
-Handlebars.registerPartial("userName", userNameTemplate);
-Handlebars.registerPartial("configurationFields", configurationFieldsTemplate);
-Handlebars.registerPartial("passwordFields", passwordFieldsTemplate);
+  init() {
+    const {
+      classNames,
+      userFields,
+      passwordFields,
+      configFields,
+      saveButtonProps,
+    } = this.props;
 
-const profileTemplate = `
-<div class="profile-page">
-    <div class="back-button-container">
-        <form action="{{backButtonRoute}}">
-            <button class="round-button" type="submit"><img src={{leftArrowImage}} alt="left arrow" /></button>
-        </form>
-    </div>
-    <div class="profile-container">
-        <div class="avatar-container">
-            <img class="avatar-image" src={{emptyAvatarImage}} alt="empty avatar" />
-            <div class="avatar-mask"><span>{{{changeAvatarText}}}</span></div>
-        </div>
-        {{#if ${currentPath === ROUTES.profile}}}
-            {{> userName}}
-        {{/if}}
-        {{#if ${currentPath !== ROUTES.password}}}
-            {{> userFields}}
-            {{#if ${currentPath !== ROUTES.data}}}
-                {{> configurationFields}}
-            {{/if}}
-        {{else}}
-            {{> passwordFields }}
-        {{/if}}
-        {{#if ${currentPath !== ROUTES.profile}}}
-            <form action="${ROUTES.profile}">
-                <button class="primary-button profile-save-button" type="submit">{{saveButtonName}}</button>
-            </form>
-        {{/if}}
-    </div>
-</div>
-`;
+    this.children.user = new ProfileTable({
+      profileFields: userFields,
+      className: classNames.user,
+    });
 
-const template = Handlebars.compile(profileTemplate);
-const profileContent = template(profileData);
+    this.children.password = new ProfileTable({
+      profileFields: passwordFields,
+      className: classNames.user,
+    });
 
-export default profileContent;
+    this.children.config = new ProfileTable({
+      profileFields: configFields,
+      className: classNames.config,
+    });
+
+    this.children.saveButton = new Button(saveButtonProps);
+  }
+
+  render() {
+    const template = Handlebars.compile(profileTemplate);
+    return this.compile(template, this.props);
+  }
+}

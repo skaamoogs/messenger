@@ -1,5 +1,5 @@
 const buttonTemplate = `
-<button class={{ className }} type={{ type }}>
+<button class="{{ className }}" type={{ type }}>
   {{ label }}
 </button>
 `;

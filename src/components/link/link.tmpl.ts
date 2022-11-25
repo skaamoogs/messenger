@@ -1,5 +1,5 @@
 const linkTemplate = `
-<a class="{{ className }}" href={{ route }} );">{{ text }}</a>
+<a class="anchor {{ className }}" href="{{ route }}">{{ text }}</a>
 `;
 
 export default linkTemplate;

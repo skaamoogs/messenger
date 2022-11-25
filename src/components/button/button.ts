@@ -2,7 +2,7 @@ import Handlebars from "handlebars";
 import Block from "../../modules/block";
 import buttonTemplate from "./button.tmpl";
 
-interface ButtonProps {
+export interface ButtonProps {
   type?: string;
   className?: string;
   label: string;

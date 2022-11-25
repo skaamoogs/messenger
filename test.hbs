@@ -1,0 +1,21 @@
+<tr class="{{className}}">
+  {{#ifEqual type "user"}}
+    <td class="profile-table-cell">{{userText}}</td>
+    <td class="profile-table-cell">
+      {{#if change}}
+        {{{userInput}}}
+      {{else}}
+        user data
+      {{/if}}
+    </td>
+  {{/ifEqual}}
+  {{#ifEqual type "config"}}
+    <td class="profile-table-cell">
+      {{{link}}}
+    </td>
+  {{/ifEqual}}
+  {{#ifEqual type "password"}}
+    <td class="profile-table-cell">{{passwordText}}</td>
+    <td class="profile-table-cell">{{{passwordInput}}}></td>
+  {{/ifEqual}}
+</tr>

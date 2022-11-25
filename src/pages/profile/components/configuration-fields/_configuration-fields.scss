@@ -1,15 +1,5 @@
 .configuration-table {
-  .configuration-link {
-    color: $primary-color;
-  }
-
   .configuration-row {
-    .configuration-link {
-      &:hover {
-        color: $primary-hover-color;
-      }
-    }
-
     &:last-child {
       .configuration-link {
         color: $red-color;

@@ -1,0 +1,30 @@
+.profile-table {
+  width: 510px;
+  margin-top: 60px;
+
+  .profile-table-cell {
+    border-bottom: $default-border;
+    padding: 10px 0;
+  }
+}
+
+.configuration-table {
+  .configuration-row {
+    &:last-child {
+      .configuration-link {
+        color: $red-color;
+
+        &:hover {
+          color: $red-hover-color;
+        }
+      }
+    }
+  }
+}
+
+.user-data-table {
+  .profile-table-cell:last-child {
+    text-align: right;
+    color: $grey-color;
+  }
+}
