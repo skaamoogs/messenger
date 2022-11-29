@@ -1,25 +1,31 @@
 import Handlebars from "handlebars";
 import Block from "../../modules/block";
 import Button from "../button/button";
-import Input, { InputProps } from "../input/input";
+import InputField from "../input-field/input-field";
 import Link from "../link/link";
 import formTemplate from "./form.tmpl";
 
 export default class Form extends Block {
   init() {
     const {
-      inputsList,
+      inputFieldList,
       buttonProps,
+      linkProps,
+      inputFieldClassName,
       inputClassName,
       labelClassName,
-      linkProps,
     } = this.props;
 
     this.children.button = new Button(buttonProps);
 
-    this.children.inputs = inputsList.map(
-      (inputProps: InputProps) =>
-        new Input({ ...inputProps, inputClassName, labelClassName }),
+    this.children.inputFields = inputFieldList.map(
+      (props) =>
+        new InputField({
+          ...props,
+          inputFieldClassName,
+          inputClassName,
+          labelClassName,
+        }),
     );
 
     this.children.link = new Link(linkProps);

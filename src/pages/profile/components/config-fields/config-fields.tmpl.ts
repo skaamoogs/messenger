@@ -1,14 +1,15 @@
-const configurationFieldsTemplate = `
+const configFieldsTemplate = `
 <table class="profile-table configuration-table">
   <tbody>
-    {{#each configFields}}
+    {{#each fields}}
       <tr class="configuration-row">
         <td class="profile-table-cell">
-          <a class="anchor configuration-link" href="{{this.path}}">{{this.text}}</a>
+        <label class="{{ labelClassName }}" for="{{ name }}">{{ label }}</label>
+        {{{ this }}}
         </td>
       </tr>
     {{/each}}
   </tbody>
 </table>`;
 
-export default configurationFieldsTemplate;
+export default configFieldsTemplate;

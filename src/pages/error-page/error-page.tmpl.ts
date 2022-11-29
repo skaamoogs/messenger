@@ -1,9 +1,10 @@
 const errorPageTemplate = `
 <div class="error-page">
-    <div class="
+    <div class="error-page-content">
         <p class="error-code">{{errorCode}}</p>
         <p class="error-description">{{errorDescription}}</p>
-        <a class="anchor" href="{{link}}" class="error-page-link">{{linkText}}</a>
+        {{{link}}}
+        <a class="anchor error-page-link" href="{{link}}" >{{linkText}}</a>
     </div>
 </div>`;
 

@@ -1,0 +1,52 @@
+.avatar-container {
+  width: 130px;
+  height: 130px;
+  border-radius: 100%;
+  position: relative;
+  background-color: $light-grey-color;
+  cursor: pointer;
+  text-align: center;
+
+  .avatar-image {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+  }
+
+  .avatar-mask {
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgb(0 0 0 / 0.5);
+    opacity: 0;
+    border-radius: 100%;
+    color: $white-text;
+    margin: auto 0;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &:hover {
+    .avatar-mask {
+      opacity: 1;
+    }
+  }
+}
+
+.user-avatar-container {
+  display: inline;
+  width: 34px;
+  height: 34px;
+
+  .user-avatar {
+    vertical-align: middle;
+    width: 34px;
+    height: 34px;
+  }
+}

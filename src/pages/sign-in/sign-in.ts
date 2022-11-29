@@ -1,7 +1,7 @@
 import Handlebars from "handlebars";
 import Form from "../../components/form/form";
 import Block from "../../modules/block";
-import signInProps from "./sign-in.data";
+import signInProps from "./sign-in.props";
 import signInTemplate from "./sign-in.tmpl";
 
 export default class SignIn extends Block {

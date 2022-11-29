@@ -5,7 +5,9 @@ import buttonTemplate from "./button.tmpl";
 export interface ButtonProps {
   type?: string;
   className?: string;
-  label: string;
+  label?: string;
+  image?: string;
+  alt?: string;
   events?: {
     click: () => void;
   };
@@ -13,7 +15,11 @@ export interface ButtonProps {
 
 export default class Button extends Block {
   constructor(props: ButtonProps) {
-    super({ type: "button", ...props });
+    super({
+      type: "button",
+      ...props,
+      events: { click: () => console.log("clicked") },
+    });
   }
 
   render() {

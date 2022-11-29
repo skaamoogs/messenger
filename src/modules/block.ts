@@ -112,7 +112,6 @@ class Block<P extends Record<string, unknown> = any> {
 
   componentDidUpdate(oldProps: P, newProps: P) {
     return true;
-    // isEqual(oldProps, newProps);
   }
 
   setProps = (nextProps: Record<string, unknown>) => {

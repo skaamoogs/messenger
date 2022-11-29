@@ -1,10 +1,10 @@
 const inputTemplate = `
-<div class="input-container">
-    {{#if label}}
-      <label class="{{ labelClassName }}" for="{{ name }}">{{ label }}</label>
-    {{/if}}
-    <input class="input {{ inputClassName }}" id="{{ name }}" type="{{ type }}" name="{{ name }}">
-</div>
+    <input 
+      class="input" 
+      id="{{ name }}" 
+      type="{{ type }}" 
+      name="{{ name }}" 
+      placeholder="{{placeholder}}">
 `;
 
 export default inputTemplate;

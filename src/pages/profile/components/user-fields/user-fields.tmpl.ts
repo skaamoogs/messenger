@@ -1,10 +1,11 @@
 const userFieldsTemplate = `
 <table class="profile-table user-data-table">
     <tbody>
-    {{#each userFields}}
+    {{#each inputs}}
         <tr>
-            <td class="profile-table-cell">{{this}}</td>
-            <td class="profile-table-cell">user data</td>
+            <td class="profile-table-cell">
+             {{{this}}}
+            </td>
         </tr>
     {{/each}}
     </tbody>

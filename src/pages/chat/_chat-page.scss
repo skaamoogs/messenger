@@ -1,0 +1,109 @@
+@import "./components/chat/chat";
+
+.chat-page {
+  display: flex;
+
+  .chat-list-container {
+    display: flex;
+    flex-direction: column;
+    width: $chat-list-width;
+    background-color: $extra-light-grey;
+    padding: 0 10px;
+    min-height: 100vh;
+    border-right: $default-border;
+
+    .input {
+      border-radius: 5px;
+      background-color: $light-grey-color;
+      font-size: $md-text;
+      height: 32px;
+      text-align: center;
+      padding: 0 12px;
+      min-width: 100%;
+
+      &::placeholder {
+        background: 38% url("./images/search-icon.svg") no-repeat;
+      }
+    }
+
+    .profile-link {
+      color: $grey-color;
+      font-size: $md-text;
+      margin: 20px 10px;
+      text-align: right;
+    }
+
+    .chat-list {
+      margin-top: 14px;
+    }
+  }
+
+  .chat-area {
+    width: calc(100% - $chat-list-width);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px 20px;
+
+    .chat-area-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 10px;
+
+      .user-info {
+        .user-info-name {
+          vertical-align: middle;
+          margin-left: 10px;
+        }
+      }
+
+      .user-settings-icon {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 25px;
+        height: 25px;
+        border-radius: 100%;
+        font-size: $default-font-size;
+        cursor: pointer;
+
+        .user-settings-symbol {
+          line-height: 40%;
+        }
+      }
+    }
+
+    .chat-area-main {
+      border-top: $default-border;
+      border-bottom: $default-border;
+      height: 100%;
+    }
+
+    .chat-area-message-container {
+      display: flex;
+      justify-content: space-between;
+      padding-top: 10px;
+
+      .clip-icon {
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+      }
+
+      .input {
+        width: 100%;
+        background-color: $light-grey-color;
+        border-radius: 30px;
+        padding: 10px 20px;
+        margin: 0 10px;
+      }
+
+      .send-message-form {
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+}

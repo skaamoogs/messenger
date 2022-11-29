@@ -1,0 +1,31 @@
+.input-field-registration {
+  display: flex;
+  flex-direction: column;
+
+  .registration-input-label {
+    font-size: $sm-text;
+    margin-top: 16px;
+    margin-bottom: 7px;
+    color: $grey-color;
+  }
+
+  .input {
+    border-bottom: 1px solid $primary-color;
+    padding-bottom: 7px;
+  }
+}
+
+.input-field-profile {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .input {
+    text-align: right;
+    color: $grey-color;
+  }
+}
+
+.error-message {
+  color: $red-color;
+}

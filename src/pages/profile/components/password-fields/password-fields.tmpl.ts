@@ -1,12 +1,11 @@
 const passwordFieldsTemplate = `
 <table class="profile-table user-data-table">
     <tbody>
-    {{#each passwordFields}}
+      {{#each inputs}}
         <tr>
-            <td class="profile-table-cell">{{this.text}}</td>
-            <td class="profile-table-cell"><input class="input" type="{{this.type}}" name="{{this.name}}"></td>
+          <td class="profile-table-cell">{{{this}}}</td>
         </tr>
-    {{/each}}
+      {{/each}}
     </tbody>
 </table>
 `;

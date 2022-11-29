@@ -1,25 +1,7 @@
-.input-container {
-  display: flex;
-  flex-direction: column;
+.input {
+  border: none;
 
-  .input {
-    border: none;
-    text-align: inherit;
-
-    &:focus {
-      outline: none;
-    }
-  }
-
-  .registration-input-label {
-    font-size: $sm-text;
-    margin-top: 16px;
-    margin-bottom: 7px;
-    color: $grey-color;
-  }
-
-  .registration-input {
-    border-bottom: 1px solid $primary-color;
-    padding-bottom: 7px;
+  &:focus {
+    outline: none;
   }
 }
