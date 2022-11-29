@@ -1,6 +1,5 @@
 import { nanoid } from "nanoid";
 import EventBus from "../utils/event-bus";
-import isEqual from "../utils/isEqual";
 
 class Block<P extends Record<string, unknown> = any> {
   static EVENTS = {

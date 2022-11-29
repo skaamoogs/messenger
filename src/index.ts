@@ -1,3 +1,4 @@
+import Button from "./components/button/button";
 import ROUTES from "./const";
 import ChatPage from "./pages/chat/chat-page";
 import ErrorPage from "./pages/error-page/error-page";
@@ -17,35 +18,21 @@ const PAGES = {
   [ROUTES.page500]: new ErrorPage(), */
 };
 
-/* const renderPage = function renderPage(name: string) {
-  const root = document.querySelector("#root");
-  if (root != null) {
-    root.innerHTML = PAGES[name];
-  }
-};
+function render(query, block) {
+  const root = document.querySelector(query);
 
-document.addEventListener("DOMContentLoaded", () => {
-  const path = window.location.pathname;
-  renderPage(path);
-}); */
+  // Можно завязаться на реализации вашего класса Block
+  root.appendChild(block.getContent());
 
-const root = document.querySelector(".root");
+  block.dispatchComponentDidMount();
+
+  return root;
+}
+
 let path = window.location.pathname;
+if (!path.endsWith("/")) {
+  path += "/";
+  window.location.pathname = path;
+}
 
-const render = () => {
-  if (!path.endsWith("/")) {
-    path += "/";
-    window.location.pathname = path;
-  }
-  const content = PAGES[path].getContent();
-  if (content) {
-    root?.append(content);
-  }
-};
-
-document.addEventListener("DOMContentLoaded", () => {
-  render();
-  console.log("root render");
-});
-
-/* window.render = render(); */
+render(".root", PAGES[ROUTES.signIn]);

@@ -5,10 +5,10 @@ const formTemplate = `
         {{#each inputFields}}
             {{{ this }}}
         {{/each}}
-    </form>
     <div class="button-container">    
-    {{{ button }}}
-    {{{ link }}}
+      {{{ button }}}
+      {{{ link }}}
+    </form>
   </div>
 </div>
 `;
