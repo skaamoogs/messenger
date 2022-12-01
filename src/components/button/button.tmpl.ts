@@ -1,9 +1,9 @@
 const buttonTemplate = `
-<button class="{{ className }}" type={{ type }}>
+<button class="{{ className }}" type={{ type }} id={{id}}>
   {{#if image}}
   <img src="{{image}}" alt="{{alt}}"/>
   {{else}}
-  {{ label }}
+  {{{label}}}
   {{/if}}
 </button>
 `;

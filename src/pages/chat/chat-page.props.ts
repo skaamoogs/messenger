@@ -1,4 +1,4 @@
-import ROUTES from "../../const";
+import { ROUTES } from "../../const";
 import avatarImg from "../../images/avatar.jpg";
 import clipIconImg from "../../images/clip-icon.svg";
 import rightArrowImg from "../../images/arrow-right.svg";
@@ -48,11 +48,34 @@ const chatPageProps = {
     placeholder: "Сообщение",
     name: "message",
   },
+  settingsButtonProps: {
+    type: "button",
+    label: "&#8226;&#8226;&#8226;",
+    className: "round-button user-settings-button",
+  },
   sendMessageButtonProps: {
     type: "submit",
     image: rightArrowImg,
     className: "round-button",
     alt: "right arrow",
+  },
+  popupProps: {
+    title: "Добавить пользователя",
+    inputFieldProps: {
+      label: "Логин",
+      labelClassName: "registration-input-label",
+      inputFieldClassName: "input-field-registration",
+      inputProps: {
+        type: "text",
+        name: "login",
+      },
+      validation: true,
+    },
+    buttonProps: {
+      type: "submit",
+      className: "primary-button",
+      label: "Добавить",
+    },
   },
 };
 

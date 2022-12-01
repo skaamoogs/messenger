@@ -2,7 +2,7 @@ import Handlebars from "handlebars";
 import Avatar from "../../components/avatar/avatar";
 import Button from "../../components/button/button";
 import Popup from "../../components/popup/popup";
-import ROUTES from "../../const";
+import { ROUTES } from "../../const";
 import Block from "../../modules/block";
 import ConfigFields from "./components/config-fields/config-fields";
 import ProfileForm from "./components/profile-form/profile-form";
@@ -33,7 +33,7 @@ export default class Profile extends Block {
     if (pathname === ROUTES.profile) {
       this.children.config = new ConfigFields();
     }
-    this.children.popup = new Popup(popupProps);
+    this.children.popup = new Popup({ ...popupProps });
   }
 
   callPopup() {

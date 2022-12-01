@@ -1,4 +1,3 @@
-import { POPUP_TYPES } from "../../components/popup/popup";
 import leftArrowImg from "../../images/arrow-left.svg";
 import emptyAvatarImg from "../../images/empty-avatar.svg";
 
@@ -20,7 +19,6 @@ const profileProps = {
   },
   popupProps: {
     title: "Загрузите файл",
-    type: POPUP_TYPES.input,
     textProps: {
       text: "",
       className: "file-text",
@@ -35,9 +33,10 @@ const profileProps = {
         name: "choose_file",
         accept: ".jpg, .jpeg, .png",
       },
+      validation: false,
     },
     buttonProps: {
-      type: "button",
+      type: "submit",
       className: "primary-button",
       label: "Поменять",
     },

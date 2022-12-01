@@ -1,8 +1,8 @@
 .form-container {
   width: 340px;
   min-height: 460px;
-  box-shadow: 0 0 6px rgb(0 0 0 / 0.14);
-  border-radius: 12px;
+  box-shadow: $default-box-shadow;
+  border-radius: $default-radius;
   padding: 30px;
   color: $black-text;
   display: flex;

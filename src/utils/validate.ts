@@ -8,8 +8,8 @@ export const RULES = {
   },
   login: {
     pattern: /^(?=.*[A-Za-z_-])([\w-]){3,20}$/,
-    message: `Логин должен содержать 3 до 20 символов,
-         латиница, может содержать цифры, но не состоять из них, 
+    message: `Логин должен содержать от 3 до 20 символов,
+         латиницей, может содержать цифры, но не состоять из них, 
          без пробелов, без спецсимволов (допустимы дефис и нижнее подчёркивание)`,
   },
   first_name: {
@@ -36,17 +36,17 @@ export const RULES = {
     message: `Некорректный пароль. Пароль должен содержать от 8 до 40 символов, 
     обязательно хотя бы одна заглавная буква и цифра.`,
   },
-  old_password: {
+  oldPassword: {
     pattern: /^(?=.*[A-ZА-Я])(?=.*\d)(.*){8,40}$/,
     message: `Некорректный пароль. Пароль должен содержать от 8 до 40 символов, 
     обязательно хотя бы одна заглавная буква и цифра.`,
   },
-  new_password: {
+  newPassword: {
     pattern: /^(?=.*[A-ZА-Я])(?=.*\d)(.*){8,40}$/,
     message: `Некорректный пароль. Пароль должен содержать от 8 до 40 символов, 
     обязательно хотя бы одна заглавная буква и цифра.`,
   },
-  confirm_password: {
+  confirmPassword: {
     pattern: /^(?=.*[A-ZА-Я])(?=.*\d)(.*){8,40}$/,
     message: `Некорректный пароль. Пароль должен содержать от 8 до 40 символов, 
     обязательно хотя бы одна заглавная буква и цифра.`,
@@ -60,33 +60,18 @@ export const inputValidator = (name: string, value: string) => {
   return false;
 };
 
-export const formValidator = (fields: Block[]) => {
-  let message = "";
-  const test = fields.every((field) => {
-    const input = field.children.input as Block;
-    const element = input.getContent() as HTMLInputElement;
-    if (!inputValidator(element.name, element.value)) {
-      return false;
-    }
-    return true;
-  });
-
-  if (!test) {
-    message = "Некоторые поля заполнены неверно!";
-    return { test, message };
-  }
-
+export const checkPasswords = (fields: Block[]) => {
   const password = fields.find((field) => {
     const input = field.children.input as Block;
     return (
       input.getContent()?.id === "password" ||
-      input.getContent()?.id === "new_password"
+      input.getContent()?.id === "newPassword"
     );
   })?.children.input as Block;
 
   const confirmPassword = fields.find((field) => {
     const input = field.children.input as Block;
-    return input.getContent()?.id === "confirm_password";
+    return input.getContent()?.id === "confirmPassword";
   })?.children.input as Block;
 
   if (password && confirmPassword) {
@@ -95,11 +80,21 @@ export const formValidator = (fields: Block[]) => {
       confirmPassword.getContent() as HTMLInputElement;
 
     if (passwordContent.value !== confirmPasswordContent.value) {
-      return { test: false, message: "Пароли не совпадают!" };
+      return false;
     }
   }
-  return { test: true };
+  return true;
 };
+
+export const formValidator = (fields: Block[]) =>
+  fields.every((field) => {
+    const input = field.children.input as Block;
+    const element = input.getContent() as HTMLInputElement;
+    if (!inputValidator(element.name, element.value)) {
+      return false;
+    }
+    return true;
+  }) && checkPasswords(fields);
 
 export const logData = (context: Block) => {
   const data: Record<string, string> = {};

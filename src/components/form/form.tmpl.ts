@@ -6,6 +6,7 @@ const formTemplate = `
         {{#each inputFields}}
             {{{ this }}}
         {{/each}}
+        {{{errorPassword}}}
     <div class="button-container">    
       {{{ button }}}
       {{{ link }}}

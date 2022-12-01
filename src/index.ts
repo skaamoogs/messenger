@@ -1,5 +1,4 @@
-import Button from "./components/button/button";
-import ROUTES from "./const";
+import { ROUTES } from "./const";
 import ChatPage from "./pages/chat/chat-page";
 import ErrorPage from "./pages/error-page/error-page";
 import Login from "./pages/login/login";
@@ -21,7 +20,6 @@ const PAGES = {
 function render(query, block) {
   const root = document.querySelector(query);
 
-  // Можно завязаться на реализации вашего класса Block
   root.appendChild(block.getContent());
 
   block.dispatchComponentDidMount();

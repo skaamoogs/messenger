@@ -13,12 +13,9 @@ const chatPageTemplate = `
         {{{userAvatar}}}
         <span class="bold-text user-info-name">{{user.name}}</span>
       </div>
-      <div class="user-settings-icon">
-        {{#times 3}}
-          <span class="user-settings-symbol">&#8226;</span>
-        {{/times}}
-      </div>
+      {{{settingsButton}}}
     </div>
+    {{{settings}}}
     <div class="chat-area-main">
     </div>
     <div class="chat-area-message-container">
@@ -29,6 +26,7 @@ const chatPageTemplate = `
       </form>
     </div>
   </div>
+  {{{popup}}}
 </div>`;
 
 export default chatPageTemplate;

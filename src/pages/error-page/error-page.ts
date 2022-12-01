@@ -1,6 +1,6 @@
 import Handlebars from "handlebars";
 import Link from "../../components/link/link";
-import ROUTES from "../../const";
+import { ROUTES } from "../../const";
 import Block from "../../modules/block";
 import errorPageTemplate from "./error-page.tmpl";
 import page404Props from "./page404.props";

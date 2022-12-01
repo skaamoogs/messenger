@@ -1,9 +1,13 @@
 import Handlebars from "handlebars";
 import Button from "../../../../components/button/button";
 import ErrorMessage from "../../../../components/error-message/error-message";
-import ROUTES from "../../../../const";
+import { ROUTES } from "../../../../const";
 import Block from "../../../../modules/block";
-import { formValidator, logData } from "../../../../utils/validate";
+import {
+  checkPasswords,
+  formValidator,
+  logData,
+} from "../../../../utils/validate";
 import PasswordFields from "../password-fields/password-fields";
 import UserFields from "../user-fields/user-fields";
 import profileFormProps from "./profile-form.props";
@@ -18,6 +22,7 @@ export default class ProfileForm extends Block {
       events: {
         submit: (event: Event) => this.validate(event),
         focusin: () => this.clearError(),
+        keyup: (event: Event) => this.checkPassword(event),
       },
     });
   }
@@ -26,6 +31,8 @@ export default class ProfileForm extends Block {
     const { saveButtonProps } = this.props;
 
     this.children.error = new ErrorMessage({ text: "" });
+
+    this.children.errorPassword = new ErrorMessage({ text: "" });
 
     switch (pathname) {
       case ROUTES.profile: {
@@ -52,26 +59,47 @@ export default class ProfileForm extends Block {
     }
   }
 
-  validate(event: Event) {
-    const error = this.children.error as ErrorMessage;
-    let fields: Block[] | null = null;
+  findInputFields() {
     if (pathname === ROUTES.data) {
       const user = this.children.user as UserFields;
-      fields = user.children.inputs as Block[];
+      return user.children.inputs as Block[];
     }
     if (pathname === ROUTES.password) {
       const password = this.children.password as PasswordFields;
-      fields = password.children.inputs as Block[];
+      return password.children.inputs as Block[];
     }
-    const { test, message } = formValidator(fields as Block[]);
+    return null;
+  }
+
+  validate(event: Event) {
+    const error = this.children.error as ErrorMessage;
+    const fields = this.findInputFields();
+    const test = formValidator(fields as Block[]);
     event.preventDefault();
 
     if (!test) {
-      error.setProps({ text: message });
+      error.setProps({ text: "Некоторые поля заполнены неверно." });
       error.show();
     } else {
       const data = logData(this);
       console.log(data);
+    }
+  }
+
+  checkPassword(event) {
+    const errorPassword = this.children.errorPassword as ErrorMessage;
+    const input = event.target as HTMLInputElement;
+    if (input.name === "confirmPassword") {
+      const fields = this.findInputFields();
+      if (fields) {
+        const test = checkPasswords(fields);
+        if (!test) {
+          errorPassword.setProps({ text: "Пароли не совпадают" });
+          errorPassword.show();
+        } else {
+          errorPassword.hide();
+        }
+      }
     }
   }
 

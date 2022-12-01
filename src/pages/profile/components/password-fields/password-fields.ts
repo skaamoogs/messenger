@@ -14,7 +14,7 @@ export default class PasswordFields extends Block {
   init() {
     this.children.inputs = fields.map(
       (field) =>
-        new InputField({ ...field, inputFieldClassName, validation: true }),
+        new InputField({ ...field, inputFieldClassName }),
     );
   }
 

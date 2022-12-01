@@ -1,4 +1,4 @@
-import ROUTES from "../../../../const";
+import { ROUTES } from "../../../../const";
 
 const configFieldsProps = {
   className: "configuration-link",

@@ -14,11 +14,12 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    width: 340px;
+    max-width: 340px;
     min-height: 260px;
-    border-radius: 12px;
-    box-shadow: 0 0 6px rgb(0 0 0 / 0.14);
+    border-radius: $default-radius;
+    box-shadow: $default-box-shadow;
     background-color: $white-text;
+    box-sizing: border-box;
 
     .title {
       font-size: $lg-text;
@@ -37,8 +38,7 @@
     }
 
     .file-text {
-      position: absolute;
-      top: 45%;
+      color: $grey-color;
     }
   }
 }

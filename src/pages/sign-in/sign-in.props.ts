@@ -1,4 +1,4 @@
-import ROUTES from "../../const";
+import { ROUTES } from "../../const";
 
 const signInProps = {
   title: "Регистрация",
@@ -55,7 +55,7 @@ const signInProps = {
     },
     {
       inputProps: {
-        name: "confirm_password",
+        name: "confirmPassword",
         type: "password",
       },
       label: "Пароль (еще раз)",

@@ -1,4 +1,4 @@
-import ROUTES from "../../const";
+import { ROUTES } from "../../const";
 
 const page404Props = {
   errorCode: "404",

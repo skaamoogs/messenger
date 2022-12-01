@@ -1,4 +1,4 @@
-import ROUTES from "../../../../const";
+import { ROUTES } from "../../../../const";
 
 const profileFormProps = {
   route: ROUTES.profile,

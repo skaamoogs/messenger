@@ -1,4 +1,4 @@
-const ROUTES = {
+export const ROUTES = {
   chat: "/",
   login: "/login/",
   signIn: "/signin/",
@@ -9,4 +9,9 @@ const ROUTES = {
   page500: "/500/",
 };
 
-export default ROUTES;
+export const FIELD_NAMES = {
+  email: "email",
+  login: "login",
+  firstName: "first_name",
+  secondName: "second_name",
+};

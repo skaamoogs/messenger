@@ -21,10 +21,7 @@ export default class InputField extends Block {
 
     this.children.input = new Input({ ...inputProps, inputClassName });
 
-    const { name } = inputProps;
-    if (name in Object.keys(RULES)) {
-      this.children.error = new ErrorMessage({ text: RULES[name].message });
-    }
+    this.children.error = new ErrorMessage({ text: "Error" });
   }
 
   validate(event: Event) {
@@ -35,8 +32,11 @@ export default class InputField extends Block {
       const target = event.target as HTMLTextAreaElement;
       const error = this.children.error as ErrorMessage;
 
-      if (!inputValidator(name, target.value)) {
-        error.show();
+      if (name !== "confirmPassword" && !inputValidator(name, target.value)) {
+        if (name in RULES) {
+          error.setProps({ text: RULES[name].message });
+          error.show();
+        }
       }
     }
   }

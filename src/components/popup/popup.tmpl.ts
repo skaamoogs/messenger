@@ -1,11 +1,12 @@
 const popupTemplate = `
 <div class="page-mask">
-  <div class="popup-content">
+  <form class="popup-content">
     <p class="title">{{ title }}</p>
     {{{input}}}
     {{{text}}}
     {{{button}}}
-  </div>
+    {{{error}}}
+  </form>
 </div>
 `;
 

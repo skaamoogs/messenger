@@ -1,4 +1,5 @@
 @import "./components/chat/chat";
+@import "./components/settings-window/settings-window";
 
 .chat-page {
   display: flex;
@@ -48,22 +49,6 @@
         .user-info-name {
           vertical-align: middle;
           margin-left: 10px;
-        }
-      }
-
-      .user-settings-icon {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 25px;
-        height: 25px;
-        border-radius: 100%;
-        font-size: $default-font-size;
-        cursor: pointer;
-
-        .user-settings-symbol {
-          line-height: 40%;
         }
       }
     }

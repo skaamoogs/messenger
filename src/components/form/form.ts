@@ -1,6 +1,6 @@
 import Handlebars from "handlebars";
 import Block from "../../modules/block";
-import { formValidator, logData } from "../../utils/validate";
+import { checkPasswords, formValidator, logData } from "../../utils/validate";
 import Button from "../button/button";
 import ErrorMessage from "../error-message/error-message";
 import InputField from "../input-field/input-field";
@@ -14,6 +14,7 @@ export default class Form extends Block {
       events: {
         submit: (event: Event) => this.validate(event),
         focusin: () => this.clearError(),
+        keyup: (event: Event) => this.checkPassword(event),
       },
     });
   }
@@ -28,6 +29,10 @@ export default class Form extends Block {
     } = this.props;
 
     this.children.error = new ErrorMessage({
+      text: "",
+    });
+
+    this.children.errorPassword = new ErrorMessage({
       text: "",
     });
 
@@ -55,15 +60,30 @@ export default class Form extends Block {
   validate(event: Event) {
     const error = this.children.error as ErrorMessage;
     const inputFieldsArray = this.children.inputFields as Block[];
-    const { test, message } = formValidator(inputFieldsArray);
+    const test = formValidator(inputFieldsArray);
     event.preventDefault();
 
     if (!test) {
-      error.setProps({ text: message });
+      error.setProps({ text: "Некоторые поля заполнены неверно." });
       error.show();
     } else {
       const data = logData(this);
       console.log(data);
+    }
+  }
+
+  checkPassword(event) {
+    const input = event.target as HTMLInputElement;
+    const errorPassword = this.children.errorPassword as ErrorMessage;
+    if (input.name === "confirmPassword") {
+      const inputFieldsArray = this.children.inputFields as Block[];
+      const test = checkPasswords(inputFieldsArray);
+      if (!test) {
+        errorPassword.setProps({ text: "Пароли не совпадают" });
+        errorPassword.show();
+      } else {
+        errorPassword.hide();
+      }
     }
   }
 

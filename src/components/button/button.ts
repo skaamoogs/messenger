@@ -8,6 +8,7 @@ export interface ButtonProps {
   label?: string;
   image?: string;
   alt?: string;
+  id?: string;
   events?: {
     click: () => void;
   };
@@ -19,6 +20,16 @@ export default class Button extends Block {
       type: "button",
       ...props,
     });
+  }
+
+  addClass(className: string) {
+    const button = this.getContent();
+    button?.classList.add(className);
+  }
+
+  removeClass(className: string) {
+    const button = this.getContent();
+    button?.classList.remove(className);
   }
 
   render() {

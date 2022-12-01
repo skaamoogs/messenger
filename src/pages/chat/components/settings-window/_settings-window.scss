@@ -1,0 +1,16 @@
+.user-settings {
+  position: absolute;
+  top: 65px;
+  right: 10px;
+  box-shadow: $default-box-shadow;
+  border-radius: $default-radius;
+  background-color: $white-text;
+  padding: 15px 15px 0;
+  display: none;
+
+  .users-control {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+}

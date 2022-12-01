@@ -3,6 +3,7 @@ const profileFormTemplate = `
   {{{error}}}
   {{{user}}}
   {{{password}}}
+  {{{errorPassword}}}
   {{{saveButton}}}
 </form>`;
 
