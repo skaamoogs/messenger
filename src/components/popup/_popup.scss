@@ -1,0 +1,44 @@
+.page-mask {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  background: rgb(0 0 0 / 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+
+  .popup-content {
+    padding: 40px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 340px;
+    min-height: 260px;
+    border-radius: 12px;
+    box-shadow: 0 0 6px rgb(0 0 0 / 0.14);
+    background-color: $white-text;
+
+    .title {
+      font-size: $lg-text;
+    }
+
+    .file-input-label {
+      cursor: pointer;
+      color: $primary-color;
+      text-decoration: underline;
+    }
+
+    .file-input {
+      opacity: 0;
+      position: absolute;
+      z-index: -1;
+    }
+
+    .file-text {
+      position: absolute;
+      top: 45%;
+    }
+  }
+}

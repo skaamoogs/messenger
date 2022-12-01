@@ -10,12 +10,12 @@ import "./style.scss";
 const PAGES = {
   [ROUTES.signIn]: new SignIn(),
   [ROUTES.login]: new Login(),
-  /*   [ROUTES.profile]: new Profile(),
+  [ROUTES.profile]: new Profile(),
   [ROUTES.password]: new Profile(),
   [ROUTES.data]: new Profile(),
   [ROUTES.chat]: new ChatPage(),
   [ROUTES.page404]: new ErrorPage(),
-  [ROUTES.page500]: new ErrorPage(), */
+  [ROUTES.page500]: new ErrorPage(),
 };
 
 function render(query, block) {
@@ -35,4 +35,4 @@ if (!path.endsWith("/")) {
   window.location.pathname = path;
 }
 
-render(".root", PAGES[ROUTES.signIn]);
+render(".root", PAGES[path]);

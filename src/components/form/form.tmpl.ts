@@ -1,7 +1,8 @@
 const formTemplate = `
 <div class="form-container">
-    <form class="registration-form" id="registration-form">
+    <form class="registration-form" id="registration-form" action="/">
         <h2 class="registration-form-title">{{ title }}</h2>
+        {{{error}}}
         {{#each inputFields}}
             {{{ this }}}
         {{/each}}
@@ -9,6 +10,7 @@ const formTemplate = `
       {{{ button }}}
       {{{ link }}}
     </form>
+    {{{ linkToChat }}}
   </div>
 </div>
 `;

@@ -2,7 +2,7 @@ const inputFieldTemplate = `
     <div class="{{inputFieldClassName}}">
       <label class="{{ labelClassName }}" for="{{ inputProps.name }}">{{ label }}</label>
       {{{input}}}
-      {{#unless valid}}<p class="error-message">{{errorMessage}}</p>{{/unless}}
+      {{{error}}}
     </div>;
 `;
 export default inputFieldTemplate;

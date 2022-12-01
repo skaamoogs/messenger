@@ -1,19 +1,16 @@
 import Handlebars from "handlebars";
 import Block from "../../../../modules/block";
-import Input from "../../../../components/input/input";
 import userFieldsTemplate from "./user-fields.tmpl";
 import userFieldsProps from "./user-fields.props";
+import InputField from "../../../../components/input-field/input-field";
 
-const { fields, className } = userFieldsProps;
+const { fields, inputFieldClassName } = userFieldsProps;
 
 export default class UserFields extends Block {
-  constructor() {
-    super({});
-  }
-
   init() {
+    const { validation } = this.props;
     this.children.inputs = fields.map(
-      (field) => new Input({ ...field, className }),
+      (field) => new InputField({ ...field, inputFieldClassName, validation }),
     );
   }
 

@@ -17,17 +17,24 @@
 
 .input-field-profile {
   display: flex;
-  flex-direction: row;
+  flex-flow: row wrap;
   justify-content: space-between;
 
   .input {
     text-align: right;
     color: $grey-color;
   }
+
+  .error-message {
+    text-align: left;
+
+    &:last-child {
+      width: 100%;
+    }
+  }
 }
 
-.error-message {
-  margin: 5px 0 0;
-  font-size: $xs-text;
-  color: $red-color;
+.input-popup-profile {
+  width: 120px;
+  text-align: center;
 }

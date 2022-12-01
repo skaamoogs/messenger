@@ -18,7 +18,6 @@ export default class Button extends Block {
     super({
       type: "button",
       ...props,
-      events: { click: () => console.log("clicked") },
     });
   }
 

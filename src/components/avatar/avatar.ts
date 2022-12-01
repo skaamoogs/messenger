@@ -9,6 +9,9 @@ export interface AvatarProps {
   src: string;
   alt?: string;
   changeAvatarText?: string;
+  events: {
+    click: () => void;
+  }
 }
 
 export default class Avatar extends Block {

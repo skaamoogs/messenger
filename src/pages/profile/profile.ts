@@ -1,11 +1,11 @@
 import Handlebars from "handlebars";
 import Avatar from "../../components/avatar/avatar";
 import Button from "../../components/button/button";
+import Popup from "../../components/popup/popup";
 import ROUTES from "../../const";
 import Block from "../../modules/block";
 import ConfigFields from "./components/config-fields/config-fields";
-import PasswordFields from "./components/password-fields/password-fields";
-import UserFields from "./components/user-fields/user-fields";
+import ProfileForm from "./components/profile-form/profile-form";
 import profileProps from "./profile.props";
 import profileTemplate from "./profile.tmpl";
 
@@ -17,33 +17,28 @@ export default class Profile extends Block {
   }
 
   init() {
-    const { avatarProps, saveButtonProps, backButtonProps } = this.props;
+    const { avatarProps, backButtonProps, popupProps } = this.props;
 
     this.children.backButton = new Button(backButtonProps);
 
-    this.children.avatar = new Avatar(avatarProps);
+    this.children.avatar = new Avatar({
+      ...avatarProps,
+      events: {
+        click: () => this.callPopup(),
+      },
+    });
 
-    if (pathname !== ROUTES.password) {
-      this.children.user = new UserFields();
-      if (pathname !== ROUTES.data) {
-        this.children.config = new ConfigFields();
-      }
-      if (pathname === ROUTES.profile) {
-        const inputs = this.children.user
-          .getContent()
-          ?.querySelectorAll("input");
-        inputs?.forEach((input) => {
-          input.setAttribute("readonly", "readonly");
-        });
-      }
-    }
+    this.children.profileForm = new ProfileForm();
 
-    if (pathname === ROUTES.password) {
-      this.children.password = new PasswordFields();
+    if (pathname === ROUTES.profile) {
+      this.children.config = new ConfigFields();
     }
-    if (pathname !== ROUTES.profile) {
-      this.children.saveButton = new Button({ ...saveButtonProps });
-    }
+    this.children.popup = new Popup(popupProps);
+  }
+
+  callPopup() {
+    const popup = this.children.popup as Popup;
+    popup.show("flex");
   }
 
   render() {

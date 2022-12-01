@@ -2,9 +2,9 @@ import Handlebars from "handlebars";
 import Block from "../../../../modules/block";
 import passwordFieldsTemplate from "./password-fields.tmpl";
 import passwordFieldsProps from "./password-fields.props";
-import Input from "../../../../components/input/input";
+import InputField from "../../../../components/input-field/input-field";
 
-const { fields, className } = passwordFieldsProps;
+const { fields, inputFieldClassName } = passwordFieldsProps;
 
 export default class PasswordFields extends Block {
   constructor() {
@@ -13,7 +13,8 @@ export default class PasswordFields extends Block {
 
   init() {
     this.children.inputs = fields.map(
-      (field) => new Input({ ...field, className }),
+      (field) =>
+        new InputField({ ...field, inputFieldClassName, validation: true }),
     );
   }
 

@@ -3,7 +3,7 @@ import Avatar from "../../components/avatar/avatar";
 import Button from "../../components/button/button";
 import Input from "../../components/input/input";
 import Link from "../../components/link/link";
-import registerHelperTimes from "../../helpers/times";
+import registerHelperTimes from "../../helpers/handlebars";
 import Block from "../../modules/block";
 import chatPageProps from "./chat-page.props";
 import chatPageTemplate from "./chat-page.tmpl";
@@ -34,7 +34,7 @@ export default class ChatPage extends Block {
 
     this.children.userAvatar = new Avatar(userAvatarProps);
 
-    this.children.messageInput = new Input(messageInputProps);
+    this.children.messageInput = new Input({ ...messageInputProps });
 
     this.children.sendMessageButton = new Button(sendMessageButtonProps);
   }

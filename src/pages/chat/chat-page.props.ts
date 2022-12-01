@@ -46,7 +46,7 @@ const chatPageProps = {
     type: "text",
     inputClassName: "chat-area-message-input",
     placeholder: "Сообщение",
-    name: "user-message",
+    name: "message",
   },
   sendMessageButtonProps: {
     type: "submit",

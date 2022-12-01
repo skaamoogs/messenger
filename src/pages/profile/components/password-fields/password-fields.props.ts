@@ -1,13 +1,21 @@
 const passwordFieldsProps = {
-  className: "input-profile",
+  inputFieldClassName: "input-field-profile",
   fields: [
-    { type: "password", name: "old_password", label: "Старый пароль" },
-
-    { type: "password", name: "new_password", label: "Новый пароль" },
+    {
+      inputProps: { type: "password", name: "old_password" },
+      label: "Старый пароль",
+    },
 
     {
-      type: "password",
-      name: "confirm_password",
+      inputProps: { type: "password", name: "new_password" },
+      label: "Новый пароль",
+    },
+
+    {
+      inputProps: {
+        type: "password",
+        name: "confirm_password",
+      },
       label: "Подтвердить новый пароль",
     },
   ],

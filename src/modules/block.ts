@@ -221,10 +221,10 @@ class Block<P extends Record<string, unknown> = any> {
     });
   }
 
-  show(displayType: string) {
+  show(display = "block") {
     const content = this.getContent();
     if (content) {
-      content.style.display = displayType;
+      content.style.display = display;
     }
   }
 

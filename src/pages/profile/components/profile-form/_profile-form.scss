@@ -1,0 +1,13 @@
+.profile-form {
+  text-align: center;
+}
+
+.profile-table {
+  width: 510px;
+  margin-top: 60px;
+
+  .profile-table-cell {
+    border-bottom: $default-border;
+    padding: 10px 0;
+  }
+}

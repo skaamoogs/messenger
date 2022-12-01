@@ -1,5 +1,7 @@
 import Handlebars from "handlebars";
 import Block from "../../modules/block";
+import { inputValidator, RULES } from "../../utils/validate";
+import ErrorMessage from "../error-message/error-message";
 import Input from "../input/input";
 import inputFieldTemplate from "./input-field.tmpl";
 
@@ -7,7 +9,6 @@ export default class InputField extends Block {
   constructor(props) {
     super({
       ...props,
-      valid: true,
       events: {
         focusin: () => this.clearError(),
         focusout: (event: Event) => this.validate(event),
@@ -17,36 +18,39 @@ export default class InputField extends Block {
 
   init() {
     const { inputProps, inputClassName } = this.props;
+
     this.children.input = new Input({ ...inputProps, inputClassName });
+
+    const { name } = inputProps;
+    if (name in Object.keys(RULES)) {
+      this.children.error = new ErrorMessage({ text: RULES[name].message });
+    }
   }
 
   validate(event: Event) {
-    const target = event.target as HTMLTextAreaElement;
-    const { pattern } = this.props;
-    if (pattern && !pattern.test(target.value)) {
-      this.setProps({ valid: false });
+    const { inputProps, validation } = this.props;
+    if (validation) {
+      const { name } = inputProps;
 
-      if (event.target) {
-        console.log(`${event.target.id}: not valid value`);
+      const target = event.target as HTMLTextAreaElement;
+      const error = this.children.error as ErrorMessage;
+
+      if (!inputValidator(name, target.value)) {
+        error.show();
       }
     }
   }
 
   clearError() {
-    if (!this.isValid) {
-      this.setProps({ valid: true });
+    const { validation } = this.props;
+    if (validation) {
+      const error = this.children.error as ErrorMessage;
+      error.hide();
     }
   }
 
-  get isValid() {
-    return this.props.valid;
-  }
-
   render() {
-    console.log("input field render");
-    console.log(this);
     const template = Handlebars.compile(inputFieldTemplate);
-    const content = this.compile(template, this.props);
-    return content;
+    return this.compile(template, this.props);
   }
 }

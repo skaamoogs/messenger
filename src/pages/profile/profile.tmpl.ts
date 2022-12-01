@@ -14,11 +14,10 @@ const profileTemplate = `
         {{#if ${currentPath === ROUTES.profile}}}
           <h3 class="user-name">Александр</h3>
         {{/if}}
-        {{{user}}}
+        {{{profileForm}}}
         {{{config}}}
-        {{{password}}}
-        <form action="{{route}}">{{{saveButton}}}</form>
     </div>
+    {{{popup}}}
 </div>
 `;
 

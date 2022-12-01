@@ -1,10 +1,12 @@
 const inputTemplate = `
     <input 
-      class="input" 
+      class="input {{className}}" 
       id="{{ name }}" 
       type="{{ type }}" 
       name="{{ name }}" 
-      placeholder="{{placeholder}}">
+      placeholder="{{placeholder}}"
+      value="{{value}}"
+      accept="{{accept}}">
 `;
 
 export default inputTemplate;
