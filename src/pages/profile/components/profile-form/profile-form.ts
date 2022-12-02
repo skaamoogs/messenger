@@ -82,6 +82,7 @@ export default class ProfileForm extends Block {
       error.show();
     } else {
       const data = logData(this);
+      // eslint-disable-next-line no-console
       console.log(data);
     }
   }

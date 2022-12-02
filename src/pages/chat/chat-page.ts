@@ -4,14 +4,11 @@ import Button from "../../components/button/button";
 import Input from "../../components/input/input";
 import Link from "../../components/link/link";
 import Popup from "../../components/popup/popup";
-import registerHelperTimes from "../../helpers/handlebars";
 import Block from "../../modules/block";
 import chatPageProps from "./chat-page.props";
 import chatPageTemplate from "./chat-page.tmpl";
 import Chat from "./components/chat/chat";
 import SettingsWindow from "./components/settings-window/settings-window";
-
-registerHelperTimes();
 
 export default class ChatPage extends Block {
   constructor() {

@@ -109,7 +109,7 @@ class Block<P extends Record<string, unknown> = any> {
     }
   }
 
-  componentDidUpdate(oldProps: P, newProps: P) {
+  componentDidUpdate(_oldProps: P, _newProps: P) {
     return true;
   }
 

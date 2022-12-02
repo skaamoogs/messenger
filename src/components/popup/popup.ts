@@ -14,6 +14,7 @@ export default class Popup extends Block {
       events: {
         change: (event: Event) => this.fileLoaded(event),
         submit: (event: Event) => this.validate(event),
+        focusin: () => this.clearError(),
       },
     });
   }
@@ -61,9 +62,15 @@ export default class Popup extends Block {
         error.setProps({ text: "Данные введены неверно." });
         error.show();
       } else {
+        // eslint-disable-next-line no-console
         console.log({ [input.name]: input.value });
       }
     }
+  }
+
+  clearError() {
+    const error = this.children.error as ErrorMessage;
+    error.hide();
   }
 
   render() {

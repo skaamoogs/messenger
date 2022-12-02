@@ -1,6 +1,6 @@
 export const ROUTES = {
-  chat: "/",
-  login: "/login/",
+  chat: "/chat/",
+  login: "/",
   signIn: "/signin/",
   profile: "/profile/",
   password: "/profile/password/",
