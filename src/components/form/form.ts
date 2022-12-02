@@ -1,4 +1,5 @@
 import Handlebars from "handlebars";
+import { ROUTES } from "../../const";
 import Block from "../../modules/block";
 import { checkPasswords, formValidator, logData } from "../../utils/validate";
 import Button from "../button/button";
@@ -43,7 +44,7 @@ export default class Form extends Block {
           inputFieldClassName,
           labelClassName,
           validation: true,
-        }),
+        })
     );
 
     this.children.button = new Button(buttonProps);
@@ -52,7 +53,7 @@ export default class Form extends Block {
 
     this.children.linkToChat = new Link({
       text: "В чат",
-      route: "/",
+      route: ROUTES.chat,
       className: "registration-form-link",
     });
   }
