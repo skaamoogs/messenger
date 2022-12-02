@@ -1,4 +1,5 @@
 import { ROUTES } from "./const";
+import Block from "./modules/block";
 import ChatPage from "./pages/chat/chat-page";
 import ErrorPage from "./pages/error-page/error-page";
 import Login from "./pages/login/login";
@@ -17,10 +18,12 @@ const PAGES = {
   [ROUTES.page500]: new ErrorPage(),
 };
 
-function render(query, block) {
+function render(query: string, block: Block) {
   const root = document.querySelector(query);
-
-  root.appendChild(block.getContent());
+  const content = block.getContent();
+  if (root && content) {
+    root.appendChild(content);
+  }
 
   block.dispatchComponentDidMount();
 

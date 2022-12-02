@@ -1,6 +1,5 @@
 .form-container {
   max-width: 340px;
-  min-height: 460px;
   box-shadow: $default-box-shadow;
   border-radius: $default-radius;
   padding: 30px;
@@ -9,6 +8,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  box-sizing: border-box;
 
   .registration-form {
     align-self: stretch;
