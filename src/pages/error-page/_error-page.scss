@@ -1,0 +1,28 @@
+.error-page {
+  display: flex;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+
+  .error-page-content {
+    text-align: center;
+
+    .error-code {
+      font-size: $xxl-text;
+      margin: 20px;
+    }
+
+    .error-description {
+      font-size: $xl-text;
+      margin: 0 0 70px;
+    }
+
+    .error-page-link {
+      color: $primary-color;
+
+      &:hover {
+        color: $primary-hover-color;
+      }
+    }
+  }
+}

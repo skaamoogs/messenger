@@ -20,3 +20,38 @@
   border-radius: 100%;
   line-height: 0;
 }
+
+.profile-save-button {
+  margin-top: 60px;
+}
+
+.user-settings-button {
+  width: 25px;
+  height: 25px;
+  rotate: 90deg;
+  padding: 5px;
+  font-size: $sm-text;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+.user-settings-active {
+  color: $primary-color;
+  background-color: $light-grey-color;
+}
+
+.users-control-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: $xl-text;
+  width: 22px;
+  height: 22px;
+  color: $primary-color;
+  border: 1.5px solid $primary-color;
+  margin: 0 15px 0 0;
+}
+
+.button-rotate {
+  rotate: 45deg;
+}

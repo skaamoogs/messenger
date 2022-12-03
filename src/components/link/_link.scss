@@ -1,0 +1,30 @@
+.anchor {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.registration-form-link {
+  display: block;
+  margin-top: 14px;
+  font-size: $sm-text;
+  text-decoration: none;
+  color: $primary-color;
+  cursor: pointer;
+
+  &:hover {
+    color: $primary-hover-color;
+  }
+}
+
+.configuration-link {
+  color: $primary-color;
+
+  &:hover {
+    color: $primary-hover-color;
+  }
+}
+
+.profile-link {
+  color: $grey-color;
+  font-size: $md-text;
+}
