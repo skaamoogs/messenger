@@ -5,7 +5,7 @@ const loginProps = {
   action: ROUTES.chat,
   linkProps: {
     text: "Ещё не зарегистрированы?",
-    route: ROUTES.signIn,
+    route: ROUTES.signUp,
     className: "registration-form-link",
   },
   labelClassName: "registration-input-label",

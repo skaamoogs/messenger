@@ -1,6 +1,6 @@
 import { ROUTES } from "../../const";
 
-const signInProps = {
+const signUpProps = {
   title: "Регистрация",
   action: ROUTES.chat,
   linkProps: {
@@ -75,4 +75,4 @@ const signInProps = {
   },
 };
 
-export default signInProps;
+export default signUpProps;

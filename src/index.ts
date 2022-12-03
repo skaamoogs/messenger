@@ -4,11 +4,11 @@ import ChatPage from "./pages/chat/chat-page";
 import ErrorPage from "./pages/error-page/error-page";
 import Login from "./pages/login/login";
 import Profile from "./pages/profile/profile";
-import SignIn from "./pages/sign-in/sign-in";
+import SignUp from "./pages/sign-up/sign-up";
 import "./style.scss";
 
 const PAGES = {
-  [ROUTES.signIn]: new SignIn(),
+  [ROUTES.signUp]: new SignUp(),
   [ROUTES.login]: new Login(),
   [ROUTES.profile]: new Profile(),
   [ROUTES.password]: new Profile(),

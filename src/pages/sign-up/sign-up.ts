@@ -1,20 +1,20 @@
 import Handlebars from "handlebars";
 import Form from "../../components/form/form";
 import Block from "../../modules/block";
-import signInProps from "./sign-in.props";
-import signInTemplate from "./sign-in.tmpl";
+import signUpProps from "./sign-up.props";
+import signUpTemplate from "./sign-up.tmpl";
 
-export default class SignIn extends Block {
+export default class SignUp extends Block {
   constructor() {
     super({});
   }
 
   init() {
-    this.children.form = new Form(signInProps);
+    this.children.form = new Form(signUpProps);
   }
 
   render() {
-    const template = Handlebars.compile(signInTemplate);
+    const template = Handlebars.compile(signUpTemplate);
     return this.compile(template, this.props);
   }
 }
