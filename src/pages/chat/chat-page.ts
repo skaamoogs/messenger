@@ -10,9 +10,9 @@ import chatPageTemplate from "./chat-page.tmpl";
 import Chat from "./components/chat/chat";
 import SettingsWindow from "./components/settings-window/settings-window";
 
-export default class ChatPage extends Block {
+export default class ChatPage extends Block<typeof chatPageProps> {
   constructor() {
-    super({ ...chatPageProps, settingsWindowIsOpen: false });
+    super(chatPageProps);
   }
 
   init() {
@@ -52,7 +52,7 @@ export default class ChatPage extends Block {
       },
     });
 
-    this.children.popup = new Popup(popupProps);
+    this.children.popup = new Popup({ ...popupProps, textProps: {} });
   }
 
   showHideSettings() {

@@ -1,15 +1,11 @@
 const configFieldsTemplate = `
-<table class="profile-table configuration-table">
-  <tbody>
-    {{#each fields}}
-      <tr class="configuration-row">
-        <td class="profile-table-cell">
-        <label class="{{ labelClassName }}" for="{{ name }}">{{ label }}</label>
-        {{{ this }}}
-        </td>
-      </tr>
-    {{/each}}
-  </tbody>
-</table>`;
+<nav class="config-links">
+  <ul class="config-link-list">
+  {{#each fields}}
+    <li class="link-item">{{{ this }}}</li>
+  {{/each}}
+  </ul>
+</nav>
+`;
 
 export default configFieldsTemplate;

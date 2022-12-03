@@ -10,7 +10,7 @@ const { pathname } = window.location;
 const errorPageProps =
   pathname === ROUTES.page404 ? page404Props : page500Props;
 
-export default class ErrorPage extends Block {
+export default class ErrorPage extends Block<typeof errorPageProps> {
   constructor() {
     super(errorPageProps);
   }

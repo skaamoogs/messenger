@@ -4,8 +4,9 @@ import clipIconImg from "../../images/clip-icon.svg";
 import rightArrowImg from "../../images/arrow-right.svg";
 
 const chatPageProps = {
+  settingsWindowIsOpen: false,
   profileLinkProps: {
-    text: "Профиль",
+    text: "Профиль >",
     route: ROUTES.profile,
     className: "anchor profile-link",
   },
@@ -26,7 +27,7 @@ const chatPageProps = {
     author: "Александр",
     time: "16:22",
     text: "Всем привет! Кто уже прошел первый спринт?",
-    unreadCount: "3",
+    unreadCount: 3,
   },
   userAvatarProps: {
     className: "user-avatar-container",

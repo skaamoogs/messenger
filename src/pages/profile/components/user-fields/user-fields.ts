@@ -4,13 +4,16 @@ import userFieldsTemplate from "./user-fields.tmpl";
 import userFieldsProps from "./user-fields.props";
 import InputField from "../../../../components/input-field/input-field";
 
-const { fields, inputFieldClassName } = userFieldsProps;
+export default class UserFields extends Block<typeof userFieldsProps> {
+  constructor(props: { validation: boolean }) {
+    super({ ...userFieldsProps, ...props });
+  }
 
-export default class UserFields extends Block {
   init() {
-    const { validation } = this.props;
+    const { fields, inputFieldClassName, validation } = this.props;
+
     this.children.inputs = fields.map(
-      (field) => new InputField({ ...field, inputFieldClassName, validation }),
+      (field) => new InputField({ ...field, inputFieldClassName, validation })
     );
   }
 

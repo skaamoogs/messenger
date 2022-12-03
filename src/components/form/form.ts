@@ -1,15 +1,25 @@
 import Handlebars from "handlebars";
 import { ROUTES } from "../../const";
 import Block from "../../modules/block";
+import { Events } from "../../utils/type";
 import { checkPasswords, formValidator, logData } from "../../utils/validate";
-import Button from "../button/button";
+import Button, { ButtonProps } from "../button/button";
 import ErrorMessage from "../error-message/error-message";
-import InputField from "../input-field/input-field";
-import Link from "../link/link";
+import InputField, { InputFieldProps } from "../input-field/input-field";
+import Link, { LinkProps } from "../link/link";
 import formTemplate from "./form.tmpl";
 
-export default class Form extends Block {
-  constructor(props) {
+interface FormProps {
+  inputFieldList: InputFieldProps[];
+  buttonProps: ButtonProps;
+  linkProps: LinkProps;
+  inputFieldClassName: string;
+  labelClassName: string;
+  events?: Events;
+}
+
+export default class Form extends Block<FormProps> {
+  constructor(props: FormProps) {
     super({
       ...props,
       events: {

@@ -1,5 +1,6 @@
 const userFieldsProps = {
   inputFieldClassName: "input-field-profile",
+  validation: false,
   fields: [
     {
       inputProps: { name: "email", type: "email", value: "alex@mail.com" },

@@ -4,7 +4,7 @@ import Block from "../../../../modules/block";
 import configFieldsProps from "./config-fields.props";
 import configFieldsTemplate from "./config-fields.tmpl";
 
-export default class ConfigFields extends Block {
+export default class ConfigFields extends Block<typeof configFieldsProps> {
   constructor() {
     super(configFieldsProps);
   }

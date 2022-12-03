@@ -4,14 +4,14 @@ import passwordFieldsTemplate from "./password-fields.tmpl";
 import passwordFieldsProps from "./password-fields.props";
 import InputField from "../../../../components/input-field/input-field";
 
-const { fields, inputFieldClassName } = passwordFieldsProps;
-
-export default class PasswordFields extends Block {
+export default class PasswordFields extends Block<typeof passwordFieldsProps> {
   constructor() {
-    super({});
+    super(passwordFieldsProps);
   }
 
   init() {
+    const { fields, inputFieldClassName } = this.props;
+
     this.children.inputs = fields.map(
       (field) =>
         new InputField({ ...field, inputFieldClassName }),

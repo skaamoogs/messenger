@@ -3,6 +3,7 @@ import Button from "../../../../components/button/button";
 import ErrorMessage from "../../../../components/error-message/error-message";
 import { ROUTES } from "../../../../const";
 import Block from "../../../../modules/block";
+import { Events } from "../../../../utils/type";
 import {
   checkPasswords,
   formValidator,
@@ -15,7 +16,13 @@ import profileFormTemplate from "./profile-form.tmpl";
 
 const { pathname } = window.location;
 
-export default class ProfileForm extends Block {
+type TProfileFormProps = typeof profileFormProps;
+
+interface ProfileFormProps extends TProfileFormProps {
+  events?: Events;
+}
+
+export default class ProfileForm extends Block<ProfileFormProps> {
   constructor() {
     super({
       ...profileFormProps,

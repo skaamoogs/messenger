@@ -1,14 +1,23 @@
 import Handlebars from "handlebars";
 import Block from "../../modules/block";
+import { Events } from "../../utils/type";
 import { inputValidator } from "../../utils/validate";
-import Button from "../button/button";
+import Button, { ButtonProps } from "../button/button";
 import ErrorMessage from "../error-message/error-message";
-import InputField from "../input-field/input-field";
-import TextField from "./components/text-field";
+import InputField, { InputFieldProps } from "../input-field/input-field";
+import TextField, { TextProps } from "./components/text-field";
 import popupTemplate from "./popup.tmpl";
 
-export default class Popup extends Block {
-  constructor(props) {
+export interface PopupProps {
+  title: string;
+  textProps: TextProps;
+  inputFieldProps: InputFieldProps;
+  buttonProps: ButtonProps;
+  events?: Events;
+}
+
+export default class Popup extends Block<PopupProps> {
+  constructor(props: PopupProps) {
     super({
       ...props,
       events: {

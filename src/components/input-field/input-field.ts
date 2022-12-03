@@ -1,12 +1,22 @@
 import Handlebars from "handlebars";
 import Block from "../../modules/block";
+import { Events } from "../../utils/type";
 import { inputValidator, RULES } from "../../utils/validate";
 import ErrorMessage from "../error-message/error-message";
-import Input from "../input/input";
+import Input, { InputProps } from "../input/input";
 import inputFieldTemplate from "./input-field.tmpl";
 
-export default class InputField extends Block {
-  constructor(props) {
+export interface InputFieldProps {
+  label?: string;
+  inputFieldClassName?: string;
+  labelClassName?: string;
+  inputProps: InputProps;
+  validation: boolean;
+  events?: Events;
+}
+
+export default class InputField extends Block<InputFieldProps> {
+  constructor(props: InputFieldProps) {
     super({
       ...props,
       events: {
@@ -17,17 +27,18 @@ export default class InputField extends Block {
   }
 
   init() {
-    const { inputProps, inputClassName } = this.props;
+    const inputProps = this.props.inputProps as InputProps;
 
-    this.children.input = new Input({ ...inputProps, inputClassName });
+    this.children.input = new Input(inputProps);
 
     this.children.error = new ErrorMessage({ text: "Error" });
   }
 
   validate(event: Event) {
-    const { inputProps, validation } = this.props;
+    const inputProps = this.props.inputProps as InputProps;
+    const validation = this.props.validation as boolean;
     if (validation) {
-      const { name } = inputProps;
+      const name = inputProps.name as string;
 
       const target = event.target as HTMLTextAreaElement;
       const error = this.children.error as ErrorMessage;

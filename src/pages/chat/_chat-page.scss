@@ -13,6 +13,11 @@
     min-height: 100vh;
     border-right: $default-border;
 
+    .profile-nav {
+      margin: 20px 0;
+      text-align: right;
+    }
+
     .input {
       border-radius: 5px;
       background-color: $light-grey-color;

@@ -11,7 +11,7 @@ import profileTemplate from "./profile.tmpl";
 
 const { pathname } = window.location;
 
-export default class Profile extends Block {
+export default class Profile extends Block<typeof profileProps> {
   constructor() {
     super(profileProps);
   }

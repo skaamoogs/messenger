@@ -5,11 +5,6 @@ const METHODS = {
   DELETE: "DELETE",
 };
 
-/**
- * Функцию реализовывать здесь необязательно, но может помочь не плодить логику у GET-метода
- * На входе: объект. Пример: {a: 1, b: 2, c: {d: 123}, k: [1, 2, 3]}
- * На выходе: строка. Пример: ?a=1&b=2&c=[object Object]&k=1,2,3
- */
 function queryStringify(data: Record<string, unknown>) {
   if (data && String(data) === "[object Object]") {
     const result = Object.entries(data).reduce(
@@ -20,27 +15,30 @@ function queryStringify(data: Record<string, unknown>) {
   }
 
   return "";
-
-  // Можно делать трансформацию GET-параметров в отдельной функции
 }
 
+type HTTPMethod = (
+  url: string,
+  options: Record<string, unknown>
+) => Promise<unknown>;
+
 export default class HTTPTransport {
-  get = (url: string, options: Record<string, unknown> = {}) => {
+  get: HTTPMethod = (url, options = {}) => {
     const timeout = options.timeout as number;
     return this.request(url, { ...options, method: METHODS.GET }, timeout);
   };
 
-  put = (url: string, options: Record<string, unknown> = {}) => {
+  put: HTTPMethod = (url, options = {}) => {
     const timeout = options.timeout as number;
     return this.request(url, { ...options, method: METHODS.PUT }, timeout);
   };
 
-  post = (url: string, options: Record<string, unknown> = {}) => {
+  post: HTTPMethod = (url, options = {}) => {
     const timeout = options.timeout as number;
     return this.request(url, { ...options, method: METHODS.POST }, timeout);
   };
 
-  delete = (url: string, options: Record<string, unknown> = {}) => {
+  delete: HTTPMethod = (url, options = {}) => {
     const timeout = options.timeout as number;
     return this.request(url, { ...options, method: METHODS.DELETE }, timeout);
   };

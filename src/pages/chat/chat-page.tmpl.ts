@@ -1,7 +1,9 @@
 const chatPageTemplate = `
 <div class="chat-page">
   <div class="chat-list-container">
-    {{{profileLink}}}
+    <nav class="profile-nav">
+      {{{profileLink}}}
+    </nav>
     {{{searchInput}}}
     <div class="chat-list">
       {{{chat}}}

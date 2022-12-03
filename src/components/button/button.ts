@@ -1,5 +1,6 @@
 import Handlebars from "handlebars";
 import Block from "../../modules/block";
+import { Events } from "../../utils/type";
 import buttonTemplate from "./button.tmpl";
 
 export interface ButtonProps {
@@ -8,13 +9,10 @@ export interface ButtonProps {
   label?: string;
   image?: string;
   alt?: string;
-  id?: string;
-  events?: {
-    click: () => void;
-  };
+  events?: Events;
 }
 
-export default class Button extends Block {
+export default class Button extends Block<ButtonProps> {
   constructor(props: ButtonProps) {
     super({
       type: "button",

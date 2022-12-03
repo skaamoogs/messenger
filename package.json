@@ -9,8 +9,8 @@
         "clean-dist": "rimraf dist && mkdir dist",
         "copy-files": "cp -v _redirects ./dist",
         "prebuild": "npm run clean-dist && npm run clean-cache && npm run copy-files",
-        "dev": "parcel",
-        "start": "npm run build && node ./server.js",
+        "dev": "parcel --open",
+        "start": "npm run build && node ./server.js --open",
         "build": "npm run prebuild && parcel build"
     },
     "repository": "git+https://github.com/skaamoogs/middle.messenger.praktikum.yandex.git",
