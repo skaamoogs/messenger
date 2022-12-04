@@ -84,7 +84,7 @@ export default class Form extends Block<FormProps> {
     }
   }
 
-  checkPassword(event) {
+  checkPassword(event: Event) {
     const input = event.target as HTMLInputElement;
     const errorPassword = this.children.errorPassword as ErrorMessage;
     if (input.name === "confirmPassword") {
