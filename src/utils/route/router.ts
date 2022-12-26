@@ -1,6 +1,6 @@
-import Route from "./route";
+import Route, { BlockClass } from "./route";
 
-export default class Router {
+class Router {
   routes: Route[];
 
   history: History;
@@ -9,8 +9,12 @@ export default class Router {
 
   _rootQuery: string;
 
+  // eslint-disable-next-line no-use-before-define
+  static __instance: Router;
+
   constructor(rootQuery: string) {
     if (Router.__instance) {
+      // eslint-disable-next-line no-constructor-return
       return Router.__instance;
     }
 
@@ -22,7 +26,7 @@ export default class Router {
     Router.__instance = this;
   }
 
-  use(pathname: string, block: any) {
+  use(pathname: string, block: BlockClass) {
     const route = new Route(pathname, block, { rootQuery: this._rootQuery });
     this.routes.push(route);
     return this;
@@ -47,10 +51,10 @@ export default class Router {
     }
 
     this._currentRoute = route;
-    route.render(route, pathname);
+    route.navigate(pathname);
   }
 
-  go(pathname) {
+  go(pathname: string) {
     this.history.pushState({}, "", pathname);
     this._onRoute(pathname);
   }
@@ -63,7 +67,13 @@ export default class Router {
     this.history.forward();
   }
 
-  getRoute(pathname) {
+  getRoute(pathname: string) {
     return this.routes.find((route) => route.match(pathname));
   }
+
+  getCurrentPathname() {
+    return this._currentRoute?.getPathname();
+  }
 }
+
+export default new Router(".root");

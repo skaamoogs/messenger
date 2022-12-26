@@ -1,3 +1,6 @@
+import { queryStringify } from "./helpers";
+import { HTTPMethod, Indexed } from "./types";
+
 const METHODS = {
   GET: "GET",
   POST: "POST",
@@ -5,47 +8,56 @@ const METHODS = {
   DELETE: "DELETE",
 };
 
-function queryStringify(data: Record<string, unknown>) {
-  if (data && String(data) === "[object Object]") {
-    const result = Object.entries(data).reduce(
-      (acc, currentValue) => `${acc}${currentValue[0]}=${currentValue[1]}&`,
-      "?"
-    );
-    return result.slice(0, -1);
+export default class HTTPTransport {
+  private _endpoint: string;
+
+  constructor(endpoint: string) {
+    this._endpoint = endpoint;
   }
 
-  return "";
-}
-
-type HTTPMethod = (
-  url: string,
-  options: Record<string, unknown>
-) => Promise<unknown>;
-
-export default class HTTPTransport {
   get: HTTPMethod = (url, options = {}) => {
     const timeout = options.timeout as number;
-    return this.request(url, { ...options, method: METHODS.GET }, timeout);
+    const requestUrl = this._endpoint + url;
+    return this.request(
+      requestUrl,
+      { ...options, method: METHODS.GET },
+      timeout
+    );
   };
 
   put: HTTPMethod = (url, options = {}) => {
     const timeout = options.timeout as number;
-    return this.request(url, { ...options, method: METHODS.PUT }, timeout);
+    const requestUrl = this._endpoint + url;
+    return this.request(
+      requestUrl,
+      { ...options, method: METHODS.PUT },
+      timeout
+    );
   };
 
   post: HTTPMethod = (url, options = {}) => {
     const timeout = options.timeout as number;
-    return this.request(url, { ...options, method: METHODS.POST }, timeout);
+    const requestUrl = this._endpoint + url;
+    return this.request(
+      requestUrl,
+      { ...options, method: METHODS.POST },
+      timeout
+    );
   };
 
   delete: HTTPMethod = (url, options = {}) => {
     const timeout = options.timeout as number;
-    return this.request(url, { ...options, method: METHODS.DELETE }, timeout);
+    const requestUrl = this._endpoint + url;
+    return this.request(
+      requestUrl,
+      { ...options, method: METHODS.DELETE },
+      timeout
+    );
   };
 
   request = (url: string, options: Record<string, unknown>, timeout = 5000) => {
     const headers = options.headers as Record<string, string>;
-    const data = options.data as Record<string, string>;
+    const data = options.data as Indexed;
     const method = options.method as string;
 
     return new Promise((resolve, reject) => {
@@ -62,18 +74,26 @@ export default class HTTPTransport {
         );
       }
 
-      xhr.onload = () => {
-        resolve(xhr);
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status === 200) {
+            resolve(xhr.response);
+          } else {
+            reject(xhr.response);
+          }
+        }
       };
-
       setTimeout(
         () => reject(new Error("Превышено время ожидани ответа")),
         timeout
       );
 
-      xhr.onabort = reject;
-      xhr.onerror = reject;
-      xhr.ontimeout = reject;
+      xhr.onabort = () => reject(new Error("abort"));
+      xhr.onerror = () => reject(new Error("network error"));
+      xhr.ontimeout = () => reject(new Error("timeout"));
+
+      xhr.responseType = "json";
+      xhr.withCredentials = true;
 
       if (method === METHODS.GET || !data) {
         xhr.send();

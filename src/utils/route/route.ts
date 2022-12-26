@@ -1,26 +1,23 @@
-function isEqual(lhs, rhs) {
-  return lhs === rhs;
-}
+import Block from "../../modules/block";
+import { isEqual, render } from "../helpers";
+import { Indexed } from "../types";
 
-function render(query, block) {
-  const root = document.querySelector(query);
-  root.textContent = block.getContent();
-  return root;
+export interface BlockClass<P = any> {
+  new (props: P): Block;
 }
 
 export default class Route {
   _pathname: string;
 
-  _blockClass: any;
+  _blockClass: BlockClass;
 
-  _block: any;
+  _block: Block | null = null;
 
   _props: Record<string, any>;
 
-  constructor(pathname: string, view: any, props: Record<string, any>) {
+  constructor(pathname: string, view: BlockClass, props: Indexed) {
     this._pathname = pathname;
     this._blockClass = view;
-    this._block = null;
     this._props = props;
   }
 
@@ -32,22 +29,21 @@ export default class Route {
   }
 
   leave() {
-    if (this._block) {
-      this._block.hide();
-    }
+    this._block = null;
   }
 
-  match(pathname) {
+  match(pathname: string) {
     return isEqual(pathname, this._pathname);
+  }
+
+  getPathname() {
+    return this._pathname;
   }
 
   render() {
     if (!this._block) {
-      this._block = new this._blockClass();
+      this._block = new this._blockClass(this._props);
       render(this._props.rootQuery, this._block);
-      return;
     }
-
-    this._block.show();
   }
 }

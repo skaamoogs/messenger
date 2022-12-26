@@ -1,6 +1,6 @@
 import Handlebars from "handlebars";
 import Block from "../../modules/block";
-import { Events } from "../../utils/type";
+import { Events } from "../../utils/types";
 import { inputValidator, RULES } from "../../utils/validate";
 import ErrorMessage from "../error-message/error-message";
 import Input, { InputProps } from "../input/input";

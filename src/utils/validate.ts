@@ -22,7 +22,7 @@ export const RULES = {
     message: `Некорректная фамилия. Первая буква должна быть заглавной, 
       без пробелов, цифр и спецсимволов (допустим только дефис).`,
   },
-  nickname: {
+  display_name: {
     pattern: /^.+$/,
     message: "Поле не должно быть пустым",
   },
@@ -100,7 +100,9 @@ export const logData = (context: Block) => {
   const data: Record<string, string> = {};
   const inputs = context.getContent()?.querySelectorAll("input");
   inputs?.forEach((input) => {
-    data[input.name] = input.value;
+    if (input.id !== "confirmPassword") {
+      data[input.name] = input.value;
+    }
   });
   return data;
 };

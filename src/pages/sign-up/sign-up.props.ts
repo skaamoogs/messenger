@@ -17,7 +17,7 @@ const signUpProps = {
         type: "email",
       },
       label: "Почта",
-      validation: true
+      validation: true,
     },
     {
       inputProps: {
@@ -25,7 +25,7 @@ const signUpProps = {
         type: "text",
       },
       label: "Логин",
-      validation: true
+      validation: true,
     },
     {
       inputProps: {
@@ -33,7 +33,7 @@ const signUpProps = {
         type: "text",
       },
       label: "Имя",
-      validation: true
+      validation: true,
     },
     {
       inputProps: {
@@ -41,7 +41,7 @@ const signUpProps = {
         type: "text",
       },
       label: "Фамилия",
-      validation: true
+      validation: true,
     },
     {
       inputProps: {
@@ -49,7 +49,7 @@ const signUpProps = {
         type: "tel",
       },
       label: "Телефон",
-      validation: true
+      validation: true,
     },
     {
       inputProps: {
@@ -57,7 +57,7 @@ const signUpProps = {
         type: "password",
       },
       label: "Пароль",
-      validation: true
+      validation: true,
     },
     {
       inputProps: {
@@ -65,7 +65,7 @@ const signUpProps = {
         type: "password",
       },
       label: "Пароль (еще раз)",
-      validation: false
+      validation: false,
     },
   ],
   buttonProps: {

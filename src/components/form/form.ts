@@ -1,7 +1,10 @@
 import Handlebars from "handlebars";
+import { LoginData, SignUpData } from "../../api/auth.api";
 import { ROUTES } from "../../const";
+import AuthController from "../../controllers/auth.controller";
 import Block from "../../modules/block";
-import { Events } from "../../utils/type";
+import router from "../../utils/route/router";
+import { Events } from "../../utils/types";
 import { checkPasswords, formValidator, logData } from "../../utils/validate";
 import Button, { ButtonProps } from "../button/button";
 import ErrorMessage from "../error-message/error-message";
@@ -59,12 +62,8 @@ export default class Form extends Block<FormProps> {
 
     this.children.button = new Button(buttonProps);
 
-    this.children.link = new Link(linkProps);
-
-    this.children.linkToChat = new Link({
-      text: "В чат",
-      route: ROUTES.chat,
-      className: "registration-form-link",
+    this.children.link = new Link({
+      ...linkProps,
     });
   }
 
@@ -78,9 +77,15 @@ export default class Form extends Block<FormProps> {
       error.setProps({ text: "Некоторые поля заполнены неверно." });
       error.show();
     } else {
-      const data = logData(this);
-      // eslint-disable-next-line no-console
-      console.log(data);
+      const pathname = router.getCurrentPathname();
+      if (pathname === ROUTES.login) {
+        const data = logData(this) as unknown as LoginData;
+        AuthController.login(data);
+      }
+      if (pathname === ROUTES.signUp) {
+        const data = logData(this) as unknown as SignUpData;
+        AuthController.signUp(data);
+      }
     }
   }
 
@@ -102,6 +107,10 @@ export default class Form extends Block<FormProps> {
   clearError() {
     const error = this.children.error as ErrorMessage;
     error.hide();
+  }
+
+  goToChat() {
+    router.go(ROUTES.chat);
   }
 
   render() {

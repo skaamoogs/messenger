@@ -1,6 +1,7 @@
 import Handlebars from "handlebars";
+import UserController from "../../controllers/user.controller";
 import Block from "../../modules/block";
-import { Events } from "../../utils/type";
+import { Events } from "../../utils/types";
 import { inputValidator } from "../../utils/validate";
 import Button, { ButtonProps } from "../button/button";
 import ErrorMessage from "../error-message/error-message";
@@ -47,7 +48,7 @@ export default class Popup extends Block<PopupProps> {
       if (input.files) {
         const file = input.files[0];
         text.setProps({ text: file.name });
-        inputField.hide();
+        inputField.setProps({ label: "" });
         error.hide();
       }
     }
@@ -61,11 +62,15 @@ export default class Popup extends Block<PopupProps> {
       if (input.type === "file") {
         if (input.value) {
           error.hide();
+          console.log(form);
+          const formData = new FormData(form);
+          console.log(...formData);
+          UserController.changeAvatar(formData);
         } else {
-          event.preventDefault();
           error.setProps({ text: "Нужно выбрать файл." });
           error.show();
         }
+        event.preventDefault();
       } else if (!inputValidator(input.name, input.value)) {
         event.preventDefault();
         error.setProps({ text: "Данные введены неверно." });

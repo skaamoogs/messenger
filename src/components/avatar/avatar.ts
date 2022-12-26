@@ -1,6 +1,6 @@
 import Handlebars from "handlebars";
 import Block from "../../modules/block";
-import { Events } from "../../utils/type";
+import { Events } from "../../utils/types";
 import avatarTemplate from "./avatar.tmpl";
 
 export interface AvatarProps {

@@ -27,6 +27,7 @@
         "allowAfterThis": true
       }
     ],
+    "no-shadow": "off",
     "no-param-reassign": ["error", { "props": false }],
     "operator-linebreak": ["error", "after"],
     "class-methods-use-this": "off",
@@ -35,6 +36,7 @@
     "object-curly-newline": "off",
     "comma-dangle": "off",
     "function-paren-newline": "off",
+    "consistent-return": "off",
     "import/no-unresolved": "error",
     "import/extensions": ["error", "always", { "js": "never", "ts": "never" }],
     "import/named": "error",
@@ -45,7 +47,8 @@
       "error",
       { "argsIgnorePattern": "^_" }
     ],
-    "@typescript-eslint/no-empty-function": "off"
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/no-shadow": "error"
   },
   "settings": {
     "import/parsers": {

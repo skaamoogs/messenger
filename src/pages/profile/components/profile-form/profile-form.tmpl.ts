@@ -1,5 +1,5 @@
 const profileFormTemplate = `
-<form action="{{route}}" class="profile-form">
+<form class="profile-form">
   {{{error}}}
   {{{user}}}
   {{{password}}}

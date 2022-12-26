@@ -1,17 +1,16 @@
 import { ROUTES } from "../../const";
+import router from "../../utils/route/router";
 
-const currentPath = window.location.pathname;
+const pathname = router.getCurrentPathname();
 
 const profileTemplate = `
 <div class="profile-page">
     <div class="back-button-container">
-        <form action="${ROUTES.chat}">
-          {{{backButton}}}        
-        </form>
+      {{{backButton}}}        
     </div>
     <div class="profile-container">
         {{{avatar}}}
-        {{#if ${currentPath === ROUTES.profile}}}
+        {{#if ${pathname === ROUTES.profile}}}
           <h3 class="user-name">Александр</h3>
         {{/if}}
         {{{profileForm}}}

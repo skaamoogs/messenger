@@ -1,12 +1,12 @@
 export const ROUTES = {
-  chat: "/messenger/",
+  chat: "/messenger",
   login: "/",
-  signUp: "/sign-up/",
-  profile: "/settings/",
-  password: "/settings/password/",
-  data: "/settings/data/",
-  page404: "/404/",
-  page500: "/500/",
+  signUp: "/sign-up",
+  profile: "/settings",
+  password: "/settings/password",
+  data: "/settings/data",
+  page404: "/404",
+  page500: "/500",
 };
 
 export const FIELD_NAMES = {

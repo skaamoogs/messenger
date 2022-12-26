@@ -55,3 +55,15 @@
 .button-rotate {
   rotate: 45deg;
 }
+
+.logout-button {
+  border: none;
+  background-color: transparent;
+  color: $red-color;
+  padding: 10px 0;
+  cursor: pointer;
+
+  &:hover {
+    color: $red-hover-color;
+  }
+}

@@ -1,7 +1,7 @@
 import Handlebars from "handlebars";
 import Button from "../../../../components/button/button";
 import Block from "../../../../modules/block";
-import { Events } from "../../../../utils/type";
+import { Events } from "../../../../utils/types";
 import settingsWindowProps from "./settings-window.props";
 import settingsWindowTemplate from "./settings-window.tmpl";
 

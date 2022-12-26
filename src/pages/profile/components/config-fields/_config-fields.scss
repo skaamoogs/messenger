@@ -12,16 +12,6 @@
     .link-item {
       border-bottom: $default-border;
       padding: 10px 0;
-
-      &:last-child {
-        .configuration-link {
-          color: $red-color;
-
-          &:hover {
-            color: $red-hover-color;
-          }
-        }
-      }
     }
   }
 }

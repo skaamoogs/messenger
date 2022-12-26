@@ -1,14 +1,14 @@
-import { ROUTES } from "../../const";
 import avatarImg from "../../images/avatar.jpg";
 import clipIconImg from "../../images/clip-icon.svg";
 import rightArrowImg from "../../images/arrow-right.svg";
+import { ROUTES } from "../../const";
 
 const chatPageProps = {
   settingsWindowIsOpen: false,
   profileLinkProps: {
     text: "Профиль >",
-    route: ROUTES.profile,
     className: "anchor profile-link",
+    route: ROUTES.profile,
   },
   searchInputProps: {
     className: "search-input-container",

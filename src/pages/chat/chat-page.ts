@@ -4,7 +4,9 @@ import Button from "../../components/button/button";
 import Input from "../../components/input/input";
 import Link from "../../components/link/link";
 import Popup from "../../components/popup/popup";
+import { ROUTES } from "../../const";
 import Block from "../../modules/block";
+import router from "../../utils/route/router";
 import chatPageProps from "./chat-page.props";
 import chatPageTemplate from "./chat-page.tmpl";
 import Chat from "./components/chat/chat";
@@ -53,6 +55,10 @@ export default class ChatPage extends Block<typeof chatPageProps> {
     });
 
     this.children.popup = new Popup({ ...popupProps, textProps: {} });
+  }
+
+  goToProfile() {
+    router.go(ROUTES.profile);
   }
 
   showHideSettings() {

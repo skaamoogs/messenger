@@ -1,5 +1,4 @@
-type Handler<A extends any[] = unknown[]> = (...args: A) => void;
-type MapInterface<P> = P[keyof P];
+import { Handler, MapInterface } from "./types";
 
 export default class EventBus<
   E extends Record<string, string> = Record<string, string>,

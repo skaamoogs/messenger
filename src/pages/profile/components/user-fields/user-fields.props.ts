@@ -30,7 +30,7 @@ const userFieldsProps = {
 
     {
       inputProps: {
-        name: "nickname",
+        name: "display_name",
         type: "text",
         value: "skaamoogs",
       },
