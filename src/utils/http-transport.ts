@@ -1,12 +1,12 @@
 import { queryStringify } from "./helpers";
 import { HTTPMethod, Indexed } from "./types";
 
-const METHODS = {
-  GET: "GET",
-  POST: "POST",
-  PUT: "PUT",
-  DELETE: "DELETE",
-};
+export enum Method {
+  Get = "Get",
+  Post = "Post",
+  Put = "Put",
+  Delete = "Delete",
+}
 
 export default class HTTPTransport {
   private _endpoint: string;
@@ -20,7 +20,7 @@ export default class HTTPTransport {
     const requestUrl = this._endpoint + url;
     return this.request(
       requestUrl,
-      { ...options, method: METHODS.GET },
+      { ...options, method: Method.Get },
       timeout
     );
   };
@@ -30,7 +30,7 @@ export default class HTTPTransport {
     const requestUrl = this._endpoint + url;
     return this.request(
       requestUrl,
-      { ...options, method: METHODS.PUT },
+      { ...options, method: Method.Put },
       timeout
     );
   };
@@ -40,7 +40,7 @@ export default class HTTPTransport {
     const requestUrl = this._endpoint + url;
     return this.request(
       requestUrl,
-      { ...options, method: METHODS.POST },
+      { ...options, method: Method.Post },
       timeout
     );
   };
@@ -50,20 +50,24 @@ export default class HTTPTransport {
     const requestUrl = this._endpoint + url;
     return this.request(
       requestUrl,
-      { ...options, method: METHODS.DELETE },
+      { ...options, method: Method.Delete },
       timeout
     );
   };
 
-  request = (url: string, options: Record<string, unknown>, timeout = 5000) => {
+  request<Response>(
+    url: string,
+    options: Record<string, unknown>,
+    timeout = 5000
+  ): Promise<Response> {
     const headers = options.headers as Record<string, string>;
-    const data = options.data as Indexed;
+    const data = options.data as Indexed | FormData;
     const method = options.method as string;
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      if (method === METHODS.GET && data) {
-        xhr.open(method, url + queryStringify(data));
+      if (method === Method.Get && data) {
+        xhr.open(method, url + queryStringify(data as Indexed));
       } else {
         xhr.open(method, url);
       }
@@ -95,11 +99,13 @@ export default class HTTPTransport {
       xhr.responseType = "json";
       xhr.withCredentials = true;
 
-      if (method === METHODS.GET || !data) {
+      if (method === Method.Get || !data) {
         xhr.send();
+      } else if (options.dataType === "formData") {
+        xhr.send(data as FormData);
       } else {
         xhr.send(JSON.stringify(data));
       }
     });
-  };
+  }
 }

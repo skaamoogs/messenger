@@ -1,5 +1,4 @@
 import HTTPTransport from "../utils/http-transport";
-import BaseAPI from "./base.api";
 
 export interface ProfileData {
   first_name: string;
@@ -19,7 +18,7 @@ const userAPIInstance = new HTTPTransport(
   "https://ya-praktikum.tech/api/v2/user"
 );
 
-export default class UserAPI extends BaseAPI {
+export default class UserAPI {
   changeProfile(data: ProfileData) {
     return userAPIInstance.put("/profile", {
       data,
@@ -35,7 +34,7 @@ export default class UserAPI extends BaseAPI {
   }
 
   changeAvatar(data: FormData) {
-    return userAPIInstance.put("/profile/avatar", { data });
+    return userAPIInstance.put("/profile/avatar", { data, dataType: "formData" });
   }
 
   getUserById(id: string) {

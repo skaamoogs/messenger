@@ -15,7 +15,7 @@ class AuthController {
   async login(data: LoginData) {
     try {
       await this._api.login(data);
-
+      await this.getUser();
       router.go(ROUTES.chat);
     } catch (error: any) {
       if (error && error.reason) {
@@ -39,11 +39,11 @@ class AuthController {
 
   async getUser() {
     const user = (await this._api.getUser()) as Indexed;
-    console.log(user);
     if (!user.display_name) {
       user.display_name = "не задано";
     }
     store.set("user", user);
+    console.log("got user successful");
   }
 
   async logout() {

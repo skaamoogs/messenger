@@ -1,19 +1,28 @@
+$chat-avatar-size: 47px;
+
 .chat-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   padding: 12px 0;
   border-top: $default-border;
-  border-bottom: $default-border;
 
   .author-avatar {
-    width: 47px;
-    height: 47px;
+    width: $chat-avatar-size;
+    height: $chat-avatar-size;
     flex-shrink: 0;
+  }
+
+  .empty-circle {
+    width: $chat-avatar-size;
+    height: $chat-avatar-size;
+    background-color: $light-grey-color;
+    border-radius: 100%;
   }
 
   .chat-content {
     padding-left: 10px;
     color: $grey-color;
+    flex-grow: 2;
 
     .chat-header {
       display: flex;
@@ -55,4 +64,8 @@
       }
     }
   }
+}
+
+.selected-chat-container {
+  background-color: $light-blue-color;
 }

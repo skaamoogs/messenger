@@ -1,0 +1,28 @@
+.main-message-container {
+  padding: 11px;
+  display: flex;
+  background-color: $extra-light-grey;
+  border-radius: $default-radius;
+  border-top-left-radius: 0%;
+
+  .main-message-text {
+    font-size: $md-text;
+  }
+
+  .send-time {
+    position: absolute;
+    color: $grey-color;
+    right: 11px;
+    bottom: 11px;
+  }
+
+  .user-message-time {
+    color: $primary-color;
+  }
+}
+
+.user-message {
+  background-color: $light-blue-color;
+  border-radius: $default-radius;
+  border-bottom-right-radius: 0%;
+}

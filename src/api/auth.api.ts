@@ -1,5 +1,4 @@
 import HTTPTransport from "../utils/http-transport";
-import BaseAPI from "./base.api";
 
 export interface SignUpData {
   first_name: string;
@@ -19,7 +18,7 @@ const authAPIInstance = new HTTPTransport(
   "https://ya-praktikum.tech/api/v2/auth"
 );
 
-export default class AuthAPI extends BaseAPI {
+export default class AuthAPI {
   login(data: LoginData) {
     return authAPIInstance.post("/signin", {
       data,

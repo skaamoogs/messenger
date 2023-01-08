@@ -10,11 +10,11 @@ const profileProps = {
     alt: "back button",
   },
   avatarProps: {
-    className: "avatar-container",
+    className: "profile-avatar-container",
     src: emptyAvatarImg,
     alt: "avatar",
     changeAvatarText: "Поменять<br>аватар",
-    imageClassName: "avatar-image",
+    imageClassName: "avatar-base",
     maskClassName: "avatar-mask",
   },
   popupProps: {
@@ -30,7 +30,7 @@ const profileProps = {
       inputProps: {
         type: "file",
         className: "file-input",
-        name: "choose_file",
+        name: "avatar",
         accept: ".jpg, .jpeg, .png",
       },
       validation: false,

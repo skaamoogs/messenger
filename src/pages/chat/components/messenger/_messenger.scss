@@ -1,0 +1,25 @@
+@import "../message/message";
+
+.messenger-container {
+  .send-message-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+    border-top: $default-border;
+
+    .clip-icon {
+      cursor: pointer;
+      width: 30px;
+      height: 30px;
+    }
+
+    .input {
+      width: 100%;
+      background-color: $light-grey-color;
+      border-radius: 30px;
+      padding: 10px 20px;
+      margin: 0 10px;
+    }
+  }
+}

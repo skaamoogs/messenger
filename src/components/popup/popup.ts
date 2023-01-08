@@ -58,21 +58,18 @@ export default class Popup extends Block<PopupProps> {
     const form = event.target as HTMLFormElement;
     const input = form.querySelector("input");
     const error = this.children.error as ErrorMessage;
+    event.preventDefault();
     if (input) {
       if (input.type === "file") {
         if (input.value) {
           error.hide();
-          console.log(form);
           const formData = new FormData(form);
-          console.log(...formData);
           UserController.changeAvatar(formData);
         } else {
           error.setProps({ text: "Нужно выбрать файл." });
           error.show();
         }
-        event.preventDefault();
       } else if (!inputValidator(input.name, input.value)) {
-        event.preventDefault();
         error.setProps({ text: "Данные введены неверно." });
         error.show();
       } else {

@@ -1,16 +1,23 @@
 const chatTemplate = `
-<div class="chat-container">
-  {{{avatar}}}
+<div class="chat-container {{#if selected}}selected-chat-container{{/if}} id={{id}}">
+  {{#if last_message.user.avatar}}
+    {{{avatar}}}
+  {{else}}
+    <div class="empty-circle">
+    </div>
+  {{/if}}
   <div class="chat-content">
     <div class="chat-header">
-      <span class="bold-text message-author">{{author}}</span>
-      <span class="message-time">{{time}}</span>
+      <span class="bold-text message-author">{{title}}</span>
+      <span class="message-time">{{last_message.time}}</span>
     </div>
     <div class="message-container">
-      <span class="message-text">{{text}}</span>
-      <div class="unread-msg-count">
-        <span>{{unreadCount}}</span>
-      </div>
+      <span class="message-text">{{last_message.content}}</span>
+      {{#if unread_count}}
+        <div class="unread-msg-count">
+          <span>{{unread_count}}</span>
+        </div>
+      {{/if}}
     </div>
   </div>
 </div>

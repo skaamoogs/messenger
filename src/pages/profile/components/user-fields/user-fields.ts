@@ -4,13 +4,9 @@ import userFieldsTemplate from "./user-fields.tmpl";
 import userFieldsProps from "./user-fields.props";
 import InputField from "../../../../components/input-field/input-field";
 import withStore from "../../../../hocs/with-store";
-import { Indexed } from "../../../../utils/types";
+import { State } from "../../../../utils/interfaces";
 
 class UserFieldsBase extends Block<typeof userFieldsProps> {
-  constructor(props: { validation: boolean }) {
-    super({ ...userFieldsProps, ...props });
-  }
-
   init() {
     const { fields, inputFieldClassName, validation } = this.props;
 
@@ -25,14 +21,14 @@ class UserFieldsBase extends Block<typeof userFieldsProps> {
   }
 }
 
-function mapUserToProps(state: Indexed) {
+function mapUserToProps(state: State) {
   if (!state.user) {
     return {};
   }
 
   const { fields } = userFieldsProps;
 
-  Object.entries(state.user as Indexed).forEach(([k, v]) => {
+  Object.entries(state.user).forEach(([k, v]) => {
     const targetIndex = fields.findIndex(
       (field) => field.inputProps.name === k
     );

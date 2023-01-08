@@ -14,6 +14,7 @@ import {
 } from "../../../../utils/validate";
 import PasswordFields from "../password-fields/password-fields";
 import UserFields from "../user-fields/user-fields";
+import userFieldsProps from "../user-fields/user-fields.props";
 import profileFormProps from "./profile-form.props";
 import profileFormTemplate from "./profile-form.tmpl";
 
@@ -46,7 +47,10 @@ export default class ProfileForm extends Block<ProfileFormProps> {
 
     switch (pathname) {
       case ROUTES.profile: {
-        this.children.user = new UserFields({ validation: false });
+        this.children.user = new UserFields({
+          ...userFieldsProps,
+          validation: false,
+        });
         const { user } = this.children;
         const inputs = user.getContent()?.querySelectorAll("input");
         inputs?.forEach((input) => {
@@ -60,7 +64,10 @@ export default class ProfileForm extends Block<ProfileFormProps> {
         break;
       }
       case ROUTES.data: {
-        this.children.user = new UserFields({ validation: true });
+        this.children.user = new UserFields({
+          ...userFieldsProps,
+          validation: true,
+        });
         this.children.saveButton = new Button({ ...saveButtonProps });
         break;
       }

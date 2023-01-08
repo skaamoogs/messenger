@@ -2,21 +2,17 @@ import Handlebars from "handlebars";
 import Avatar from "../../components/avatar/avatar";
 import Button from "../../components/button/button";
 import Popup from "../../components/popup/popup";
-import { ROUTES } from "../../const";
+import { resourceURL, ROUTES } from "../../const";
 import withStore from "../../hocs/with-store";
 import Block from "../../modules/block";
+import { State } from "../../utils/interfaces";
 import router from "../../utils/route/router";
-import { Indexed } from "../../utils/types";
 import ConfigFields from "./components/config-fields/config-fields";
 import ProfileForm from "./components/profile-form/profile-form";
 import profileProps from "./profile.props";
 import profileTemplate from "./profile.tmpl";
 
 class ProfileBase extends Block<typeof profileProps> {
-  constructor() {
-    super(profileProps);
-  }
-
   init() {
     const pathname = router.getCurrentPathname();
 
@@ -54,25 +50,30 @@ class ProfileBase extends Block<typeof profileProps> {
   }
 
   render() {
-    console.log("profile page rendered");
     const template = Handlebars.compile(profileTemplate);
     return this.compile(template, { ...this.props });
   }
 }
 
-function mapAvatarToProps(state: Indexed) {
-  if (!state.user) {
-    return {};
+function mapProfileToProps(state: State) {
+  const { avatarProps } = profileProps;
+  const { user } = state;
+  let avatar = avatarProps.src;
+  let imageClassName = "avatar-base";
+  if (user?.avatar) {
+    avatar = `${resourceURL}${user.avatar}`;
+    imageClassName += "-image";
   }
-  const user = state.user as Indexed;
   return {
     avatarProps: {
-      src: user.avatar,
+      ...avatarProps,
+      imageClassName,
+      src: avatar,
     },
   };
 }
 
-const withProfile = withStore(mapAvatarToProps);
+const withProfile = withStore(mapProfileToProps);
 const Profile = withProfile(ProfileBase as typeof Block);
 
 export default Profile;

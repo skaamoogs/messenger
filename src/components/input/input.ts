@@ -19,6 +19,18 @@ export default class Input extends Block<InputProps> {
     });
   }
 
+  getValue() {
+    return (this.getContent() as HTMLInputElement).value;
+  }
+
+  getName() {
+    return (this.getContent() as HTMLInputElement).name;
+  }
+
+  setValue(value: string) {
+    (this.getContent() as HTMLInputElement).value = value;
+  }
+
   render() {
     const template = Handlebars.compile(inputTemplate);
     const content = this.compile(template, this.props);

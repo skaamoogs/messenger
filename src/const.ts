@@ -15,3 +15,5 @@ export const FIELD_NAMES = {
   firstName: "first_name",
   secondName: "second_name",
 };
+
+export const resourceURL = "https://ya-praktikum.tech/api/v2/resources";

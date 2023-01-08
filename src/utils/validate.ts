@@ -51,6 +51,10 @@ export const RULES = {
     message: `Некорректный пароль. Пароль должен содержать от 8 до 40 символов, 
     обязательно хотя бы одна заглавная буква и цифра.`,
   },
+  message: {
+    pattern: /.+/,
+    message: "Сообщение не должно быть пустым",
+  }
 };
 
 export const inputValidator = (name: string, value: string) => {

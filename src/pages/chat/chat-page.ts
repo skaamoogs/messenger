@@ -1,41 +1,37 @@
 import Handlebars from "handlebars";
 import Avatar from "../../components/avatar/avatar";
 import Button from "../../components/button/button";
-import Input from "../../components/input/input";
-import Link from "../../components/link/link";
 import Popup from "../../components/popup/popup";
-import { ROUTES } from "../../const";
+import { resourceURL, ROUTES } from "../../const";
+import ChatsController from "../../controllers/chats.controller";
+import withStore from "../../hocs/with-store";
 import Block from "../../modules/block";
+import { State } from "../../utils/interfaces";
 import router from "../../utils/route/router";
 import chatPageProps from "./chat-page.props";
 import chatPageTemplate from "./chat-page.tmpl";
-import Chat from "./components/chat/chat";
+import ChatList from "./components/chat-list/chat-list";
+import chatListProps from "./components/chat-list/chat-list.props";
+import Messenger from "./components/messenger/messenger";
+import messengerProps from "./components/messenger/messenger.props";
+
 import SettingsWindow from "./components/settings-window/settings-window";
 
-export default class ChatPage extends Block<typeof chatPageProps> {
-  constructor() {
-    super(chatPageProps);
+type ChatPageProps = typeof chatPageProps;
+
+class ChatPageBase extends Block<ChatPageProps> {
+  constructor(props: ChatPageProps) {
+    super({ ...props });
   }
 
   init() {
-    const {
-      chatProps,
-      profileLinkProps,
-      searchInputProps,
-      userAvatarProps,
-      messageInputProps,
-      settingsButtonProps,
-      sendMessageButtonProps,
-      popupProps,
-    } = this.props;
+    const { userProps, settingsButtonProps, popupProps } = this.props;
 
-    this.children.profileLink = new Link(profileLinkProps);
+    this.children.messenger = new Messenger(messengerProps);
 
-    this.children.searchInput = new Input(searchInputProps);
+    this.children.chatList = new ChatList(chatListProps);
 
-    this.children.chat = new Chat(chatProps);
-
-    this.children.userAvatar = new Avatar(userAvatarProps);
+    this.children.userAvatar = new Avatar(userProps.avatar);
 
     this.children.settingsButton = new Button({
       ...settingsButtonProps,
@@ -44,10 +40,6 @@ export default class ChatPage extends Block<typeof chatPageProps> {
       },
     });
 
-    this.children.messageInput = new Input({ ...messageInputProps });
-
-    this.children.sendMessageButton = new Button(sendMessageButtonProps);
-
     this.children.settings = new SettingsWindow({
       events: {
         click: (event: Event) => this.callPopup(event),
@@ -55,6 +47,12 @@ export default class ChatPage extends Block<typeof chatPageProps> {
     });
 
     this.children.popup = new Popup({ ...popupProps, textProps: {} });
+
+    ChatsController.getChats().finally(() => {
+      (this.children.chatsList as Block).setProps({
+        isLoaded: true,
+      });
+    });
   }
 
   goToProfile() {
@@ -105,3 +103,28 @@ export default class ChatPage extends Block<typeof chatPageProps> {
     return this.compile(template, this.props);
   }
 }
+
+function mapChatToProps(state: State) {
+  const { userProps } = chatPageProps;
+  const { user } = state;
+  let avatar = userProps.avatar.src;
+  if (user?.avatar) {
+    avatar = `${resourceURL}${user.avatar}`;
+  }
+
+  return {
+    userProps: {
+      ...userProps,
+      name: user?.display_name,
+      avatar: {
+        ...userProps.avatar,
+        src: avatar,
+      },
+    },
+  };
+}
+
+const withUser = withStore(mapChatToProps);
+const ChatPage = withUser(ChatPageBase as typeof Block);
+
+export default ChatPage;

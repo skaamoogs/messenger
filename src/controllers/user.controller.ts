@@ -14,7 +14,6 @@ class UserController {
     try {
       const user = await this._api.changeProfile(data);
       store.set("user", user);
-      console.log("change profile successful");
       router.go(ROUTES.profile);
     } catch (error: any) {
       if (error && error.reason) {
@@ -36,8 +35,10 @@ class UserController {
 
   async changeAvatar(data: FormData) {
     try {
-      await this._api.changeAvatar(data);
-      // router.go(ROUTES.profile);
+      console.log("go to profile page");
+      const user = await this._api.changeAvatar(data);
+      store.set("user", user);
+      router.go(ROUTES.profile);
     } catch (error: any) {
       if (error && error.reason) {
         console.log(error.reason);

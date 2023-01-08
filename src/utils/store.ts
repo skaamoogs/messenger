@@ -1,13 +1,13 @@
 import EventBus from "./event-bus";
-import { Indexed } from "./types";
 import { set } from "./helpers";
+import { State } from "./interfaces";
 
 export enum StoreEvents {
   Updated = "updated",
 }
 
 class Store extends EventBus {
-  private _state: Indexed = {};
+  private _state: State = {};
 
   getState() {
     return this._state;
