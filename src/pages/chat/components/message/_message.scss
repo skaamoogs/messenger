@@ -1,28 +1,33 @@
 .main-message-container {
+  margin: 20px 0;
   padding: 11px;
   display: flex;
   background-color: $extra-light-grey;
+  justify-content: space-between;
+  align-items: flex-end;
   border-radius: $default-radius;
   border-top-left-radius: 0%;
+  max-width: 45%;
+  width: min-content;
 
   .main-message-text {
     font-size: $md-text;
   }
 
   .send-time {
-    position: absolute;
     color: $grey-color;
     right: 11px;
     bottom: 11px;
   }
 
-  .user-message-time {
+  .my-send-time {
     color: $primary-color;
   }
 }
 
-.user-message {
+.my-message {
   background-color: $light-blue-color;
   border-radius: $default-radius;
   border-bottom-right-radius: 0%;
+  margin-left: auto;
 }

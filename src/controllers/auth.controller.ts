@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import AuthAPI, { LoginData, SignUpData } from "../api/auth.api";
+import API, { LoginData, SignUpData, AuthAPI } from "../api/auth.api";
 import { ROUTES } from "../const";
 import router from "../utils/route/router";
 import store from "../utils/store";
@@ -9,7 +9,7 @@ class AuthController {
   private _api: AuthAPI;
 
   constructor() {
-    this._api = new AuthAPI();
+    this._api = API;
   }
 
   async login(data: LoginData) {

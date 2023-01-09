@@ -9,12 +9,15 @@ import { inputValidator } from "../../../../utils/validate";
 import Message from "../message/message";
 import messengerProps from "./messenger.props";
 import messengerTemplate from "./messenger.tmpl";
+import readMarkImg from "../../../../images/read-mark.svg";
+import { getTime } from "../../../../utils/helpers";
 
 type MessengerProps = typeof messengerProps;
 
 export interface IMessenger extends MessengerProps {
   messages: IMessage[];
   selectedChat: number;
+  userId: number;
 }
 
 class MessengerBase extends Block<IMessenger> {
@@ -39,12 +42,24 @@ class MessengerBase extends Block<IMessenger> {
     });
   }
 
+  componentDidUpdate(_oldProps: IMessenger, _newProps: IMessenger): boolean {
+    console.log(_newProps);
+
+    this.children.messenger = this.createMessages(_newProps);
+
+    return true;
+  }
+
   createMessages(props: IMessenger) {
-    console.log(props.messages, props.selectedChat);
-    return props.messages.map((message) => {
-      console.log(message);
-      return new Message(message);
-    });
+    return props.messages.map(
+      (message) =>
+        new Message({
+          ...message,
+          time: message.time.slice(11, 16),
+          readMarkImage: readMarkImg,
+          isMine: message.user_id === this.props.userId,
+        })
+    );
   }
 
   sendMessage() {
@@ -64,18 +79,24 @@ class MessengerBase extends Block<IMessenger> {
 }
 
 function mapMessengerToProps(state: State) {
-  const { messages, selectedChat } = state;
+  const { messages, selectedChat, user } = state;
 
   if (!selectedChat) {
     return {
       messages: [],
       selectedChat,
+      userId: user?.id,
     };
   }
 
+  const messagesToChat = (messages || {})[selectedChat].filter(
+    (message) => message.type === "message"
+  );
+
   return {
-    messages: (messages || {})[selectedChat] || [],
+    messages: messagesToChat || [],
     selectedChat,
+    userId: user?.id,
   };
 }
 

@@ -13,6 +13,7 @@ type ChatListProps = typeof chatListProps;
 
 export interface IChatList extends ChatListProps {
   chats: IChat[];
+  isLoaded: boolean;
 }
 
 class ChatListBase extends Block<IChatList> {
@@ -21,21 +22,32 @@ class ChatListBase extends Block<IChatList> {
   }
 
   init() {
-    const { profileLinkProps, searchInputProps, chats } = this.props;
+    const { profileLinkProps, searchInputProps } = this.props;
 
     this.children.profileLink = new Link(profileLinkProps);
 
     this.children.searchInput = new Input(searchInputProps);
 
-    this.children.chatList = chats.map(
-      (chat) =>
-        new Chat({
-          ...chat,
-          events: {
-            click: () => ChatsController.selectChat(chat.id),
-          },
-        })
-    );
+    this.children.chatList = this.createChats(this.props);
+  }
+
+  componentDidUpdate(_oldProps: IChatList, newProps: IChatList): boolean {
+    this.children.chatList = this.createChats(newProps);
+
+    return true;
+  }
+
+  createChats(props: IChatList) {
+    return props.chats.map((chat) => {
+      const time = chat.last_message?.time.slice(11, 16);
+      return new Chat({
+        ...chat,
+        last_message: { ...chat.last_message, time },
+        events: {
+          click: () => ChatsController.selectChat(chat.id),
+        },
+      });
+    });
   }
 
   render() {
@@ -44,7 +56,7 @@ class ChatListBase extends Block<IChatList> {
   }
 }
 
-const withChats = withStore((state) => ({ chats: state.chats || [] }));
+const withChats = withStore((state) => ({ chats: [...(state.chats || [])] }));
 const ChatList = withChats(ChatListBase as typeof Block);
 
 export default ChatList;

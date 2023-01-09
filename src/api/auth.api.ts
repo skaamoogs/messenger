@@ -18,7 +18,7 @@ const authAPIInstance = new HTTPTransport(
   "https://ya-praktikum.tech/api/v2/auth"
 );
 
-export default class AuthAPI {
+export class AuthAPI {
   login(data: LoginData) {
     return authAPIInstance.post("/signin", {
       data,
@@ -45,3 +45,5 @@ export default class AuthAPI {
     return authAPIInstance.post("/logout");
   }
 }
+
+export default new AuthAPI();

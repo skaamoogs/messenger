@@ -5,7 +5,7 @@ const chatsAPIInstance = new HTTPTransport(
   "https://ya-praktikum.tech/api/v2/chats"
 );
 
-export default class ChatsAPI {
+export class ChatsAPI {
   getChats() {
     return chatsAPIInstance.get("/") as Promise<IChat[]>;
   }
@@ -34,3 +34,5 @@ export default class ChatsAPI {
     return chatsAPIInstance.post(`/token/${id}`);
   }
 }
+
+export default new ChatsAPI();

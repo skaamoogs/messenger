@@ -1,4 +1,4 @@
-import ChatsAPI from "../api/chats.api";
+import API, { ChatsAPI } from "../api/chats.api";
 import store from "../utils/store";
 import MessageController from "./message.controller";
 
@@ -6,7 +6,7 @@ class ChatsController {
   private _api: ChatsAPI;
 
   constructor() {
-    this._api = new ChatsAPI();
+    this._api = API;
   }
 
   async create(title: string) {

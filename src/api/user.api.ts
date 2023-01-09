@@ -18,7 +18,7 @@ const userAPIInstance = new HTTPTransport(
   "https://ya-praktikum.tech/api/v2/user"
 );
 
-export default class UserAPI {
+export class UserAPI {
   changeProfile(data: ProfileData) {
     return userAPIInstance.put("/profile", {
       data,
@@ -34,7 +34,10 @@ export default class UserAPI {
   }
 
   changeAvatar(data: FormData) {
-    return userAPIInstance.put("/profile/avatar", { data, dataType: "formData" });
+    return userAPIInstance.put("/profile/avatar", {
+      data,
+      dataType: "formData",
+    });
   }
 
   getUserById(id: string) {
@@ -45,3 +48,5 @@ export default class UserAPI {
     return userAPIInstance.post("/search", { data: { login } });
   }
 }
+
+export default new UserAPI();

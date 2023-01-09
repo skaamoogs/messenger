@@ -7,10 +7,14 @@ function withStore(mapDataToProps: (state: State) => Indexed) {
   return function wrap(Component: typeof Block) {
     return class WithStore extends Component {
       constructor(props: Indexed) {
-        super({ ...props, ...mapDataToProps(store.getState()) });
+        let previousState = mapDataToProps(store.getState());
+
+        super({ ...props, ...previousState });
 
         store.on(StoreEvents.Updated, () => {
-          this.setProps({ ...mapDataToProps(store.getState()) });
+          const stateProps = mapDataToProps(store.getState());
+          previousState = stateProps;
+          this.setProps({ ...stateProps });
         });
       }
     };

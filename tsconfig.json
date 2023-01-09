@@ -14,5 +14,5 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true
   },
-  "include": ["declaration.d.ts"]
+  "include": ["src/declaration.d.ts"]
 }

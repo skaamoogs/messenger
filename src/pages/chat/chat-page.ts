@@ -29,7 +29,10 @@ class ChatPageBase extends Block<ChatPageProps> {
 
     this.children.messenger = new Messenger(messengerProps);
 
-    this.children.chatList = new ChatList(chatListProps);
+    this.children.chatList = new ChatList({
+      ...chatListProps,
+      isLoaded: false,
+    });
 
     this.children.userAvatar = new Avatar(userProps.avatar);
 
@@ -49,7 +52,7 @@ class ChatPageBase extends Block<ChatPageProps> {
     this.children.popup = new Popup({ ...popupProps, textProps: {} });
 
     ChatsController.getChats().finally(() => {
-      (this.children.chatsList as Block).setProps({
+      (this.children.chatList as Block).setProps({
         isLoaded: true,
       });
     });

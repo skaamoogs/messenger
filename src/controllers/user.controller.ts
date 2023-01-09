@@ -1,4 +1,4 @@
-import UserAPI, { PasswordData, ProfileData } from "../api/user.api";
+import API, { UserAPI, PasswordData, ProfileData } from "../api/user.api";
 import { ROUTES } from "../const";
 import router from "../utils/route/router";
 import store from "../utils/store";
@@ -7,7 +7,7 @@ class UserController {
   private _api: UserAPI;
 
   constructor() {
-    this._api = new UserAPI();
+    this._api = API;
   }
 
   async changeProfile(data: ProfileData) {

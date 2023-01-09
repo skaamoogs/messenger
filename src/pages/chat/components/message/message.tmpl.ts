@@ -1,12 +1,14 @@
 const messageTemplate = `
-<div class="main-message-container {{#if user}}user-message{{/if}}">
+<div class="main-message-container {{#if isMine}}my-message{{/if}}">
   <p class="main-message-text">
-    {{messageText}}
+    {{content}}
   </p>
-  {{#if isRead}}
-    <img class="read-mark-image" src="{{readMarkImg}}" alt="read mark" />
-  {{/if}}
-  <span class="send-time {{#if user}}user-message-time{{/if}}">{{sendTime}}</span>
+  <div class="message-meta-info">
+    {{#ifCond is_read '&&' isMine}}
+      <img class="read-mark-image" src="{{readMarkImage}}" alt="read mark" />
+    {{/ifCond}}
+    <span class="send-time {{#if isMine}}ny-message-time{{/if}}">{{time}}</span>
+  </div>
 </div>
 `;
 
