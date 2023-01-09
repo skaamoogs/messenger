@@ -7,6 +7,7 @@
   display: flex;
 
   .chat-area {
+    height: 100%;
     width: calc(100% - $chat-list-width);
     display: flex;
     flex-direction: column;
@@ -19,7 +20,6 @@
       align-items: center;
       padding-bottom: 10px;
       border-bottom: $default-border;
-
 
       .user-info {
         .user-info-name {

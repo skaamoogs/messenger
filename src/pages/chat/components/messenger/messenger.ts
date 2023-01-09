@@ -10,7 +10,6 @@ import Message from "../message/message";
 import messengerProps from "./messenger.props";
 import messengerTemplate from "./messenger.tmpl";
 import readMarkImg from "../../../../images/read-mark.svg";
-import { getTime } from "../../../../utils/helpers";
 
 type MessengerProps = typeof messengerProps;
 

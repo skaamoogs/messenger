@@ -1,6 +1,10 @@
 @import "../message/message";
 
 .messenger-container {
+  .messenger-main {
+    overflow: hidden;
+  }
+
   .send-message-container {
     display: flex;
     justify-content: space-between;

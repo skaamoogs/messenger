@@ -4,9 +4,11 @@ const messageTemplate = `
     {{content}}
   </p>
   <div class="message-meta-info">
-    {{#ifCond is_read '&&' isMine}}
-      <img class="read-mark-image" src="{{readMarkImage}}" alt="read mark" />
-    {{/ifCond}}
+    {{#if is_read}}
+      {{#if isMine}}
+        <img class="read-mark-image" src="{{readMarkImage}}" alt="read mark" />
+      {{/if}}
+    {{/if}}
     <span class="send-time {{#if isMine}}ny-message-time{{/if}}">{{time}}</span>
   </div>
 </div>
