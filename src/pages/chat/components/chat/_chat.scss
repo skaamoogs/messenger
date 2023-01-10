@@ -5,6 +5,7 @@ $chat-avatar-size: 47px;
   justify-content: space-between;
   padding: 12px 0;
   border-top: $default-border;
+  box-sizing: border-box;
 
   .author-avatar {
     width: $chat-avatar-size;
@@ -23,6 +24,9 @@ $chat-avatar-size: 47px;
     padding-left: 10px;
     color: $grey-color;
     flex-grow: 2;
+    height: 47px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
     .chat-header {
       display: flex;
@@ -46,6 +50,7 @@ $chat-avatar-size: 47px;
       align-items: flex-end;
 
       .message-text {
+        margin: 0;
         font-size: $md-text;
         width: calc(100% - 50px);
       }

@@ -18,6 +18,9 @@ import messengerProps from "./components/messenger/messenger.props";
 import SettingsWindow from "./components/settings-window/settings-window";
 
 type ChatPageProps = typeof chatPageProps;
+export interface IChatPageProps extends ChatPageProps {
+  selectedChat: number;
+}
 
 class ChatPageBase extends Block<ChatPageProps> {
   constructor(props: ChatPageProps) {
@@ -109,7 +112,7 @@ class ChatPageBase extends Block<ChatPageProps> {
 
 function mapChatToProps(state: State) {
   const { userProps } = chatPageProps;
-  const { user } = state;
+  const { user, selectedChat } = state;
   let avatar = userProps.avatar.src;
   if (user?.avatar) {
     avatar = `${resourceURL}${user.avatar}`;
@@ -124,6 +127,7 @@ function mapChatToProps(state: State) {
         src: avatar,
       },
     },
+    selectedChat,
   };
 }
 

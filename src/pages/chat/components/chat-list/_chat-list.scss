@@ -1,11 +1,13 @@
 .chat-list-container {
   display: flex;
   flex-direction: column;
-  width: $chat-list-width;
+  min-width: $chat-list-width;
+  max-width: $chat-list-width;
   background-color: $extra-light-grey;
   padding: 0 10px;
-  min-height: 100vh;
   border-right: $default-border;
+  min-height: 100vh;
+
 
   .profile-nav {
     margin: 20px 0;

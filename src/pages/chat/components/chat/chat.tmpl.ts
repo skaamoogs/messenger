@@ -12,7 +12,7 @@ const chatTemplate = `
       <span class="message-time">{{last_message.time}}</span>
     </div>
     <div class="message-container">
-      <span class="message-text">{{last_message.content}}</span>
+      <p class="message-text">{{last_message.content}}</p>
       {{#if unread_count}}
         <div class="unread-msg-count">
           <span>{{unread_count}}</span>

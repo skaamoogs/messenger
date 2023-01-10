@@ -5,14 +5,17 @@
 
 .chat-page {
   display: flex;
+  width: 100vw;
 
   .chat-area {
-    height: 100%;
-    width: calc(100% - $chat-list-width);
+    width: calc(100vw - $chat-list-width);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 10px 20px;
+    box-sizing: border-box;
+    margin: 0 auto;
+
 
     .chat-area-header {
       display: flex;
@@ -27,6 +30,13 @@
           margin-left: 10px;
         }
       }
+    }
+
+    .chat-plug {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 }

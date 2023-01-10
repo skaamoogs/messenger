@@ -2,6 +2,7 @@ import emptyAvatarImg from "../../images/empty-avatar.svg";
 
 const chatPageProps = {
   settingsWindowIsOpen: false,
+  plugText: "Выберите чат, чтобы отправить сообщение",
   userProps: {
     name: "Александр",
     avatar: {
