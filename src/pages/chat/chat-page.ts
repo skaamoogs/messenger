@@ -35,6 +35,9 @@ class ChatPageBase extends Block<ChatPageProps> {
     this.children.chatList = new ChatList({
       ...chatListProps,
       isLoaded: false,
+      events: {
+        click: (event: Event) => this.callPopup(event),
+      },
     });
 
     this.children.userAvatar = new Avatar(userProps.avatar);
@@ -101,7 +104,32 @@ class ChatPageBase extends Block<ChatPageProps> {
         },
       });
     }
+    if (target.id === "create_chat") {
+      popup.setProps({
+        title: "Создать чат",
+        inputFieldProps: {
+          label: "Название",
+          labelClassName: "input-label",
+          inputFieldClassName: "input-field",
+          inputProps: {
+            type: "text",
+            name: "chat",
+          },
+          validation: true,
+        },
+        buttonProps: {
+          type: "submit",
+          className: "primary-button",
+          label: "Создать",
+        },
+        submit: this.createChat,
+      });
+    }
     popup.show("flex");
+  }
+
+  createChat(value: string) {
+    ChatsController.create(value);
   }
 
   render() {

@@ -37,9 +37,14 @@ $chat-avatar-size: 47px;
         color: $black-text;
       }
 
-      .message-time {
-        font-size: $sm-text;
-        line-height: $sm-text;
+      .chat-header-right-side {
+        display: flex;
+        align-items: center;
+
+        .message-time {
+          font-size: $sm-text;
+          line-height: $sm-text;
+        }
       }
     }
 

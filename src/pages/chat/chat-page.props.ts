@@ -21,8 +21,8 @@ const chatPageProps = {
     title: "Добавить пользователя",
     inputFieldProps: {
       label: "Логин",
-      labelClassName: "registration-input-label",
-      inputFieldClassName: "input-field-registration",
+      labelClassName: "input-label",
+      inputFieldClassName: "input-field",
       inputProps: {
         type: "text",
         name: "login",

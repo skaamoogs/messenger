@@ -1,10 +1,12 @@
 import Handlebars from "handlebars";
+import Button from "../../../../components/button/button";
 import Input from "../../../../components/input/input";
 import Link from "../../../../components/link/link";
 import ChatsController from "../../../../controllers/chats.controller";
 import withStore from "../../../../hocs/with-store";
 import Block from "../../../../modules/block";
 import { IChat } from "../../../../utils/interfaces";
+import { Events } from "../../../../utils/types";
 import Chat from "../chat/chat";
 import chatListProps from "./chat-list.props";
 import chatListTemplate from "./chat-list.tmpl";
@@ -14,6 +16,7 @@ type ChatListProps = typeof chatListProps;
 export interface IChatList extends ChatListProps {
   chats: IChat[];
   isLoaded: boolean;
+  events?: Events;
 }
 
 class ChatListBase extends Block<IChatList> {
@@ -22,11 +25,15 @@ class ChatListBase extends Block<IChatList> {
   }
 
   init() {
-    const { profileLinkProps, searchInputProps } = this.props;
+    const { profileLinkProps, searchInputProps, addButtonProps } = this.props;
 
     this.children.profileLink = new Link(profileLinkProps);
 
     this.children.searchInput = new Input(searchInputProps);
+
+    this.children.addButton = new Button({
+      ...addButtonProps,
+    });
 
     this.children.chatList = this.createChats(this.props);
   }

@@ -15,6 +15,7 @@ export interface PopupProps {
   inputFieldProps: InputFieldProps;
   buttonProps: ButtonProps;
   events?: Events;
+  submit?: (value: string) => void;
 }
 
 export default class Popup extends Block<PopupProps> {
@@ -31,12 +32,19 @@ export default class Popup extends Block<PopupProps> {
 
   init() {
     const { inputFieldProps, textProps, buttonProps } = this.props;
-    this.children.input = new InputField({
-      ...inputFieldProps,
-    });
+    this.children.input = new InputField(inputFieldProps);
     this.children.text = new TextField(textProps);
     this.children.button = new Button(buttonProps);
     this.children.error = new ErrorMessage({ text: "" });
+  }
+
+  componentDidUpdate(_oldProps: PopupProps, _newProps: PopupProps): boolean {
+    const { inputFieldProps, buttonProps } = _newProps;
+
+    this.children.input = new InputField(inputFieldProps);
+    this.children.button = new Button(buttonProps);
+
+    return true;
   }
 
   fileLoaded(event: Event) {
@@ -72,9 +80,8 @@ export default class Popup extends Block<PopupProps> {
       } else if (!inputValidator(input.name, input.value)) {
         error.setProps({ text: "Данные введены неверно." });
         error.show();
-      } else {
-        // eslint-disable-next-line no-console
-        console.log({ [input.name]: input.value });
+      } else if (this.props.submit) {
+        this.props.submit(input.value);
       }
     }
   }

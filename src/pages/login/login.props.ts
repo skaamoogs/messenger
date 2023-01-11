@@ -8,8 +8,8 @@ const loginProps = {
     route: ROUTES.signUp,
     className: "registration-form-link",
   },
-  labelClassName: "registration-input-label",
-  inputFieldClassName: "input-field-registration",
+  labelClassName: "input-label",
+  inputFieldClassName: "input-field",
   inputFieldList: [
     {
       inputProps: { name: "login", type: "text" },

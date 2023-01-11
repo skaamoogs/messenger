@@ -4,6 +4,7 @@ import { Events } from "../../utils/types";
 import buttonTemplate from "./button.tmpl";
 
 export interface ButtonProps {
+  id?: string;
   type?: string;
   className?: string;
   label?: string;

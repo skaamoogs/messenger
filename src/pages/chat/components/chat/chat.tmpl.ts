@@ -8,8 +8,11 @@ const chatTemplate = `
   {{/if}}
   <div class="chat-content">
     <div class="chat-header">
-      <span class="bold-text message-author">{{title}}</span>
-      <span class="message-time">{{last_message.time}}</span>
+        <span class="bold-text message-author">{{title}}</span>
+      <div class="chat-header-right-side">
+        <span class="message-time">{{last_message.time}}</span>
+        {{#if selected}}{{{delButton}}}{{/if}}
+      </div>
     </div>
     <div class="message-container">
       <p class="message-text">{{last_message.content}}</p>

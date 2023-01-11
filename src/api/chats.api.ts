@@ -11,11 +11,21 @@ export class ChatsAPI {
   }
 
   create(title: string) {
-    return chatsAPIInstance.post("/", { data: { title } });
+    return chatsAPIInstance.post("/", {
+      data: { title },
+      headers: {
+        "content-type": "application/json",
+      },
+    });
   }
 
   delete(id: number) {
-    return chatsAPIInstance.delete("/", { data: { chatsId: id } });
+    return chatsAPIInstance.delete("/", {
+      data: { chatId: id },
+      headers: {
+        "content-type": "application/json",
+      },
+    });
   }
 
   getUsers(id: number) {
@@ -23,11 +33,21 @@ export class ChatsAPI {
   }
 
   addUsers(id: number, users: number[]) {
-    return chatsAPIInstance.put("/users", { data: { users, chatId: id } });
+    return chatsAPIInstance.put("/users", {
+      data: { users, chatId: id },
+      headers: {
+        "content-type": "application/json",
+      },
+    });
   }
 
   deleteUsers(id: number, users: number[]) {
-    return chatsAPIInstance.delete("/users", { data: { users, chatId: id } });
+    return chatsAPIInstance.delete("/users", {
+      data: { users, chatId: id },
+      headers: {
+        "content-type": "application/json",
+      },
+    });
   }
 
   getToken(id: number) {

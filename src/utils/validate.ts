@@ -54,7 +54,11 @@ export const RULES = {
   message: {
     pattern: /.+/,
     message: "Сообщение не должно быть пустым",
-  }
+  },
+  chat: {
+    pattern: /.+/,
+    message: "Сообщение не должно быть пустым",
+  },
 };
 
 export const inputValidator = (name: string, value: string) => {

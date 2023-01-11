@@ -9,6 +9,8 @@ const chatListTemplate = `
         {{{this}}}
       {{/each}}
     </div>
+    {{{addButton}}}
+    {{{popup}}}
   </div>
 `;
 

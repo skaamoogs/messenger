@@ -28,6 +28,8 @@ class ChatsController {
 
   async deleteChat(id: number) {
     await this._api.delete(id);
+
+    this.getChats();
   }
 
   addUser(id: number, userId: number) {
