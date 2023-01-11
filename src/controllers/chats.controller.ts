@@ -1,4 +1,6 @@
 import API, { ChatsAPI } from "../api/chats.api";
+import { ROUTES } from "../const";
+import router from "../utils/route/router";
 import store from "../utils/store";
 import MessageController from "./message.controller";
 
@@ -13,6 +15,8 @@ class ChatsController {
     await this._api.create(title);
 
     this.getChats();
+
+    router.go(ROUTES.chat);
   }
 
   async getChats() {

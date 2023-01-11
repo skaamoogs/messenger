@@ -7,7 +7,6 @@
   border-right: $default-border;
   min-height: 100vh;
   box-sizing: border-box;
-  align-items: flex-end;
 
   .profile-nav {
     margin: 20px 0;
@@ -31,5 +30,10 @@
   .chat-list {
     margin-top: 14px;
     border-bottom: $default-border;
+  }
+
+  .add-chat-button {
+    margin-top: 10px;
+    text-align: right;
   }
 }

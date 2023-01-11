@@ -23,7 +23,7 @@ class ChatBase extends Block<ChatProps> {
   }
 
   init() {
-    const avatar = this.props.last_message?.user.avatar;
+    const avatar = this.props.last_message?.user?.avatar;
     this.children.avatar = new Avatar({
       className: "chat-avatar-container",
       imageClassName: "avatar author-avatar",

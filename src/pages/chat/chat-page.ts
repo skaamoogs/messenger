@@ -93,6 +93,7 @@ class ChatPageBase extends Block<ChatPageProps> {
           label: "Добавить",
         },
       });
+      popup.show("flex");
     }
     if (target.id === "delete_user") {
       popup.setProps({
@@ -103,6 +104,7 @@ class ChatPageBase extends Block<ChatPageProps> {
           label: "Удалить",
         },
       });
+      popup.show("flex");
     }
     if (target.id === "create_chat") {
       popup.setProps({
@@ -124,8 +126,8 @@ class ChatPageBase extends Block<ChatPageProps> {
         },
         submit: this.createChat,
       });
+      popup.show("flex");
     }
-    popup.show("flex");
   }
 
   createChat(value: string) {
