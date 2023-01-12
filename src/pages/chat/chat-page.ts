@@ -4,6 +4,7 @@ import Button from "../../components/button/button";
 import Popup from "../../components/popup/popup";
 import { resourceURL, ROUTES } from "../../const";
 import ChatsController from "../../controllers/chats.controller";
+import UserController from "../../controllers/user.controller";
 import withStore from "../../hocs/with-store";
 import Block from "../../modules/block";
 import { State } from "../../utils/interfaces";
@@ -103,6 +104,7 @@ class ChatPageBase extends Block<ChatPageProps> {
           className: "primary-button",
           label: "Удалить",
         },
+        submit: this.deleteUser;
       });
       popup.show("flex");
     }
@@ -132,6 +134,10 @@ class ChatPageBase extends Block<ChatPageProps> {
 
   createChat(value: string) {
     ChatsController.create(value);
+  }
+
+  deleteUser(value: string) {
+    UserController.
   }
 
   render() {

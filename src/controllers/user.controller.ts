@@ -45,6 +45,16 @@ class UserController {
       }
     }
   }
+
+  async searchUser(login: string) {
+    try {
+      const response = await this._api.searchUser(login);
+    } catch (error: any) {
+      if (error && error.reason) {
+        console.log(error.reason);
+      }
+    }
+  }
 }
 
 export default new UserController();
