@@ -1,7 +1,10 @@
 import Handlebars from "handlebars";
+import { ROUTES } from "../../const";
+import ChatsController from "../../controllers/chats.controller";
 import UserController from "../../controllers/user.controller";
 import Block from "../../modules/block";
-import { Events } from "../../utils/types";
+import router from "../../utils/route/router";
+import { Events, Indexed } from "../../utils/types";
 import { inputValidator } from "../../utils/validate";
 import Button, { ButtonProps } from "../button/button";
 import ErrorMessage from "../error-message/error-message";
@@ -15,7 +18,8 @@ export interface PopupProps {
   inputFieldProps: InputFieldProps;
   buttonProps: ButtonProps;
   events?: Events;
-  submit?: (value: string) => void;
+  selectedChatId: number;
+  action: string;
 }
 
 export default class Popup extends Block<PopupProps> {
@@ -65,25 +69,66 @@ export default class Popup extends Block<PopupProps> {
   validate(event: Event) {
     const form = event.target as HTMLFormElement;
     const input = form.querySelector("input");
-    const error = this.children.error as ErrorMessage;
     event.preventDefault();
     if (input) {
       if (input.type === "file") {
         if (input.value) {
-          error.hide();
+          this.clearError();
           const formData = new FormData(form);
           UserController.changeAvatar(formData);
         } else {
-          error.setProps({ text: "Нужно выбрать файл." });
-          error.show();
+          this.showError({ text: "Нужно выбрать файл." });
         }
       } else if (!inputValidator(input.name, input.value)) {
-        error.setProps({ text: "Данные введены неверно." });
-        error.show();
-      } else if (this.props.submit) {
-        this.props.submit(input.value);
+        this.showError({ text: "Данные введены неверно." });
+      } else {
+        switch (this.props.action) {
+          case "add_user":
+            this.addUser(input.value);
+            break;
+          case "delete_user":
+            this.deleteUser(input.value);
+            break;
+          case "create_chat":
+            this.createChat(input.value);
+            break;
+          default:
+            break;
+        }
       }
     }
+  }
+
+  createChat(value: string) {
+    ChatsController.create(value);
+  }
+
+  addUser(value: string) {
+    UserController.searchUser(value).then((user) => {
+      if (user) {
+        ChatsController.addUser(this.props.selectedChatId, user.id);
+        router.go(ROUTES.chat);
+      } else {
+        this.showError({ text: "Пользователя с таким логином не существует." });
+      }
+    });
+  }
+
+  deleteUser(value: string) {
+    UserController.searchUser(value).then((user) => {
+      if (user) {
+        ChatsController.deleteUser(this.props.selectedChatId, user.id);
+        router.go(ROUTES.chat);
+      } else {
+        this.showError({ text: "Пользователя с таким логином не существует." });
+      }
+    });
+  }
+
+  showError(props: Indexed) {
+    const error = this.children.error as ErrorMessage;
+    error.setProps(props);
+    error.show();
   }
 
   clearError() {

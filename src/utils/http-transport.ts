@@ -104,7 +104,6 @@ export default class HTTPTransport {
       } else if (options.dataType === "formData") {
         xhr.send(data as FormData);
       } else {
-        console.log(data);
         xhr.send(JSON.stringify(data));
       }
     });

@@ -1,5 +1,6 @@
 import API, { UserAPI, PasswordData, ProfileData } from "../api/user.api";
 import { ROUTES } from "../const";
+import { User } from "../utils/interfaces";
 import router from "../utils/route/router";
 import store from "../utils/store";
 
@@ -47,12 +48,9 @@ class UserController {
   }
 
   async searchUser(login: string) {
-    try {
-      const response = await this._api.searchUser(login);
-    } catch (error: any) {
-      if (error && error.reason) {
-        console.log(error.reason);
-      }
+    const response = (await this._api.searchUser(login)) as User[];
+    if (response) {
+      return response[0];
     }
   }
 }

@@ -47,7 +47,6 @@ class ChatBase extends Block<ChatProps> {
   }
 
   deleteChat() {
-    console.log(this.props.id);
     ChatsController.deleteChat(this.props.id);
   }
 

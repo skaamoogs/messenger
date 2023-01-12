@@ -45,7 +45,10 @@ export class UserAPI {
   }
 
   searchUser(login: string) {
-    return userAPIInstance.post("/search", { data: { login } });
+    return userAPIInstance.post("/search", {
+      data: { login },
+      headers: { "content-type": "application/json" },
+    });
   }
 }
 

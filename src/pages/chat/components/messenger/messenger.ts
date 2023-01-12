@@ -42,8 +42,6 @@ class MessengerBase extends Block<IMessenger> {
   }
 
   componentDidUpdate(_oldProps: IMessenger, _newProps: IMessenger): boolean {
-    console.log(_newProps);
-
     this.children.messenger = this.createMessages(_newProps);
 
     return true;

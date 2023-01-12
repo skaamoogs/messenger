@@ -4,7 +4,6 @@ import Button from "../../components/button/button";
 import Popup from "../../components/popup/popup";
 import { resourceURL, ROUTES } from "../../const";
 import ChatsController from "../../controllers/chats.controller";
-import UserController from "../../controllers/user.controller";
 import withStore from "../../hocs/with-store";
 import Block from "../../modules/block";
 import { State } from "../../utils/interfaces";
@@ -23,8 +22,8 @@ export interface IChatPageProps extends ChatPageProps {
   selectedChat: number;
 }
 
-class ChatPageBase extends Block<ChatPageProps> {
-  constructor(props: ChatPageProps) {
+class ChatPageBase extends Block<IChatPageProps> {
+  constructor(props: IChatPageProps) {
     super({ ...props });
   }
 
@@ -56,13 +55,33 @@ class ChatPageBase extends Block<ChatPageProps> {
       },
     });
 
-    this.children.popup = new Popup({ ...popupProps, textProps: {} });
+    this.children.popup = new Popup({
+      ...popupProps,
+      textProps: {},
+      action: "",
+      selectedChatId: this.props.selectedChat,
+    });
 
     ChatsController.getChats().finally(() => {
       (this.children.chatList as Block).setProps({
         isLoaded: true,
       });
     });
+  }
+
+  componentDidUpdate(
+    _oldProps: IChatPageProps,
+    _newProps: IChatPageProps
+  ): boolean {
+    const { popupProps } = _newProps;
+    this.children.popup = new Popup({
+      ...popupProps,
+      textProps: {},
+      action: "",
+      selectedChatId: _newProps.selectedChat,
+    });
+
+    return true;
   }
 
   goToProfile() {
@@ -93,6 +112,7 @@ class ChatPageBase extends Block<ChatPageProps> {
           className: "primary-button",
           label: "Добавить",
         },
+        action: target.id,
       });
       popup.show("flex");
     }
@@ -104,7 +124,7 @@ class ChatPageBase extends Block<ChatPageProps> {
           className: "primary-button",
           label: "Удалить",
         },
-        submit: this.deleteUser;
+        action: target.id,
       });
       popup.show("flex");
     }
@@ -126,18 +146,10 @@ class ChatPageBase extends Block<ChatPageProps> {
           className: "primary-button",
           label: "Создать",
         },
-        submit: this.createChat,
+        action: target.id,
       });
       popup.show("flex");
     }
-  }
-
-  createChat(value: string) {
-    ChatsController.create(value);
-  }
-
-  deleteUser(value: string) {
-    UserController.
   }
 
   render() {
