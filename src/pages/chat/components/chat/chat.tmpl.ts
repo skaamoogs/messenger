@@ -1,7 +1,7 @@
 const chatTemplate = `
 <div class="chat-container {{#if selected}}selected-chat-container{{/if}} id={{id}}">
-  {{#if last_message.user.avatar}}
-    {{{avatar}}}
+  {{#if messageAvatar}}
+    {{{messageAvatar}}}
   {{else}}
     <div class="empty-circle">
     </div>
@@ -11,7 +11,11 @@ const chatTemplate = `
         <span class="bold-text message-author">{{title}}</span>
       <div class="chat-header-right-side">
         <span class="message-time">{{last_message.time}}</span>
-        {{#if selected}}{{{delButton}}}{{/if}}
+        {{#if selected}}
+          {{#if isDeleteAllowed}}
+            {{{delButton}}}
+          {{/if }}
+        {{/if}}
       </div>
     </div>
     <div class="message-container">

@@ -1,5 +1,3 @@
-$chat-avatar-size: 47px;
-
 .chat-container {
   display: flex;
   justify-content: space-between;
@@ -8,16 +6,21 @@ $chat-avatar-size: 47px;
   box-sizing: border-box;
 
   .author-avatar {
-    width: $chat-avatar-size;
-    height: $chat-avatar-size;
+    width: $avatar-size-md;
+    height: $avatar-size-md;
     flex-shrink: 0;
   }
 
   .empty-circle {
-    width: $chat-avatar-size;
-    height: $chat-avatar-size;
+    width: $avatar-size-md;
+    height: $avatar-size-md;
     background-color: $light-grey-color;
     border-radius: 100%;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $grey-color;
+    }
   }
 
   .chat-content {

@@ -1,16 +1,25 @@
+import { ROUTES } from "../../const";
 import emptyAvatarImg from "../../images/empty-avatar.svg";
 
 const chatPageProps = {
   settingsWindowIsOpen: false,
   plugText: "Выберите чат, чтобы отправить сообщение",
-  userProps: {
-    name: "Александр",
-    avatar: {
-      className: "user-avatar-container",
-      imageClassName: "avatar user-avatar",
-      src: emptyAvatarImg,
-      alt: "avatar",
-    },
+  profileLinkProps: {
+    text: "Профиль >",
+    className: "anchor profile-link",
+    route: ROUTES.profile,
+  },
+  searchInputProps: {
+    className: "search-input-container",
+    type: "search",
+    inputClassName: "chat-search-input",
+    placeholder: "Поиск",
+  },
+  avatarProps: {
+    className: "user-avatar-container",
+    imageClassName: "avatar user-avatar",
+    src: emptyAvatarImg,
+    alt: "avatar",
   },
   settingsButtonProps: {
     type: "button",

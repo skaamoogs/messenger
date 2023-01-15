@@ -1,3 +1,4 @@
+import { DAYS_NUMBER, MONTHS } from "../const";
 import Block from "../modules/block";
 import { Indexed } from "./types";
 
@@ -131,4 +132,106 @@ export function render(query: string, block: Block) {
   block.dispatchComponentDidMount();
 
   return root;
+}
+
+export function isLeapYear(year: number) {
+  return year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
+}
+
+export function parseTime(time: string) {
+  const hours = Number(time.slice(11, 13));
+  const minutes = Number(time.slice(14, 16));
+  let year = Number(time.slice(0, 4));
+  let month = Number(time.slice(5, 7));
+  let day = Number(time.slice(8, 10));
+  const maxDays = month === 2 && isLeapYear(year) ? 29 : DAYS_NUMBER[month - 1];
+
+  const date = new Date();
+  const offset = date.getTimezoneOffset();
+  let localHours = hours - Math.floor(offset / 60);
+  let localMinutes = minutes - (offset % 60);
+  if (localMinutes < 0) {
+    localHours--;
+    localMinutes += 60;
+  }
+  if (localMinutes >= 60) {
+    localHours++;
+    localMinutes -= 60;
+  }
+  if (localHours < 0) {
+    day--;
+    localHours += 24;
+  }
+  if (localHours >= 24) {
+    day++;
+    localHours -= 24;
+  }
+  if (day < 1) {
+    month--;
+    day += maxDays;
+  }
+  if (day > maxDays) {
+    month++;
+    day -= maxDays;
+  }
+  if (month < 1) {
+    year--;
+    month += 12;
+  }
+  if (month > 12) {
+    year++;
+    month -= 12;
+  }
+
+  return { year, month, day, localHours, localMinutes };
+}
+
+export function getTimeForChat(time: string) {
+  if (!time) {
+    return;
+  }
+  const { year, month, day, localHours, localMinutes } = parseTime(time);
+  const date = new Date();
+  let hours = localHours.toString();
+  let minutes = localMinutes.toString();
+  if (localHours < 10) {
+    hours = `0${hours}`;
+  }
+  if (localMinutes < 10) {
+    minutes = `0${minutes}`;
+  }
+  if (date.getFullYear() === year) {
+    if (date.getMonth() + 1 === month) {
+      if (date.getDate() === day) {
+        return `${hours}:${minutes}`;
+      }
+    }
+    return `${day} ${MONTHS[month - 1]}`;
+  }
+  return `${day} ${MONTHS[month]} ${year}`;
+}
+
+export function getTimeForMessenger(time: string) {
+  const { year, month, day, localHours, localMinutes } = parseTime(time);
+
+  let hours = localHours.toString();
+  let minutes = localMinutes.toString();
+  if (localHours < 10) {
+    hours = `0${hours}`;
+  }
+  if (localMinutes < 10) {
+    minutes = `0${minutes}`;
+  }
+
+  const messageTime = `${hours}:${minutes}`;
+
+  let messageDate = "";
+  const date = new Date();
+  if (date.getFullYear() === year) {
+    messageDate = `${day} ${MONTHS[month - 1]}`;
+  } else {
+    messageDate = `${day} ${MONTHS[month]} ${year}`;
+  }
+
+  return { date: messageDate, time: messageTime };
 }

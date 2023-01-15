@@ -27,7 +27,6 @@ window.addEventListener("DOMContentLoaded", async () => {
     await AuthController.getUser();
     router.start();
     isAuthorized = true;
-    console.log("got user successful");
   } catch (error) {
     router.start();
     isAuthorized = false;

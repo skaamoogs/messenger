@@ -7,6 +7,36 @@
   display: flex;
   width: 100vw;
 
+  .aside-container {
+    display: flex;
+    flex-direction: column;
+    width: $chat-list-width;
+    background-color: $extra-light-grey;
+    padding: 0 10px;
+    border-right: $default-border;
+    min-height: 100vh;
+    box-sizing: border-box;
+
+    .profile-nav {
+      margin: 20px 0;
+      text-align: right;
+    }
+
+    .input {
+      border-radius: 5px;
+      background-color: $light-grey-color;
+      font-size: $md-text;
+      height: 32px;
+      text-align: center;
+      padding: 0 12px;
+      min-width: 100%;
+
+      &::placeholder {
+        background: 38% url("./images/search-icon.svg") no-repeat;
+      }
+    }
+  }
+
   .chat-area {
     width: calc(100vw - $chat-list-width);
     display: flex;
@@ -23,6 +53,16 @@
       border-bottom: $default-border;
 
       .user-info {
+        display: flex;
+        align-items: center;
+
+        .empty-circle {
+          width: $avatar-size-sm;
+          height: $avatar-size-sm;
+          background-color: $light-grey-color;
+          border-radius: 100%;
+        }
+
         .user-info-name {
           vertical-align: middle;
           margin-left: 10px;

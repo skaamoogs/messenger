@@ -1,11 +1,10 @@
 import Handlebars from "handlebars";
 import Button from "../../../../components/button/button";
-import Input from "../../../../components/input/input";
-import Link from "../../../../components/link/link";
 import ChatsController from "../../../../controllers/chats.controller";
 import withStore from "../../../../hocs/with-store";
 import Block from "../../../../modules/block";
-import { IChat } from "../../../../utils/interfaces";
+import { getTimeForChat, parseTime } from "../../../../utils/helpers";
+import { IChatExntended } from "../../../../utils/interfaces";
 import { Events } from "../../../../utils/types";
 import Chat from "../chat/chat";
 import chatListProps from "./chat-list.props";
@@ -14,22 +13,20 @@ import chatListTemplate from "./chat-list.tmpl";
 type ChatListProps = typeof chatListProps;
 
 export interface IChatList extends ChatListProps {
-  chats: IChat[];
+  userId: number;
+  selectedChat: IChatExntended;
+  filteredChats: IChatExntended[];
   isLoaded: boolean;
   events?: Events;
 }
 
 class ChatListBase extends Block<IChatList> {
   constructor(props: IChatList) {
-    super({ ...chatListProps, ...props });
+    super({ ...props });
   }
 
   init() {
-    const { profileLinkProps, searchInputProps, addButtonProps } = this.props;
-
-    this.children.profileLink = new Link(profileLinkProps);
-
-    this.children.searchInput = new Input(searchInputProps);
+    const { addButtonProps } = this.props;
 
     this.children.addButton = new Button({
       ...addButtonProps,
@@ -38,18 +35,20 @@ class ChatListBase extends Block<IChatList> {
     this.children.chatList = this.createChats(this.props);
   }
 
-  componentDidUpdate(_oldProps: IChatList, newProps: IChatList): boolean {
-    this.children.chatList = this.createChats(newProps);
-
+  componentDidUpdate(_oldProps: IChatList, _newProps: IChatList): boolean {
+    this.children.chatList = this.createChats(_newProps);
     return true;
   }
 
   createChats(props: IChatList) {
-    return props.chats.map((chat) => {
-      const time = chat.last_message?.time.slice(11, 16);
+    const { userId, selectedChat } = this.props;
+    return props.filteredChats.map((chat) => {
+      const time = getTimeForChat(chat.last_message?.time || "") || "";
       return new Chat({
         ...chat,
-        last_message: { ...chat.last_message, time },
+        userId,
+        selectedChat,
+        last_message: chat.last_message ? { ...chat.last_message, time } : null,
         events: {
           click: () => ChatsController.selectChat(chat.id),
         },
@@ -63,7 +62,10 @@ class ChatListBase extends Block<IChatList> {
   }
 }
 
-const withChats = withStore((state) => ({ chats: [...(state.chats || [])] }));
-const ChatList = withChats(ChatListBase as typeof Block);
+const withUserAndSelectedChat = withStore((state) => ({
+  userId: state.user?.id,
+  selectedChat: state.selectedChat,
+}));
+const ChatList = withUserAndSelectedChat(ChatListBase as typeof Block);
 
 export default ChatList;

@@ -10,7 +10,7 @@ export const registerHelperTimes = () => {
   });
 };
 
-export const ifConditionHelper = () => {
+export const registerIfConditionHelper = () => {
   Handlebars.registerHelper("ifCond", (v1, operator, v2, options) => {
     switch (operator) {
       case "===":

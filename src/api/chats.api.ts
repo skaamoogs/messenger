@@ -1,5 +1,5 @@
 import HTTPTransport from "../utils/http-transport";
-import { IChat } from "../utils/interfaces";
+import { IChatExntended, User } from "../utils/interfaces";
 
 const chatsAPIInstance = new HTTPTransport(
   "https://ya-praktikum.tech/api/v2/chats"
@@ -7,7 +7,7 @@ const chatsAPIInstance = new HTTPTransport(
 
 export class ChatsAPI {
   getChats() {
-    return chatsAPIInstance.get("/") as Promise<IChat[]>;
+    return chatsAPIInstance.get("/") as Promise<IChatExntended[]>;
   }
 
   create(title: string) {
@@ -29,7 +29,7 @@ export class ChatsAPI {
   }
 
   getUsers(id: number) {
-    return chatsAPIInstance.get(`/${id}/users`);
+    return chatsAPIInstance.get(`/${id}/users`) as Promise<User[]>;
   }
 
   addUsers(id: number, users: number[]) {

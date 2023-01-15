@@ -1,12 +1,23 @@
 const chatPageTemplate = `
 <div class="chat-page">
-  {{{chatList}}}
+  <aside class="aside-container">
+    <nav class="profile-nav">
+      {{{profileLink}}}
+    </nav>
+    {{{searchInput}}}
+    {{{chatList}}}
+  </aside>
   <div class="chat-area">
     {{#if selectedChat}}
       <div class="chat-area-header">
         <div class="user-info">
+        {{#if selectedChat.avatar}}
           {{{userAvatar}}}
-          <span class="bold-text user-info-name">{{userProps.name}}</span>
+        {{else}}
+          <div class="empty-circle">
+          </div>
+        {{/if}}
+          <span class="bold-text user-info-name">{{selectedChat.title}}</span>
         </div>
         {{{settingsButton}}}
       </div>

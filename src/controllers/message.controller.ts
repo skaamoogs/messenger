@@ -71,7 +71,6 @@ class MessageController {
     const currentMessages = (store.getState().messages || {})[id] || [];
 
     store.set(`messages.${id}`, [...currentMessages, ...messagesToAdd]);
-    console.log("New messages added");
   }
 
   private _onClose(id: number) {

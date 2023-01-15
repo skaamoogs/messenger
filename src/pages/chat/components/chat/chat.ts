@@ -3,34 +3,19 @@ import Avatar from "../../../../components/avatar/avatar";
 import Button from "../../../../components/button/button";
 import { resourceURL } from "../../../../const";
 import ChatsController from "../../../../controllers/chats.controller";
-import withStore from "../../../../hocs/with-store";
 import Block from "../../../../modules/block";
-import { IChat } from "../../../../utils/interfaces";
+import { IChatExntended } from "../../../../utils/interfaces";
 import { Events } from "../../../../utils/types";
 import chatTemplate from "./chat.tmpl";
 
-interface ChatProps extends IChat {
-  selected: boolean;
-  selectedChat: number | undefined;
+interface ChatProps extends IChatExntended {
+  selectedChat?: IChatExntended;
   events?: Events;
+  userId: number;
 }
 
-class ChatBase extends Block<ChatProps> {
-  constructor(props: ChatProps) {
-    super({
-      ...props,
-    });
-  }
-
+export default class Chat extends Block<ChatProps> {
   init() {
-    const avatar = this.props.last_message?.user?.avatar;
-    this.children.avatar = new Avatar({
-      className: "chat-avatar-container",
-      imageClassName: "avatar author-avatar",
-      src: avatar ? `${resourceURL}${avatar}` : "",
-      alt: "avatar",
-    });
-
     this.children.delButton = new Button({
       type: "button",
       className:
@@ -40,6 +25,23 @@ class ChatBase extends Block<ChatProps> {
         click: () => this.deleteChat(),
       },
     });
+
+    ChatsController.getUsers(this.props.id).then((users) => {
+      this.setProps({ users });
+    });
+  }
+
+  componentDidUpdate(_oldProps: ChatProps, _newProps: ChatProps): boolean {
+    const { avatar } = _newProps;
+    if (avatar) {
+      this.children.messageAvatar = new Avatar({
+        className: "chat-avatar-container",
+        imageClassName: "avatar author-avatar",
+        src: `${resourceURL}${avatar}`,
+        alt: "avatar",
+      });
+    }
+    return true;
   }
 
   getId() {
@@ -51,17 +53,12 @@ class ChatBase extends Block<ChatProps> {
   }
 
   render() {
+    console.log("chat rendered");
     const template = Handlebars.compile(chatTemplate);
     return this.compile(template, {
       ...this.props,
-      selected: this.props.id === this.props.selectedChat,
+      selected: this.props.id === this.props.selectedChat?.id,
+      isDeleteAllowed: this.props.userId === this.props.created_by,
     });
   }
 }
-
-const withChat = withStore((state) => ({
-  selectedChat: state.selectedChat,
-}));
-const Chat = withChat(ChatBase as typeof Block);
-
-export default Chat;

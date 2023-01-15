@@ -1,12 +1,14 @@
 import Handlebars from "handlebars";
 import Avatar from "../../components/avatar/avatar";
 import Button from "../../components/button/button";
+import Input from "../../components/input/input";
+import Link from "../../components/link/link";
 import Popup from "../../components/popup/popup";
 import { resourceURL, ROUTES } from "../../const";
 import ChatsController from "../../controllers/chats.controller";
 import withStore from "../../hocs/with-store";
 import Block from "../../modules/block";
-import { State } from "../../utils/interfaces";
+import { IChatExntended, State, User } from "../../utils/interfaces";
 import router from "../../utils/route/router";
 import chatPageProps from "./chat-page.props";
 import chatPageTemplate from "./chat-page.tmpl";
@@ -19,7 +21,9 @@ import SettingsWindow from "./components/settings-window/settings-window";
 
 type ChatPageProps = typeof chatPageProps;
 export interface IChatPageProps extends ChatPageProps {
-  selectedChat: number;
+  chats: IChatExntended[];
+  selectedChat: IChatExntended;
+  user: User;
 }
 
 class ChatPageBase extends Block<IChatPageProps> {
@@ -28,19 +32,42 @@ class ChatPageBase extends Block<IChatPageProps> {
   }
 
   init() {
-    const { userProps, settingsButtonProps, popupProps } = this.props;
+    const {
+      avatarProps,
+      settingsButtonProps,
+      profileLinkProps,
+      searchInputProps,
+      popupProps,
+    } = this.props;
 
     this.children.messenger = new Messenger(messengerProps);
+
+    this.children.profileLink = new Link(profileLinkProps);
+
+    this.children.searchInput = new Input({
+      ...searchInputProps,
+      events: {
+        input: () => this.filterChats(),
+      },
+    });
 
     this.children.chatList = new ChatList({
       ...chatListProps,
       isLoaded: false,
+      filteredChats: this.getFilteredChats(this.props),
       events: {
         click: (event: Event) => this.callPopup(event),
       },
     });
 
-    this.children.userAvatar = new Avatar(userProps.avatar);
+    const avatar = this.props.selectedChat?.avatar;
+
+    if (avatar) {
+      this.children.userAvatar = new Avatar({
+        ...avatarProps,
+        src: `${resourceURL}${avatar}`,
+      });
+    }
 
     this.children.settingsButton = new Button({
       ...settingsButtonProps,
@@ -57,14 +84,12 @@ class ChatPageBase extends Block<IChatPageProps> {
 
     this.children.popup = new Popup({
       ...popupProps,
-      textProps: {},
-      action: "",
-      selectedChatId: this.props.selectedChat,
     });
 
     ChatsController.getChats().finally(() => {
+      const filteredChats = this.getFilteredChats(this.props);
       (this.children.chatList as Block).setProps({
-        isLoaded: true,
+        filteredChats,
       });
     });
   }
@@ -73,15 +98,36 @@ class ChatPageBase extends Block<IChatPageProps> {
     _oldProps: IChatPageProps,
     _newProps: IChatPageProps
   ): boolean {
-    const { popupProps } = _newProps;
-    this.children.popup = new Popup({
-      ...popupProps,
-      textProps: {},
-      action: "",
-      selectedChatId: _newProps.selectedChat,
+    const { chatList } = this.children;
+    (chatList as Block).setProps({
+      filteredChats: this.getFilteredChats(_newProps),
     });
+    const avatar = _newProps.selectedChat?.avatar;
+    console.log(avatar);
+    if (avatar) {
+      this.children.userAvatar = new Avatar({
+        ..._newProps.avatarProps,
+        src: `${resourceURL}${avatar}`,
+      });
+    }
 
     return true;
+  }
+
+  getFilteredChats(props: IChatPageProps) {
+    const searchValue = (this.children.searchInput as Input).getValue();
+    const filteredChats = props.chats.filter((chat) =>
+      chat.title.toLowerCase().includes(searchValue.toLowerCase())
+    );
+
+    return filteredChats;
+  }
+
+  filterChats() {
+    const { chatList } = this.children;
+    (chatList as Block).setProps({
+      filteredChats: this.getFilteredChats(this.props),
+    });
   }
 
   goToProfile() {
@@ -103,7 +149,7 @@ class ChatPageBase extends Block<IChatPageProps> {
 
   callPopup(event: Event) {
     const target = event.target as HTMLButtonElement;
-    const popup = this.children.popup as Popup;
+    const popup = this.children.popup as Block;
     if (target.id === "add_user") {
       popup.setProps({
         title: "Добавить пользователя",
@@ -159,22 +205,11 @@ class ChatPageBase extends Block<IChatPageProps> {
 }
 
 function mapChatToProps(state: State) {
-  const { userProps } = chatPageProps;
-  const { user, selectedChat } = state;
-  let avatar = userProps.avatar.src;
-  if (user?.avatar) {
-    avatar = `${resourceURL}${user.avatar}`;
-  }
+  const { chats, selectedChat, user } = state;
 
   return {
-    userProps: {
-      ...userProps,
-      name: user?.display_name,
-      avatar: {
-        ...userProps.avatar,
-        src: avatar,
-      },
-    },
+    user,
+    chats: chats || [],
     selectedChat,
   };
 }

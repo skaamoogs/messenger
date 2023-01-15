@@ -7,6 +7,7 @@ export interface User {
   email: string;
   phone: string;
   avatar: string;
+  role?: string;
 }
 
 export interface IMessage {
@@ -29,6 +30,7 @@ export interface IMessage {
 export interface IChat {
   id: number;
   title: string;
+  created_by: number;
   avatar: string;
   unread_count: number;
   last_message: {
@@ -38,9 +40,13 @@ export interface IChat {
   } | null;
 }
 
+export interface IChatExntended extends IChat {
+  users: User[];
+}
+
 export interface State {
   user?: User;
   messages?: Record<number, IMessage[]>;
-  selectedChat?: number;
-  chats?: IChat[];
+  selectedChat?: IChatExntended;
+  chats?: IChatExntended[];
 }
