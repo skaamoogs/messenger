@@ -1,13 +1,13 @@
 import { ROUTES } from "../../const";
-import avatarImg from "../../images/avatar.jpg";
-import clipIconImg from "../../images/clip-icon.svg";
-import rightArrowImg from "../../images/arrow-right.svg";
+import emptyAvatarImg from "../../images/empty-avatar.svg";
 
 const chatPageProps = {
+  settingsWindowIsOpen: false,
+  plugText: "Выберите чат, чтобы отправить сообщение",
   profileLinkProps: {
-    text: "Профиль",
-    route: ROUTES.profile,
+    text: "Профиль >",
     className: "anchor profile-link",
+    route: ROUTES.profile,
   },
   searchInputProps: {
     className: "search-input-container",
@@ -15,56 +15,23 @@ const chatPageProps = {
     inputClassName: "chat-search-input",
     placeholder: "Поиск",
   },
-  clipIcon: clipIconImg,
-  rightArrow: rightArrowImg,
-  chatProps: {
-    avatarProps: {
-      imageClassName: "avatar author-avatar",
-      src: avatarImg,
-      alt: "avatar",
-    },
-    author: "Александр",
-    time: "16:22",
-    text: "Всем привет! Кто уже прошел первый спринт?",
-    unreadCount: "3",
-  },
-  userAvatarProps: {
+  avatarProps: {
     className: "user-avatar-container",
     imageClassName: "avatar user-avatar",
-    src: avatarImg,
+    src: emptyAvatarImg,
     alt: "avatar",
-  },
-  user: {
-    name: "Александр",
-    message: {
-      inputName: "user-message",
-      placeholder: "Сообщение",
-    },
-  },
-  messageInputProps: {
-    className: "message-input-container",
-    type: "text",
-    inputClassName: "chat-area-message-input",
-    placeholder: "Сообщение",
-    name: "message",
   },
   settingsButtonProps: {
     type: "button",
     label: "&#8226;&#8226;&#8226;",
     className: "round-button user-settings-button",
   },
-  sendMessageButtonProps: {
-    type: "submit",
-    image: rightArrowImg,
-    className: "round-button",
-    alt: "right arrow",
-  },
   popupProps: {
     title: "Добавить пользователя",
     inputFieldProps: {
       label: "Логин",
-      labelClassName: "registration-input-label",
-      inputFieldClassName: "input-field-registration",
+      labelClassName: "input-label",
+      inputFieldClassName: "input-field",
       inputProps: {
         type: "text",
         name: "login",

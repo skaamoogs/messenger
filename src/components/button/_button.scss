@@ -40,18 +40,39 @@
   background-color: $light-grey-color;
 }
 
-.users-control-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.control-button {
   font-size: $xl-text;
   width: 22px;
   height: 22px;
-  color: $primary-color;
-  border: 1.5px solid $primary-color;
-  margin: 0 15px 0 0;
+
+  &-users {
+    color: $primary-color;
+    margin: 0 15px 0 0;
+    border: 1.5px solid $primary-color;
+  }
+
+  &-chats {
+    color: $grey-color;
+    width: auto;
+    height: auto;
+    margin-left: 5px;
+
+    // border: 1.5px solid $red-color;
+  }
 }
 
 .button-rotate {
   rotate: 45deg;
+}
+
+.logout-button {
+  border: none;
+  background-color: transparent;
+  color: $red-color;
+  padding: 10px 0;
+  cursor: pointer;
+
+  &:hover {
+    color: $red-hover-color;
+  }
 }

@@ -5,14 +5,22 @@ const loginProps = {
   action: ROUTES.chat,
   linkProps: {
     text: "Ещё не зарегистрированы?",
-    route: ROUTES.signIn,
+    route: ROUTES.signUp,
     className: "registration-form-link",
   },
-  labelClassName: "registration-input-label",
-  inputFieldClassName: "input-field-registration",
+  labelClassName: "input-label",
+  inputFieldClassName: "input-field",
   inputFieldList: [
-    { inputProps: { name: "login", type: "text" }, label: "Логин" },
-    { inputProps: { name: "password", type: "password" }, label: "Пароль" },
+    {
+      inputProps: { name: "login", type: "text" },
+      label: "Логин",
+      validation: true,
+    },
+    {
+      inputProps: { name: "password", type: "password" },
+      label: "Пароль",
+      validation: true,
+    },
   ],
   buttonProps: {
     className: "primary-button",

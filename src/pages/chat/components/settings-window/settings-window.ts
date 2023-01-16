@@ -1,11 +1,18 @@
 import Handlebars from "handlebars";
 import Button from "../../../../components/button/button";
 import Block from "../../../../modules/block";
+import { Events } from "../../../../utils/types";
 import settingsWindowProps from "./settings-window.props";
 import settingsWindowTemplate from "./settings-window.tmpl";
 
-export default class SettingsWindow extends Block {
-  constructor(props) {
+type TSettingsWindowProps = typeof settingsWindowProps;
+
+interface SettingsWindowProps extends TSettingsWindowProps {
+  events?: Events;
+}
+
+export default class SettingsWindow extends Block<SettingsWindowProps> {
+  constructor(props: {events: Events}) {
     super({ ...settingsWindowProps, ...props });
   }
 

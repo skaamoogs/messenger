@@ -2,24 +2,28 @@ import Handlebars from "handlebars";
 import Avatar from "../../components/avatar/avatar";
 import Button from "../../components/button/button";
 import Popup from "../../components/popup/popup";
-import { ROUTES } from "../../const";
+import { resourceURL, ROUTES } from "../../const";
+import withStore from "../../hocs/with-store";
 import Block from "../../modules/block";
+import { State } from "../../utils/interfaces";
+import router from "../../utils/route/router";
 import ConfigFields from "./components/config-fields/config-fields";
 import ProfileForm from "./components/profile-form/profile-form";
 import profileProps from "./profile.props";
 import profileTemplate from "./profile.tmpl";
 
-const { pathname } = window.location;
-
-export default class Profile extends Block {
-  constructor() {
-    super(profileProps);
-  }
-
+class ProfileBase extends Block<typeof profileProps> {
   init() {
+    const pathname = router.getCurrentPathname();
+
     const { avatarProps, backButtonProps, popupProps } = this.props;
 
-    this.children.backButton = new Button(backButtonProps);
+    this.children.backButton = new Button({
+      ...backButtonProps,
+      events: {
+        click: () => this.back(),
+      },
+    });
 
     this.children.avatar = new Avatar({
       ...avatarProps,
@@ -37,8 +41,12 @@ export default class Profile extends Block {
   }
 
   callPopup() {
-    const popup = this.children.popup as Popup;
+    const popup = this.children.popup as Block;
     popup.show("flex");
+  }
+
+  back() {
+    router.go(ROUTES.chat);
   }
 
   render() {
@@ -46,3 +54,26 @@ export default class Profile extends Block {
     return this.compile(template, { ...this.props });
   }
 }
+
+function mapProfileToProps(state: State) {
+  const { avatarProps } = profileProps;
+  const { user } = state;
+  let avatar = avatarProps.src;
+  let imageClassName = "avatar-base";
+  if (user?.avatar) {
+    avatar = `${resourceURL}${user.avatar}`;
+    imageClassName += "-image";
+  }
+  return {
+    avatarProps: {
+      ...avatarProps,
+      imageClassName,
+      src: avatar,
+    },
+  };
+}
+
+const withProfile = withStore(mapProfileToProps);
+const Profile = withProfile(ProfileBase as typeof Block);
+
+export default Profile;

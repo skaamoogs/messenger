@@ -1,6 +1,6 @@
 import { ROUTES } from "../../const";
 
-const signInProps = {
+const signUpProps = {
   title: "Регистрация",
   action: ROUTES.chat,
   linkProps: {
@@ -8,8 +8,8 @@ const signInProps = {
     route: ROUTES.login,
     className: "registration-form-link",
   },
-  inputFieldClassName: "input-field-registration",
-  labelClassName: "registration-input-label",
+  inputFieldClassName: "input-field",
+  labelClassName: "input-label",
   inputFieldList: [
     {
       inputProps: {
@@ -17,6 +17,7 @@ const signInProps = {
         type: "email",
       },
       label: "Почта",
+      validation: true,
     },
     {
       inputProps: {
@@ -24,6 +25,7 @@ const signInProps = {
         type: "text",
       },
       label: "Логин",
+      validation: true,
     },
     {
       inputProps: {
@@ -31,6 +33,7 @@ const signInProps = {
         type: "text",
       },
       label: "Имя",
+      validation: true,
     },
     {
       inputProps: {
@@ -38,6 +41,7 @@ const signInProps = {
         type: "text",
       },
       label: "Фамилия",
+      validation: true,
     },
     {
       inputProps: {
@@ -45,6 +49,7 @@ const signInProps = {
         type: "tel",
       },
       label: "Телефон",
+      validation: true,
     },
     {
       inputProps: {
@@ -52,6 +57,7 @@ const signInProps = {
         type: "password",
       },
       label: "Пароль",
+      validation: true,
     },
     {
       inputProps: {
@@ -59,6 +65,7 @@ const signInProps = {
         type: "password",
       },
       label: "Пароль (еще раз)",
+      validation: false,
     },
   ],
   buttonProps: {
@@ -68,4 +75,4 @@ const signInProps = {
   },
 };
 
-export default signInProps;
+export default signUpProps;

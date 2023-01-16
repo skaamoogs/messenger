@@ -1,12 +1,13 @@
 import { nanoid } from "nanoid";
 import EventBus from "../utils/event-bus";
 
-class Block<P extends Record<string, unknown> = any> {
+class Block<P extends Record<string, any> = any> {
   static EVENTS = {
     INIT: "init",
     FLOW_CDM: "flow:component-did-mount",
     FLOW_CDU: "flow:component-did-update",
     FLOW_RENDER: "flow:render",
+    FLOW_CDR: "flow:component-did-render",
   };
 
   id = nanoid(6);
@@ -69,11 +70,22 @@ class Block<P extends Record<string, unknown> = any> {
     });
   }
 
+  private _removeEvents() {
+    const { events = {} } = this.props as P & {
+      events: Record<string, () => void>;
+    };
+
+    Object.keys(events).forEach((event) => {
+      this._element?.removeEventListener(event, events[event]);
+    });
+  }
+
   private _registerEvents(eventBus: EventBus) {
     eventBus.on(Block.EVENTS.INIT, this._init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
+    eventBus.on(Block.EVENTS.FLOW_CDR, this._componentDidRender.bind(this));
   }
 
   private _init() {
@@ -126,6 +138,8 @@ class Block<P extends Record<string, unknown> = any> {
   }
 
   private _render() {
+    this._removeEvents();
+
     const fragment = this.render();
 
     const newElement = fragment.firstElementChild as HTMLElement;
@@ -139,6 +153,8 @@ class Block<P extends Record<string, unknown> = any> {
     this._element = newElement;
 
     this._addEvents();
+
+    this.eventBus().emit(Block.EVENTS.FLOW_CDR);
   }
 
   protected compile(template: (_: any) => string, context: any) {
@@ -147,7 +163,7 @@ class Block<P extends Record<string, unknown> = any> {
     Object.entries(this.children).forEach(([name, component]) => {
       if (Array.isArray(component)) {
         contextAndStubs[name] = component.map(
-          (child) => `<div data-id="${child.id}"></div>`,
+          (child) => `<div data-id="${child.id}"></div>`
         );
       } else {
         contextAndStubs[name] = `<div data-id="${component.id}"></div>`;
@@ -188,6 +204,14 @@ class Block<P extends Record<string, unknown> = any> {
 
   protected render(): DocumentFragment {
     return new DocumentFragment();
+  }
+
+  private _componentDidRender() {
+    this.componentDidRender();
+  }
+
+  protected componentDidRender() {
+    return true;
   }
 
   getContent() {

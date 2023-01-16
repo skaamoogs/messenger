@@ -1,0 +1,17 @@
+.config-links {
+  display: flex;
+  flex-direction: column;
+  width: 510px;
+  margin-top: 60px;
+
+  .config-link-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+
+    .link-item {
+      border-bottom: $default-border;
+      padding: 10px 0;
+    }
+  }
+}

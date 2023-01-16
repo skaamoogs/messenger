@@ -1,14 +1,31 @@
 import Handlebars from "handlebars";
+import { ROUTES } from "../../const";
+import ChatsController from "../../controllers/chats.controller";
+import UserController from "../../controllers/user.controller";
+import withStore from "../../hocs/with-store";
 import Block from "../../modules/block";
+import router from "../../utils/route/router";
+import { Events, Indexed } from "../../utils/types";
 import { inputValidator } from "../../utils/validate";
-import Button from "../button/button";
+import Button, { ButtonProps } from "../button/button";
 import ErrorMessage from "../error-message/error-message";
-import InputField from "../input-field/input-field";
-import TextField from "./components/text-field";
+import InputField, { InputFieldProps } from "../input-field/input-field";
+import TextField, { TextProps } from "./components/text-field";
 import popupTemplate from "./popup.tmpl";
 
-export default class Popup extends Block {
-  constructor(props) {
+export interface PopupProps {
+  title: string;
+  textProps: TextProps;
+  inputFieldProps: InputFieldProps;
+  buttonProps: ButtonProps;
+  events?: Events;
+  selectedChatId: number;
+  action: string;
+  id?: string;
+}
+
+class PopupBase extends Block<PopupProps> {
+  constructor(props: PopupProps) {
     super({
       ...props,
       events: {
@@ -21,12 +38,19 @@ export default class Popup extends Block {
 
   init() {
     const { inputFieldProps, textProps, buttonProps } = this.props;
-    this.children.input = new InputField({
-      ...inputFieldProps,
-    });
+    this.children.input = new InputField(inputFieldProps);
     this.children.text = new TextField(textProps);
     this.children.button = new Button(buttonProps);
     this.children.error = new ErrorMessage({ text: "" });
+  }
+
+  componentDidUpdate(_oldProps: PopupProps, _newProps: PopupProps): boolean {
+    const { inputFieldProps, buttonProps } = _newProps;
+
+    this.children.input = new InputField(inputFieldProps);
+    this.children.button = new Button(buttonProps);
+
+    return true;
   }
 
   fileLoaded(event: Event) {
@@ -38,7 +62,7 @@ export default class Popup extends Block {
       if (input.files) {
         const file = input.files[0];
         text.setProps({ text: file.name });
-        inputField.hide();
+        inputField.setProps({ label: "" });
         error.hide();
       }
     }
@@ -47,25 +71,72 @@ export default class Popup extends Block {
   validate(event: Event) {
     const form = event.target as HTMLFormElement;
     const input = form.querySelector("input");
-    const error = this.children.error as ErrorMessage;
+    event.preventDefault();
     if (input) {
       if (input.type === "file") {
         if (input.value) {
-          error.hide();
+          this.clearError();
+          const formData = new FormData(form);
+          if (form.id === "change_profile_avatar") {
+            UserController.changeAvatar(formData);
+          }
+          if (form.id === "change_chat_avatar") {
+            formData.append("chatId", `${this.props.selectedChatId}`);
+            ChatsController.changeAvatar(formData);
+          }
         } else {
-          event.preventDefault();
-          error.setProps({ text: "Нужно выбрать файл." });
-          error.show();
+          this.showError({ text: "Нужно выбрать файл." });
         }
       } else if (!inputValidator(input.name, input.value)) {
-        event.preventDefault();
-        error.setProps({ text: "Данные введены неверно." });
-        error.show();
+        this.showError({ text: "Данные введены неверно." });
       } else {
-        // eslint-disable-next-line no-console
-        console.log({ [input.name]: input.value });
+        switch (this.props.action) {
+          case "add_user":
+            this.addUser(input.value);
+            break;
+          case "delete_user":
+            this.deleteUser(input.value);
+            break;
+          case "create_chat":
+            this.createChat(input.value);
+            break;
+          default:
+            break;
+        }
       }
     }
+  }
+
+  createChat(value: string) {
+    ChatsController.create(value);
+  }
+
+  addUser(value: string) {
+    UserController.searchUser(value).then((user) => {
+      if (user) {
+        ChatsController.addUser(this.props.selectedChatId, user.id);
+        router.go(ROUTES.chat);
+      } else {
+        this.showError({ text: "Пользователя с таким логином не существует." });
+      }
+    });
+  }
+
+  deleteUser(value: string) {
+    UserController.searchUser(value).then((user) => {
+      if (user) {
+        ChatsController.deleteUser(this.props.selectedChatId, user.id);
+        router.go(ROUTES.chat);
+      } else {
+        this.showError({ text: "Пользователя с таким логином не существует." });
+      }
+    });
+  }
+
+  showError(props: Indexed) {
+    const error = this.children.error as ErrorMessage;
+    error.setProps(props);
+    error.show();
   }
 
   clearError() {
@@ -78,3 +149,10 @@ export default class Popup extends Block {
     return this.compile(template, this.props);
   }
 }
+
+const withSelectedChatId = withStore((state) => ({
+  selectedChatId: state.selectedChat?.id,
+}));
+const Popup = withSelectedChatId(PopupBase as typeof Block);
+
+export default Popup;

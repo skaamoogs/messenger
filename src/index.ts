@@ -1,39 +1,46 @@
 import { ROUTES } from "./const";
-import Block from "./modules/block";
+import AuthController from "./controllers/auth.controller";
 import ChatPage from "./pages/chat/chat-page";
+import chatPageProps from "./pages/chat/chat-page.props";
 import ErrorPage from "./pages/error-page/error-page";
 import Login from "./pages/login/login";
 import Profile from "./pages/profile/profile";
-import SignIn from "./pages/sign-in/sign-in";
+import profileProps from "./pages/profile/profile.props";
+import SignUp from "./pages/sign-up/sign-up";
 import "./style.scss";
+import router from "./utils/route/router";
 
-const PAGES = {
-  [ROUTES.signIn]: new SignIn(),
-  [ROUTES.login]: new Login(),
-  [ROUTES.profile]: new Profile(),
-  [ROUTES.password]: new Profile(),
-  [ROUTES.data]: new Profile(),
-  [ROUTES.chat]: new ChatPage(),
-  [ROUTES.page404]: new ErrorPage(),
-  [ROUTES.page500]: new ErrorPage(),
-};
+window.addEventListener("DOMContentLoaded", async () => {
+  router
+    .use(ROUTES.login, Login)
+    .use(ROUTES.signUp, SignUp)
+    .use(ROUTES.profile, Profile, profileProps)
+    .use(ROUTES.password, Profile, profileProps)
+    .use(ROUTES.data, Profile, profileProps)
+    .use(ROUTES.chat, ChatPage, { ...chatPageProps, isLoaded: false })
+    .use(ROUTES.page404, ErrorPage)
+    .use(ROUTES.page500, ErrorPage);
 
-function render(query: string, block: Block) {
-  const root = document.querySelector(query);
-  const content = block.getContent();
-  if (root && content) {
-    root.appendChild(content);
+  let isAuthorized = false;
+
+  try {
+    await AuthController.getUser();
+    router.start();
+    isAuthorized = true;
+  } catch (error) {
+    router.start();
+    isAuthorized = false;
+    router.go(ROUTES.login);
   }
 
-  block.dispatchComponentDidMount();
-
-  return root;
-}
-
-let path = window.location.pathname;
-if (!path.endsWith("/")) {
-  path += "/";
-  window.location.pathname = path;
-}
-
-render(".root", PAGES[path]);
+  switch (window.location.pathname) {
+    case ROUTES.login:
+    case ROUTES.signUp:
+      if (isAuthorized) {
+        router.go(ROUTES.profile);
+      }
+      break;
+    default:
+      break;
+  }
+});

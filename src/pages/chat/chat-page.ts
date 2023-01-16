@@ -4,36 +4,69 @@ import Button from "../../components/button/button";
 import Input from "../../components/input/input";
 import Link from "../../components/link/link";
 import Popup from "../../components/popup/popup";
+import { resourceURL, ROUTES } from "../../const";
+import ChatsController from "../../controllers/chats.controller";
+import withStore from "../../hocs/with-store";
 import Block from "../../modules/block";
+import { IChatExntended, State, User } from "../../utils/interfaces";
+import router from "../../utils/route/router";
 import chatPageProps from "./chat-page.props";
 import chatPageTemplate from "./chat-page.tmpl";
-import Chat from "./components/chat/chat";
+import ChatList from "./components/chat-list/chat-list";
+import chatListProps from "./components/chat-list/chat-list.props";
+import Messenger from "./components/messenger/messenger";
+
 import SettingsWindow from "./components/settings-window/settings-window";
 
-export default class ChatPage extends Block {
-  constructor() {
-    super({ ...chatPageProps, settingsWindowIsOpen: false });
+type ChatPageProps = typeof chatPageProps;
+export interface IChatPageProps extends ChatPageProps {
+  chats: IChatExntended[];
+  selectedChat: IChatExntended;
+  user: User;
+}
+
+class ChatPageBase extends Block<IChatPageProps> {
+  constructor(props: IChatPageProps) {
+    super({ ...props });
   }
 
   init() {
     const {
-      chatProps,
+      avatarProps,
+      settingsButtonProps,
       profileLinkProps,
       searchInputProps,
-      userAvatarProps,
-      messageInputProps,
-      settingsButtonProps,
-      sendMessageButtonProps,
       popupProps,
     } = this.props;
 
+    this.children.messenger = new Messenger({});
+
     this.children.profileLink = new Link(profileLinkProps);
 
-    this.children.searchInput = new Input(searchInputProps);
+    this.children.searchInput = new Input({
+      ...searchInputProps,
+      events: {
+        input: () => this.filterChats(),
+      },
+    });
 
-    this.children.chat = new Chat(chatProps);
+    this.children.chatList = new ChatList({
+      ...chatListProps,
+      isLoaded: false,
+      filteredChats: this.getFilteredChats(this.props),
+      events: {
+        click: (event: Event) => this.callPopup(event),
+      },
+    });
 
-    this.children.userAvatar = new Avatar(userAvatarProps);
+    const avatar = this.props.selectedChat?.avatar;
+
+    if (avatar) {
+      this.children.userAvatar = new Avatar({
+        ...avatarProps,
+        src: `${resourceURL}${avatar}`,
+      });
+    }
 
     this.children.settingsButton = new Button({
       ...settingsButtonProps,
@@ -42,17 +75,71 @@ export default class ChatPage extends Block {
       },
     });
 
-    this.children.messageInput = new Input({ ...messageInputProps });
-
-    this.children.sendMessageButton = new Button(sendMessageButtonProps);
-
     this.children.settings = new SettingsWindow({
       events: {
         click: (event: Event) => this.callPopup(event),
       },
     });
 
-    this.children.popup = new Popup(popupProps);
+    this.children.popup = new Popup({
+      ...popupProps,
+    });
+
+    ChatsController.getChats().finally(() => {
+      const filteredChats = this.getFilteredChats(this.props);
+      (this.children.chatList as Block).setProps({
+        filteredChats,
+      });
+    });
+  }
+
+  componentDidUpdate(
+    _oldProps: IChatPageProps,
+    _newProps: IChatPageProps
+  ): boolean {
+    const { chatList } = this.children;
+    (chatList as Block).setProps({
+      filteredChats: this.getFilteredChats(_newProps),
+    });
+    const avatar = _newProps.selectedChat?.avatar;
+    if (avatar) {
+      this.children.userAvatar = new Avatar({
+        ..._newProps.avatarProps,
+        src: `${resourceURL}${avatar}`,
+      });
+    }
+
+    return true;
+  }
+
+  componentDidRender(): boolean {
+    const messenger =
+      this.getContent()?.getElementsByClassName("messenger-main")[0];
+    if (messenger) {
+      messenger.scrollTop = messenger.scrollHeight;
+    }
+
+    return true;
+  }
+
+  getFilteredChats(props: IChatPageProps) {
+    const searchValue = (this.children.searchInput as Input).getValue();
+    const filteredChats = props.chats.filter((chat) =>
+      chat.title.toLowerCase().includes(searchValue.toLowerCase())
+    );
+
+    return filteredChats;
+  }
+
+  filterChats() {
+    const { chatList } = this.children;
+    (chatList as Block).setProps({
+      filteredChats: this.getFilteredChats(this.props),
+    });
+  }
+
+  goToProfile() {
+    router.go(ROUTES.profile);
   }
 
   showHideSettings() {
@@ -69,29 +156,86 @@ export default class ChatPage extends Block {
   }
 
   callPopup(event: Event) {
-    const target = event.target as HTMLButtonElement;
-    const popup = this.children.popup as Popup;
-    if (target.id === "add_user") {
-      popup.setProps({
-        title: "Добавить пользователя",
-        buttonProps: {
-          type: "submit",
-          className: "primary-button",
-          label: "Добавить",
-        },
-      });
+    const target = event.target as HTMLElement;
+    const popup = this.children.popup as Block;
+    switch (target.id) {
+      case "add_user":
+        popup.setProps({
+          title: "Добавить пользователя",
+          buttonProps: {
+            type: "submit",
+            className: "primary-button",
+            label: "Добавить",
+          },
+          action: target.id,
+        });
+        popup.show("flex");
+        break;
+      case "delete_user":
+        popup.setProps({
+          title: "Удалить пользователя",
+          buttonProps: {
+            type: "submit",
+            className: "primary-button",
+            label: "Удалить",
+          },
+          action: target.id,
+        });
+        popup.show("flex");
+        break;
+      case "create_chat":
+        popup.setProps({
+          title: "Создать чат",
+          inputFieldProps: {
+            label: "Название",
+            labelClassName: "input-label",
+            inputFieldClassName: "input-field",
+            inputProps: {
+              type: "text",
+              name: "chat",
+            },
+            validation: true,
+          },
+          buttonProps: {
+            type: "submit",
+            className: "primary-button",
+            label: "Создать",
+          },
+          action: target.id,
+        });
+        popup.show("flex");
+        break;
+      case "change_chat_avatar":
+        popup.setProps({
+          title: "Загрузите файл аватара",
+          textProps: {
+            text: "",
+            className: "file-text",
+          },
+          inputFieldProps: {
+            label: "Выбрать файл на компьютере",
+            labelClassName: "file-input-label",
+            inputFieldClassName: "input-popup-profile",
+            inputProps: {
+              type: "file",
+              className: "file-input",
+              name: "avatar",
+              accept: ".jpg, .jpeg, .png",
+            },
+            validation: false,
+          },
+          buttonProps: {
+            type: "submit",
+            className: "primary-button",
+            label: "Поменять",
+          },
+          id: `${target.id}`,
+        });
+        popup.show("flex");
+        break;
+      default:
+        break;
     }
-    if (target.id === "delete_user") {
-      popup.setProps({
-        title: "Удалить пользователя",
-        buttonProps: {
-          type: "submit",
-          className: "primary-button",
-          label: "Удалить",
-        },
-      });
-    }
-    popup.show("flex");
   }
 
   render() {
@@ -99,3 +243,18 @@ export default class ChatPage extends Block {
     return this.compile(template, this.props);
   }
 }
+
+function mapChatToProps(state: State) {
+  const { chats, selectedChat, user } = state;
+
+  return {
+    user,
+    chats: chats || [],
+    selectedChat,
+  };
+}
+
+const withUser = withStore(mapChatToProps);
+const ChatPage = withUser(ChatPageBase as typeof Block);
+
+export default ChatPage;

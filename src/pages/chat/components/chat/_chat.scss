@@ -1,19 +1,36 @@
 .chat-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   padding: 12px 0;
   border-top: $default-border;
-  border-bottom: $default-border;
+  box-sizing: border-box;
 
   .author-avatar {
-    width: 47px;
-    height: 47px;
+    width: $avatar-size-md;
+    height: $avatar-size-md;
     flex-shrink: 0;
+  }
+
+  .empty-circle {
+    width: $avatar-size-md;
+    height: $avatar-size-md;
+    background-color: $light-grey-color;
+    border-radius: 100%;
+    cursor: pointer;
+    flex-shrink: 0;
+
+    &:hover {
+      background-color: $grey-color;
+    }
   }
 
   .chat-content {
     padding-left: 10px;
     color: $grey-color;
+    flex-grow: 2;
+    height: 47px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
     .chat-header {
       display: flex;
@@ -24,9 +41,14 @@
         color: $black-text;
       }
 
-      .message-time {
-        font-size: $sm-text;
-        line-height: $sm-text;
+      .chat-header-right-side {
+        display: flex;
+        align-items: center;
+
+        .message-time {
+          font-size: $sm-text;
+          line-height: $sm-text;
+        }
       }
     }
 
@@ -37,8 +59,14 @@
       align-items: flex-end;
 
       .message-text {
+        margin: 0;
         font-size: $md-text;
         width: calc(100% - 50px);
+
+        .bold-black-text {
+          font-weight: bold;
+          color: $black-text;
+        }
       }
 
       .unread-msg-count {
@@ -55,4 +83,8 @@
       }
     }
   }
+}
+
+.selected-chat-container {
+  background-color: $light-blue-color;
 }

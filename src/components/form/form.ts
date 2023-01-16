@@ -1,15 +1,28 @@
 import Handlebars from "handlebars";
+import { LoginData, SignUpData } from "../../api/auth.api";
 import { ROUTES } from "../../const";
+import AuthController from "../../controllers/auth.controller";
 import Block from "../../modules/block";
+import router from "../../utils/route/router";
+import { Events } from "../../utils/types";
 import { checkPasswords, formValidator, logData } from "../../utils/validate";
-import Button from "../button/button";
+import Button, { ButtonProps } from "../button/button";
 import ErrorMessage from "../error-message/error-message";
-import InputField from "../input-field/input-field";
-import Link from "../link/link";
+import InputField, { InputFieldProps } from "../input-field/input-field";
+import Link, { LinkProps } from "../link/link";
 import formTemplate from "./form.tmpl";
 
-export default class Form extends Block {
-  constructor(props) {
+interface FormProps {
+  inputFieldList: InputFieldProps[];
+  buttonProps: ButtonProps;
+  linkProps: LinkProps;
+  inputFieldClassName: string;
+  labelClassName: string;
+  events?: Events;
+}
+
+export default class Form extends Block<FormProps> {
+  constructor(props: FormProps) {
     super({
       ...props,
       events: {
@@ -49,12 +62,8 @@ export default class Form extends Block {
 
     this.children.button = new Button(buttonProps);
 
-    this.children.link = new Link(linkProps);
-
-    this.children.linkToChat = new Link({
-      text: "В чат",
-      route: ROUTES.chat,
-      className: "registration-form-link",
+    this.children.link = new Link({
+      ...linkProps,
     });
   }
 
@@ -68,13 +77,19 @@ export default class Form extends Block {
       error.setProps({ text: "Некоторые поля заполнены неверно." });
       error.show();
     } else {
-      const data = logData(this);
-      // eslint-disable-next-line no-console
-      console.log(data);
+      const pathname = router.getCurrentPathname();
+      if (pathname === ROUTES.login) {
+        const data = logData(this) as unknown as LoginData;
+        AuthController.login(data);
+      }
+      if (pathname === ROUTES.signUp) {
+        const data = logData(this) as unknown as SignUpData;
+        AuthController.signUp(data);
+      }
     }
   }
 
-  checkPassword(event) {
+  checkPassword(event: Event) {
     const input = event.target as HTMLInputElement;
     const errorPassword = this.children.errorPassword as ErrorMessage;
     if (input.name === "confirmPassword") {
@@ -92,6 +107,10 @@ export default class Form extends Block {
   clearError() {
     const error = this.children.error as ErrorMessage;
     error.hide();
+  }
+
+  goToChat() {
+    router.go(ROUTES.chat);
   }
 
   render() {

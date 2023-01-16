@@ -1,5 +1,6 @@
 import Handlebars from "handlebars";
 import Block from "../../modules/block";
+import { Events } from "../../utils/types";
 import avatarTemplate from "./avatar.tmpl";
 
 export interface AvatarProps {
@@ -9,16 +10,11 @@ export interface AvatarProps {
   src: string;
   alt?: string;
   changeAvatarText?: string;
-  events: {
-    click: () => void;
-  }
+  events?: Events;
+  id?: string
 }
 
-export default class Avatar extends Block {
-  constructor(props: AvatarProps) {
-    super({ ...props });
-  }
-
+export default class Avatar extends Block<AvatarProps> {
   render() {
     const template = Handlebars.compile(avatarTemplate);
     return this.compile(template, this.props);

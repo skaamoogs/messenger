@@ -1,5 +1,6 @@
 import Handlebars from "handlebars";
 import Block from "../../modules/block";
+import { Events } from "../../utils/types";
 import inputTemplate from "./input.tmpl";
 
 export interface InputProps {
@@ -8,17 +9,26 @@ export interface InputProps {
   placeholder?: string;
   errorText?: string;
   className?: string;
-  events?: {
-    focus: () => void;
-    blur: () => void;
-  };
+  events?: Events;
 }
 
-export default class Input extends Block {
+export default class Input extends Block<InputProps> {
   constructor(props: InputProps) {
     super({
       ...props,
     });
+  }
+
+  getValue() {
+    return (this.getContent() as HTMLInputElement).value;
+  }
+
+  getName() {
+    return (this.getContent() as HTMLInputElement).name;
+  }
+
+  setValue(value: string) {
+    (this.getContent() as HTMLInputElement).value = value;
   }
 
   render() {

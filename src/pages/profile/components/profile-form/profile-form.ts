@@ -1,8 +1,12 @@
 import Handlebars from "handlebars";
+import { PasswordData, ProfileData } from "../../../../api/user.api";
 import Button from "../../../../components/button/button";
 import ErrorMessage from "../../../../components/error-message/error-message";
 import { ROUTES } from "../../../../const";
+import UserController from "../../../../controllers/user.controller";
 import Block from "../../../../modules/block";
+import router from "../../../../utils/route/router";
+import { Events } from "../../../../utils/types";
 import {
   checkPasswords,
   formValidator,
@@ -10,12 +14,17 @@ import {
 } from "../../../../utils/validate";
 import PasswordFields from "../password-fields/password-fields";
 import UserFields from "../user-fields/user-fields";
+import userFieldsProps from "../user-fields/user-fields.props";
 import profileFormProps from "./profile-form.props";
 import profileFormTemplate from "./profile-form.tmpl";
 
-const { pathname } = window.location;
+type TProfileFormProps = typeof profileFormProps;
 
-export default class ProfileForm extends Block {
+interface ProfileFormProps extends TProfileFormProps {
+  events?: Events;
+}
+
+export default class ProfileForm extends Block<ProfileFormProps> {
   constructor() {
     super({
       ...profileFormProps,
@@ -34,10 +43,15 @@ export default class ProfileForm extends Block {
 
     this.children.errorPassword = new ErrorMessage({ text: "" });
 
+    const pathname = router.getCurrentPathname();
+
     switch (pathname) {
       case ROUTES.profile: {
-        this.children.user = new UserFields({ validation: false });
-        const user = this.children.user as UserFields;
+        this.children.user = new UserFields({
+          ...userFieldsProps,
+          validation: false,
+        });
+        const { user } = this.children;
         const inputs = user.getContent()?.querySelectorAll("input");
         inputs?.forEach((input) => {
           input.setAttribute("readonly", "readonly");
@@ -50,7 +64,10 @@ export default class ProfileForm extends Block {
         break;
       }
       case ROUTES.data: {
-        this.children.user = new UserFields({ validation: true });
+        this.children.user = new UserFields({
+          ...userFieldsProps,
+          validation: true,
+        });
         this.children.saveButton = new Button({ ...saveButtonProps });
         break;
       }
@@ -60,8 +77,10 @@ export default class ProfileForm extends Block {
   }
 
   findInputFields() {
+    const pathname = router.getCurrentPathname();
+
     if (pathname === ROUTES.data) {
-      const user = this.children.user as UserFields;
+      const user = this.children.user as Block;
       return user.children.inputs as Block[];
     }
     if (pathname === ROUTES.password) {
@@ -81,13 +100,18 @@ export default class ProfileForm extends Block {
       error.setProps({ text: "Некоторые поля заполнены неверно." });
       error.show();
     } else {
-      const data = logData(this);
-      // eslint-disable-next-line no-console
-      console.log(data);
+      const pathname = router.getCurrentPathname();
+      if (pathname === ROUTES.data) {
+        const data = logData(this) as unknown as ProfileData;
+        UserController.changeProfile(data);
+      } else if (pathname === ROUTES.password) {
+        const data = logData(this) as unknown as PasswordData;
+        UserController.changePassword(data);
+      }
     }
   }
 
-  checkPassword(event) {
+  checkPassword(event: Event) {
     const errorPassword = this.children.errorPassword as ErrorMessage;
     const input = event.target as HTMLInputElement;
     if (input.name === "confirmPassword") {

@@ -1,17 +1,30 @@
 @import "./components/chat/chat";
 @import "./components/settings-window/settings-window";
+@import "./components/chat-list/chat-list";
+@import "./components/messenger/messenger";
 
 .chat-page {
   display: flex;
+  width: 100vw;
+  height: 100vh;
 
-  .chat-list-container {
+  .aside-container {
     display: flex;
     flex-direction: column;
     width: $chat-list-width;
     background-color: $extra-light-grey;
     padding: 0 10px;
-    min-height: 100vh;
     border-right: $default-border;
+    box-sizing: border-box;
+    min-height: 100vh;
+    max-height: 100vh;
+    position: relative;
+    overflow: hidden;
+
+    .profile-nav {
+      margin: 20px 0;
+      text-align: right;
+    }
 
     .input {
       border-radius: 5px;
@@ -21,31 +34,41 @@
       text-align: center;
       padding: 0 12px;
       min-width: 100%;
+      margin-bottom: 14px;
+      flex-shrink: 0;
 
       &::placeholder {
         background: 38% url("./images/search-icon.svg") no-repeat;
       }
     }
-
-    .chat-list {
-      margin-top: 14px;
-    }
   }
 
   .chat-area {
-    width: calc(100% - $chat-list-width);
+    width: calc(100vw - $chat-list-width);
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     padding: 10px 20px;
+    box-sizing: border-box;
+    overflow: hidden;
 
     .chat-area-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding-bottom: 10px;
+      border-bottom: $default-border;
 
       .user-info {
+        display: flex;
+        align-items: center;
+
+        .empty-circle {
+          width: $avatar-size-sm;
+          height: $avatar-size-sm;
+          background-color: $light-grey-color;
+          border-radius: 100%;
+        }
+
         .user-info-name {
           vertical-align: middle;
           margin-left: 10px;
@@ -53,35 +76,11 @@
       }
     }
 
-    .chat-area-main {
-      border-top: $default-border;
-      border-bottom: $default-border;
+    .chat-plug {
       height: 100%;
-    }
-
-    .chat-area-message-container {
       display: flex;
-      justify-content: space-between;
-      padding-top: 10px;
-
-      .clip-icon {
-        cursor: pointer;
-        width: 30px;
-        height: 30px;
-      }
-
-      .input {
-        width: 100%;
-        background-color: $light-grey-color;
-        border-radius: 30px;
-        padding: 10px 20px;
-        margin: 0 10px;
-      }
-
-      .send-message-form {
-        display: flex;
-        align-items: center;
-      }
+      justify-content: center;
+      align-items: center;
     }
   }
 }

@@ -7,6 +7,7 @@
   background-color: $white-text;
   padding: 15px 15px 0;
   display: none;
+  z-index: 10;
 
   .users-control {
     display: flex;

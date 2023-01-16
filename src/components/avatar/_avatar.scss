@@ -1,4 +1,4 @@
-.avatar-container {
+.profile-avatar-container {
   width: 130px;
   height: 130px;
   border-radius: 100%;
@@ -7,13 +7,20 @@
   cursor: pointer;
   text-align: center;
 
-  .avatar-image {
+  .avatar-base {
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
     margin: auto;
+
+    &-image {
+      width: inherit;
+      height: inherit;
+      border-radius: inherit;
+      object-fit: cover;
+    }
   }
 
   .avatar-mask {
@@ -41,12 +48,16 @@
 
 .user-avatar-container {
   display: inline;
-  width: 34px;
-  height: 34px;
 
   .user-avatar {
     vertical-align: middle;
     width: 34px;
     height: 34px;
   }
+}
+
+.chat-avatar-container {
+  width: 47px;
+  height: 47px;
+  cursor: pointer;
 }

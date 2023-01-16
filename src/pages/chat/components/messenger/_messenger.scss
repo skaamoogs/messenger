@@ -1,0 +1,21 @@
+@import "../message/message";
+@import "../send-message/send-message";
+
+.messenger-container {
+  position: relative;
+  max-height: 100vh;
+  min-height: 100vh;
+
+  .messenger-main {
+    overflow: auto;
+    height: calc(100% - 110px);
+    box-sizing: border-box;
+    padding: 0 16px 0 0;
+    display: flex;
+    flex-flow: column nowrap;
+
+    .empty-message {
+      flex: 1 1 auto;
+    }
+  }
+}
