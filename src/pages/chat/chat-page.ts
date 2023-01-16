@@ -115,10 +115,8 @@ class ChatPageBase extends Block<IChatPageProps> {
   componentDidRender(): boolean {
     const messenger =
       this.getContent()?.getElementsByClassName("messenger-main")[0];
-    console.log(messenger);
     if (messenger) {
-      messenger.scrollTop = 999999;
-      console.log("did-render", messenger.scrollTop);
+      messenger.scrollTop = messenger.scrollHeight;
     }
 
     return true;

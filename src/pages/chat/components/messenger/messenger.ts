@@ -28,7 +28,6 @@ class MessengerBase extends Block<IMessenger> {
     }
 
     this.children.messenger = this.createMessages(_newProps);
-    console.log("Messenger: component-did-update");
 
     return true;
   }
@@ -47,7 +46,6 @@ class MessengerBase extends Block<IMessenger> {
   }
 
   render() {
-    console.log("Messenger: render");
     const template = Handlebars.compile(messengerTemplate);
     return this.compile(template, this.props);
   }

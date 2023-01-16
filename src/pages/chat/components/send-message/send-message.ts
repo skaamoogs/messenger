@@ -4,7 +4,7 @@ import Input from "../../../../components/input/input";
 import MessageController from "../../../../controllers/message.controller";
 import withStore from "../../../../hocs/with-store";
 import Block from "../../../../modules/block";
-import { IChatExntended, State } from "../../../../utils/interfaces";
+import { IChatExntended } from "../../../../utils/interfaces";
 import { Events } from "../../../../utils/types";
 import { inputValidator } from "../../../../utils/validate";
 import sendMessageProps from "./send-message.props";

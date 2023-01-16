@@ -63,7 +63,6 @@ class ChatsController {
   selectChat(id: number) {
     const { chats } = store.getState();
     const selectedChat = chats?.find((chat) => chat.id === id);
-    console.log("chat selected");
 
     store.set("selectedChat", selectedChat);
   }
@@ -74,6 +73,7 @@ class ChatsController {
       this.getChats();
       router.go(ROUTES.chat);
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.log(error.reason);
     }
   }

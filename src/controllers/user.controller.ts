@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import API, { UserAPI, PasswordData, ProfileData } from "../api/user.api";
 import { ROUTES } from "../const";
 import { User } from "../utils/interfaces";

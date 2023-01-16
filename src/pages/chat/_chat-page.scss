@@ -47,10 +47,9 @@
     width: calc(100vw - $chat-list-width);
     display: flex;
     flex-direction: column;
-    padding: 10px 20px 10px 20px;
+    padding: 10px 20px;
     box-sizing: border-box;
     overflow: hidden;
-
 
     .chat-area-header {
       display: flex;

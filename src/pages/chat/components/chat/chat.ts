@@ -56,7 +56,6 @@ export default class Chat extends Block<ChatProps> {
 
   render() {
     const template = Handlebars.compile(chatTemplate);
-    console.log(this.props.last_message);
     return this.compile(template, {
       ...this.props,
       isLastMessageMine:
