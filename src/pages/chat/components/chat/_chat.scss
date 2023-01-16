@@ -63,6 +63,10 @@
         font-size: $md-text;
         width: calc(100% - 50px);
 
+        .bold-black-text {
+          font-weight: bold;
+          color: $black-text;
+        }
       }
 
       .unread-msg-count {

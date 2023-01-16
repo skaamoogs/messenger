@@ -36,7 +36,6 @@ class UserController {
 
   async changeAvatar(data: FormData) {
     try {
-      console.log("go to profile page");
       const user = await this._api.changeAvatar(data);
       store.set("user", user);
       router.go(ROUTES.profile);

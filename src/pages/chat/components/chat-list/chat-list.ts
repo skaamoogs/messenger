@@ -3,7 +3,7 @@ import Button from "../../../../components/button/button";
 import ChatsController from "../../../../controllers/chats.controller";
 import withStore from "../../../../hocs/with-store";
 import Block from "../../../../modules/block";
-import { getTimeForChat, parseTime } from "../../../../utils/helpers";
+import { getTimeForChat } from "../../../../utils/helpers";
 import { IChatExntended } from "../../../../utils/interfaces";
 import { Events } from "../../../../utils/types";
 import Chat from "../chat/chat";
@@ -14,7 +14,8 @@ type ChatListProps = typeof chatListProps;
 
 export interface IChatList extends ChatListProps {
   userId: number;
-  selectedChat: IChatExntended;
+  login: string;
+  selectedChatId: number;
   filteredChats: IChatExntended[];
   isLoaded: boolean;
   events?: Events;
@@ -41,16 +42,21 @@ class ChatListBase extends Block<IChatList> {
   }
 
   createChats(props: IChatList) {
-    const { userId, selectedChat } = this.props;
+    const { userId, selectedChatId, login } = this.props;
     return props.filteredChats.map((chat) => {
       const time = getTimeForChat(chat.last_message?.time || "") || "";
       return new Chat({
         ...chat,
         userId,
-        selectedChat,
+        login,
+        selectedChatId,
         last_message: chat.last_message ? { ...chat.last_message, time } : null,
         events: {
-          click: () => ChatsController.selectChat(chat.id),
+          click: () => {
+            if (chat.id !== selectedChatId) {
+              ChatsController.selectChat(chat.id);
+            }
+          },
         },
       });
     });
@@ -64,7 +70,8 @@ class ChatListBase extends Block<IChatList> {
 
 const withUserAndSelectedChat = withStore((state) => ({
   userId: state.user?.id,
-  selectedChat: state.selectedChat,
+  login: state.user?.login,
+  selectedChatId: state.selectedChat?.id,
 }));
 const ChatList = withUserAndSelectedChat(ChatListBase as typeof Block);
 

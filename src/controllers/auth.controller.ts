@@ -43,7 +43,6 @@ class AuthController {
       user.display_name = "не задано";
     }
     store.set("user", user);
-    console.log("got user successful");
   }
 
   async logout() {

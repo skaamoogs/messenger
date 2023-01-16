@@ -4,7 +4,6 @@ import ChatsController from "../../controllers/chats.controller";
 import UserController from "../../controllers/user.controller";
 import withStore from "../../hocs/with-store";
 import Block from "../../modules/block";
-import { IChatExntended } from "../../utils/interfaces";
 import router from "../../utils/route/router";
 import { Events, Indexed } from "../../utils/types";
 import { inputValidator } from "../../utils/validate";
@@ -20,7 +19,7 @@ export interface PopupProps {
   inputFieldProps: InputFieldProps;
   buttonProps: ButtonProps;
   events?: Events;
-  selectedChat: IChatExntended;
+  selectedChatId: number;
   action: string;
   id?: string;
 }
@@ -82,7 +81,7 @@ class PopupBase extends Block<PopupProps> {
             UserController.changeAvatar(formData);
           }
           if (form.id === "change_chat_avatar") {
-            formData.append("chatId", `${this.props.selectedChat.id}`);
+            formData.append("chatId", `${this.props.selectedChatId}`);
             ChatsController.changeAvatar(formData);
           }
         } else {
@@ -115,7 +114,7 @@ class PopupBase extends Block<PopupProps> {
   addUser(value: string) {
     UserController.searchUser(value).then((user) => {
       if (user) {
-        ChatsController.addUser(this.props.selectedChat.id, user.id);
+        ChatsController.addUser(this.props.selectedChatId, user.id);
         router.go(ROUTES.chat);
       } else {
         this.showError({ text: "Пользователя с таким логином не существует." });
@@ -126,7 +125,7 @@ class PopupBase extends Block<PopupProps> {
   deleteUser(value: string) {
     UserController.searchUser(value).then((user) => {
       if (user) {
-        ChatsController.deleteUser(this.props.selectedChat.id, user.id);
+        ChatsController.deleteUser(this.props.selectedChatId, user.id);
         router.go(ROUTES.chat);
       } else {
         this.showError({ text: "Пользователя с таким логином не существует." });
@@ -151,9 +150,9 @@ class PopupBase extends Block<PopupProps> {
   }
 }
 
-const withSelectedChat = withStore((state) => ({
-  selectedChat: state.selectedChat,
+const withSelectedChatId = withStore((state) => ({
+  selectedChatId: state.selectedChat?.id,
 }));
-const Popup = withSelectedChat(PopupBase as typeof Block);
+const Popup = withSelectedChatId(PopupBase as typeof Block);
 
 export default Popup;

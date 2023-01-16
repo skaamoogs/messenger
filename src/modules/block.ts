@@ -7,6 +7,7 @@ class Block<P extends Record<string, any> = any> {
     FLOW_CDM: "flow:component-did-mount",
     FLOW_CDU: "flow:component-did-update",
     FLOW_RENDER: "flow:render",
+    FLOW_CDR: "flow:component-did-render",
   };
 
   id = nanoid(6);
@@ -84,6 +85,7 @@ class Block<P extends Record<string, any> = any> {
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
     eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
+    eventBus.on(Block.EVENTS.FLOW_CDR, this._componentDidRender.bind(this));
   }
 
   private _init() {
@@ -151,6 +153,8 @@ class Block<P extends Record<string, any> = any> {
     this._element = newElement;
 
     this._addEvents();
+
+    this.eventBus().emit(Block.EVENTS.FLOW_CDR);
   }
 
   protected compile(template: (_: any) => string, context: any) {
@@ -185,7 +189,6 @@ class Block<P extends Record<string, any> = any> {
       if (content) {
         stub.replaceWith(content);
       }
-
     };
 
     Object.entries(this.children).forEach(([_, component]) => {
@@ -201,6 +204,14 @@ class Block<P extends Record<string, any> = any> {
 
   protected render(): DocumentFragment {
     return new DocumentFragment();
+  }
+
+  private _componentDidRender() {
+    this.componentDidRender();
+  }
+
+  protected componentDidRender() {
+    return true;
   }
 
   getContent() {

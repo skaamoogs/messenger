@@ -19,7 +19,12 @@ const chatTemplate = `
       </div>
     </div>
     <div class="message-container">
-      <p class="message-text">{{last_message.content}}</p>
+      <p class="message-text">
+        {{#if isLastMessageMine}}
+          <span class="bold-black-text">Вы:</span>
+        {{/if}}
+        {{last_message.content}}
+      </p>
       {{#if unread_count}}
         <div class="unread-msg-count">
           <span>{{unread_count}}</span>

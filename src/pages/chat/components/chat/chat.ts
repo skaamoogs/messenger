@@ -9,9 +9,10 @@ import { Events } from "../../../../utils/types";
 import chatTemplate from "./chat.tmpl";
 
 interface ChatProps extends IChatExntended {
-  selectedChat?: IChatExntended;
+  selectedChatId: number;
   events?: Events;
   userId: number;
+  login: string;
 }
 
 export default class Chat extends Block<ChatProps> {
@@ -32,7 +33,7 @@ export default class Chat extends Block<ChatProps> {
   }
 
   componentDidUpdate(_oldProps: ChatProps, _newProps: ChatProps): boolean {
-    const { avatar, id } = _newProps;
+    const { avatar } = _newProps;
     if (avatar) {
       this.children.messageAvatar = new Avatar({
         className: "chat-avatar-container",
@@ -54,11 +55,13 @@ export default class Chat extends Block<ChatProps> {
   }
 
   render() {
-    console.log("chat rendered");
     const template = Handlebars.compile(chatTemplate);
+    console.log(this.props.last_message);
     return this.compile(template, {
       ...this.props,
-      selected: this.props.id === this.props.selectedChat?.id,
+      isLastMessageMine:
+        this.props.last_message?.user.login === this.props.login,
+      selected: this.props.id === this.props.selectedChatId,
       isDeleteAllowed: this.props.userId === this.props.created_by,
     });
   }

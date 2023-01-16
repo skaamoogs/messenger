@@ -60,9 +60,10 @@ class ChatsController {
     return response.token;
   }
 
-  async selectChat(id: number) {
+  selectChat(id: number) {
     const { chats } = store.getState();
     const selectedChat = chats?.find((chat) => chat.id === id);
+    console.log("chat selected");
 
     store.set("selectedChat", selectedChat);
   }

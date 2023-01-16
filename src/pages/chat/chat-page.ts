@@ -102,13 +102,25 @@ class ChatPageBase extends Block<IChatPageProps> {
       filteredChats: this.getFilteredChats(_newProps),
     });
     const avatar = _newProps.selectedChat?.avatar;
-    console.log(avatar);
     if (avatar) {
       this.children.userAvatar = new Avatar({
         ..._newProps.avatarProps,
         src: `${resourceURL}${avatar}`,
       });
     }
+
+    return true;
+  }
+
+  componentDidRender(): boolean {
+    const messenger =
+      this.getContent()?.getElementsByClassName("messenger-main")[0];
+    console.log(messenger);
+    if (messenger) {
+      messenger.scrollTop = 999999;
+      console.log("did-render", messenger.scrollTop);
+    }
+
     return true;
   }
 
@@ -148,7 +160,6 @@ class ChatPageBase extends Block<IChatPageProps> {
   callPopup(event: Event) {
     const target = event.target as HTMLElement;
     const popup = this.children.popup as Block;
-    console.log(`popup called: ${target.id}`);
     switch (target.id) {
       case "add_user":
         popup.setProps({
@@ -223,6 +234,8 @@ class ChatPageBase extends Block<IChatPageProps> {
           id: `${target.id}`,
         });
         popup.show("flex");
+        break;
+      default:
         break;
     }
   }

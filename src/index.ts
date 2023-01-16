@@ -30,7 +30,6 @@ window.addEventListener("DOMContentLoaded", async () => {
   } catch (error) {
     router.start();
     isAuthorized = false;
-    console.log("redirect to login page");
     router.go(ROUTES.login);
   }
 
@@ -38,7 +37,6 @@ window.addEventListener("DOMContentLoaded", async () => {
     case ROUTES.login:
     case ROUTES.signUp:
       if (isAuthorized) {
-        console.log("redirect to profile page");
         router.go(ROUTES.profile);
       }
       break;

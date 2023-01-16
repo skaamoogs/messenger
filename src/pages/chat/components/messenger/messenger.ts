@@ -1,15 +1,11 @@
 import Handlebars from "handlebars";
-import Button from "../../../../components/button/button";
-import Input from "../../../../components/input/input";
-import MessageController from "../../../../controllers/message.controller";
 import withStore from "../../../../hocs/with-store";
 import Block from "../../../../modules/block";
 import { IChatExntended, IMessage, State } from "../../../../utils/interfaces";
-import { inputValidator } from "../../../../utils/validate";
 import Message from "../message/message";
 import messengerTemplate from "./messenger.tmpl";
 import readMarkImg from "../../../../images/read-mark.svg";
-import { getTimeForMessenger } from "../../../../utils/helpers";
+import { getTimeForMessenger, isEqual } from "../../../../utils/helpers";
 import SendMessage from "../send-message/send-message";
 import sendMessageProps from "../send-message/send-message.props";
 
@@ -27,7 +23,12 @@ class MessengerBase extends Block<IMessenger> {
   }
 
   componentDidUpdate(_oldProps: IMessenger, _newProps: IMessenger): boolean {
+    if (isEqual(_oldProps, _newProps)) {
+      return false;
+    }
+
     this.children.messenger = this.createMessages(_newProps);
+    console.log("Messenger: component-did-update");
 
     return true;
   }
@@ -37,6 +38,7 @@ class MessengerBase extends Block<IMessenger> {
       (message) =>
         new Message({
           ...message,
+          date: getTimeForMessenger(message.time).date,
           time: getTimeForMessenger(message.time).time,
           readMarkImage: readMarkImg,
           isMine: message.user_id === this.props.userId,
@@ -44,11 +46,8 @@ class MessengerBase extends Block<IMessenger> {
     );
   }
 
-  componentDidMount(): boolean {
-    return true;
-  }
-
   render() {
+    console.log("Messenger: render");
     const template = Handlebars.compile(messengerTemplate);
     return this.compile(template, this.props);
   }
@@ -60,8 +59,8 @@ function mapMessengerToProps(state: State) {
   if (!selectedChat) {
     return {
       messages: [],
-      selectedChat,
       userId: user?.id,
+      selectedChat,
     };
   }
 
@@ -71,8 +70,8 @@ function mapMessengerToProps(state: State) {
 
   return {
     messages: messagesToChat || [],
-    selectedChat,
     userId: user?.id,
+    selectedChat,
   };
 }
 
