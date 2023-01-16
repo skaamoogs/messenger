@@ -7,39 +7,23 @@ import Block from "../../../../modules/block";
 import { IChatExntended, IMessage, State } from "../../../../utils/interfaces";
 import { inputValidator } from "../../../../utils/validate";
 import Message from "../message/message";
-import messengerProps from "./messenger.props";
 import messengerTemplate from "./messenger.tmpl";
 import readMarkImg from "../../../../images/read-mark.svg";
 import { getTimeForMessenger } from "../../../../utils/helpers";
+import SendMessage from "../send-message/send-message";
+import sendMessageProps from "../send-message/send-message.props";
 
-type MessengerProps = typeof messengerProps;
-
-export interface IMessenger extends MessengerProps {
+export interface IMessenger {
   messages: IMessage[];
   selectedChat: IChatExntended;
   userId: number;
 }
 
 class MessengerBase extends Block<IMessenger> {
-  constructor(props: IMessenger) {
-    super({ ...props });
-  }
-
   init() {
-    const { messageInputProps, sendMessageButtonProps } = this.props;
+    this.children.sendMessage = new SendMessage(sendMessageProps);
 
     this.children.messenger = this.createMessages(this.props);
-
-    this.children.messageInput = new Input({
-      ...messageInputProps,
-    });
-
-    this.children.sendMessageButton = new Button({
-      ...sendMessageButtonProps,
-      events: {
-        click: () => this.sendMessage(),
-      },
-    });
   }
 
   componentDidUpdate(_oldProps: IMessenger, _newProps: IMessenger): boolean {
@@ -59,16 +43,9 @@ class MessengerBase extends Block<IMessenger> {
         })
     );
   }
-  ƒ;
 
-  sendMessage() {
-    const input = this.children.messageInput as Input;
-    const test = inputValidator(input.getName(), input.getValue());
-    const { selectedChat } = this.props;
-    if (test && selectedChat) {
-      MessageController.sendMessage(selectedChat.id, input.getValue());
-      input.setValue("");
-    }
+  componentDidMount(): boolean {
+    return true;
   }
 
   render() {

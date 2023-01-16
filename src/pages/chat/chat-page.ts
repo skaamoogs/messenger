@@ -15,7 +15,6 @@ import chatPageTemplate from "./chat-page.tmpl";
 import ChatList from "./components/chat-list/chat-list";
 import chatListProps from "./components/chat-list/chat-list.props";
 import Messenger from "./components/messenger/messenger";
-import messengerProps from "./components/messenger/messenger.props";
 
 import SettingsWindow from "./components/settings-window/settings-window";
 
@@ -40,7 +39,7 @@ class ChatPageBase extends Block<IChatPageProps> {
       popupProps,
     } = this.props;
 
-    this.children.messenger = new Messenger(messengerProps);
+    this.children.messenger = new Messenger({});
 
     this.children.profileLink = new Link(profileLinkProps);
 
@@ -110,7 +109,6 @@ class ChatPageBase extends Block<IChatPageProps> {
         src: `${resourceURL}${avatar}`,
       });
     }
-
     return true;
   }
 
@@ -148,53 +146,84 @@ class ChatPageBase extends Block<IChatPageProps> {
   }
 
   callPopup(event: Event) {
-    const target = event.target as HTMLButtonElement;
+    const target = event.target as HTMLElement;
     const popup = this.children.popup as Block;
-    if (target.id === "add_user") {
-      popup.setProps({
-        title: "Добавить пользователя",
-        buttonProps: {
-          type: "submit",
-          className: "primary-button",
-          label: "Добавить",
-        },
-        action: target.id,
-      });
-      popup.show("flex");
-    }
-    if (target.id === "delete_user") {
-      popup.setProps({
-        title: "Удалить пользователя",
-        buttonProps: {
-          type: "submit",
-          className: "primary-button",
-          label: "Удалить",
-        },
-        action: target.id,
-      });
-      popup.show("flex");
-    }
-    if (target.id === "create_chat") {
-      popup.setProps({
-        title: "Создать чат",
-        inputFieldProps: {
-          label: "Название",
-          labelClassName: "input-label",
-          inputFieldClassName: "input-field",
-          inputProps: {
-            type: "text",
-            name: "chat",
+    console.log(`popup called: ${target.id}`);
+    switch (target.id) {
+      case "add_user":
+        popup.setProps({
+          title: "Добавить пользователя",
+          buttonProps: {
+            type: "submit",
+            className: "primary-button",
+            label: "Добавить",
           },
-          validation: true,
-        },
-        buttonProps: {
-          type: "submit",
-          className: "primary-button",
-          label: "Создать",
-        },
-        action: target.id,
-      });
-      popup.show("flex");
+          action: target.id,
+        });
+        popup.show("flex");
+        break;
+      case "delete_user":
+        popup.setProps({
+          title: "Удалить пользователя",
+          buttonProps: {
+            type: "submit",
+            className: "primary-button",
+            label: "Удалить",
+          },
+          action: target.id,
+        });
+        popup.show("flex");
+        break;
+      case "create_chat":
+        popup.setProps({
+          title: "Создать чат",
+          inputFieldProps: {
+            label: "Название",
+            labelClassName: "input-label",
+            inputFieldClassName: "input-field",
+            inputProps: {
+              type: "text",
+              name: "chat",
+            },
+            validation: true,
+          },
+          buttonProps: {
+            type: "submit",
+            className: "primary-button",
+            label: "Создать",
+          },
+          action: target.id,
+        });
+        popup.show("flex");
+        break;
+      case "change_chat_avatar":
+        popup.setProps({
+          title: "Загрузите файл аватара",
+          textProps: {
+            text: "",
+            className: "file-text",
+          },
+          inputFieldProps: {
+            label: "Выбрать файл на компьютере",
+            labelClassName: "file-input-label",
+            inputFieldClassName: "input-popup-profile",
+            inputProps: {
+              type: "file",
+              className: "file-input",
+              name: "avatar",
+              accept: ".jpg, .jpeg, .png",
+            },
+            validation: false,
+          },
+          buttonProps: {
+            type: "submit",
+            className: "primary-button",
+            label: "Поменять",
+          },
+          id: `${target.id}`,
+        });
+        popup.show("flex");
+        break;
     }
   }
 

@@ -50,6 +50,13 @@ export class ChatsAPI {
     });
   }
 
+  changeVatar(data: FormData) {
+    return chatsAPIInstance.put("/avatar", {
+      data,
+      dataType: "formData",
+    });
+  }
+
   getToken(id: number) {
     return chatsAPIInstance.post(`/token/${id}`);
   }

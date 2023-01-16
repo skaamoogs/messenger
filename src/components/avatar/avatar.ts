@@ -11,6 +11,7 @@ export interface AvatarProps {
   alt?: string;
   changeAvatarText?: string;
   events?: Events;
+  id?: string
 }
 
 export default class Avatar extends Block<AvatarProps> {

@@ -66,6 +66,16 @@ class ChatsController {
 
     store.set("selectedChat", selectedChat);
   }
+
+  async changeAvatar(data: FormData) {
+    try {
+      await this._api.changeVatar(data);
+      this.getChats();
+      router.go(ROUTES.chat);
+    } catch (error) {
+      console.log(error.reason);
+    }
+  }
 }
 
 export default new ChatsController();

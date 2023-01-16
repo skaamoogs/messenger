@@ -6,6 +6,7 @@
 .chat-page {
   display: flex;
   width: 100vw;
+  height: 100vh;
 
   .aside-container {
     display: flex;
@@ -14,8 +15,11 @@
     background-color: $extra-light-grey;
     padding: 0 10px;
     border-right: $default-border;
-    min-height: 100vh;
     box-sizing: border-box;
+    min-height: 100vh;
+    max-height: 100vh;
+    position: relative;
+    overflow: hidden;
 
     .profile-nav {
       margin: 20px 0;
@@ -30,6 +34,8 @@
       text-align: center;
       padding: 0 12px;
       min-width: 100%;
+      margin-bottom: 14px;
+      flex-shrink: 0;
 
       &::placeholder {
         background: 38% url("./images/search-icon.svg") no-repeat;
@@ -41,9 +47,10 @@
     width: calc(100vw - $chat-list-width);
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    padding: 10px 36px 10px 20px;
+    padding: 10px 20px 10px 20px;
     box-sizing: border-box;
+    overflow: hidden;
+
 
     .chat-area-header {
       display: flex;

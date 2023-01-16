@@ -11,6 +11,7 @@ export interface ButtonProps {
   image?: string;
   alt?: string;
   events?: Events;
+  name?: string;
 }
 
 export default class Button extends Block<ButtonProps> {

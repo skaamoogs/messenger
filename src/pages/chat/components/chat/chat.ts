@@ -32,13 +32,14 @@ export default class Chat extends Block<ChatProps> {
   }
 
   componentDidUpdate(_oldProps: ChatProps, _newProps: ChatProps): boolean {
-    const { avatar } = _newProps;
+    const { avatar, id } = _newProps;
     if (avatar) {
       this.children.messageAvatar = new Avatar({
         className: "chat-avatar-container",
         imageClassName: "avatar author-avatar",
         src: `${resourceURL}${avatar}`,
         alt: "avatar",
+        id: "change_chat_avatar",
       });
     }
     return true;

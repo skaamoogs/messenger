@@ -1,15 +1,12 @@
 const messengerTemplate = `
 <div class="messenger-container">
   <div class="messenger-main">
+    <div class="empty-message"></div>
     {{#each messenger}}
       {{{this}}}
     {{/each}}
   </div>
-  <div class="send-message-container">
-    <img class="clip-icon" src="{{clipIcon}}" alt="" />
-    {{{messageInput}}}
-    {{{sendMessageButton}}}
-  </div>
+  {{{sendMessage}}}
 </div>
 `;
 export default messengerTemplate;

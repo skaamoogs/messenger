@@ -40,6 +40,7 @@ const profileProps = {
       className: "primary-button",
       label: "Поменять",
     },
+    id: "change_profile_avatar",
   },
 };
 

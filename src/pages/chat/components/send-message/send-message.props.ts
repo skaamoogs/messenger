@@ -1,11 +1,10 @@
 import clipIconImg from "../../../../images/clip-icon.svg";
 import rightArrowImg from "../../../../images/arrow-right.svg";
 
-const messengerProps = {
+const sendMessageProps = {
   messageInputProps: {
     className: "message-input-container",
     type: "text",
-    inputClassName: "chat-area-message-input",
     placeholder: "Сообщение",
     name: "message",
   },
@@ -18,4 +17,4 @@ const messengerProps = {
   },
 };
 
-export default messengerProps;
+export default sendMessageProps;

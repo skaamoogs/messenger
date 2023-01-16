@@ -1,9 +1,9 @@
 const chatTemplate = `
-<div class="chat-container {{#if selected}}selected-chat-container{{/if}} id={{id}}">
+<div class="chat-container {{#if selected}}selected-chat-container{{/if}}">
   {{#if messageAvatar}}
     {{{messageAvatar}}}
   {{else}}
-    <div class="empty-circle">
+    <div class="empty-circle" id="change_chat_avatar">
     </div>
   {{/if}}
   <div class="chat-content">

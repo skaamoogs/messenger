@@ -22,6 +22,7 @@ export interface PopupProps {
   events?: Events;
   selectedChat: IChatExntended;
   action: string;
+  id?: string;
 }
 
 class PopupBase extends Block<PopupProps> {
@@ -77,7 +78,13 @@ class PopupBase extends Block<PopupProps> {
         if (input.value) {
           this.clearError();
           const formData = new FormData(form);
-          UserController.changeAvatar(formData);
+          if (form.id === "change_profile_avatar") {
+            UserController.changeAvatar(formData);
+          }
+          if (form.id === "change_chat_avatar") {
+            formData.append("chatId", `${this.props.selectedChat.id}`);
+            ChatsController.changeAvatar(formData);
+          }
         } else {
           this.showError({ text: "Нужно выбрать файл." });
         }

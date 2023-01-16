@@ -185,6 +185,7 @@ class Block<P extends Record<string, any> = any> {
       if (content) {
         stub.replaceWith(content);
       }
+
     };
 
     Object.entries(this.children).forEach(([_, component]) => {

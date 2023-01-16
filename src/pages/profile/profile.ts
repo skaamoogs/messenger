@@ -41,7 +41,7 @@ class ProfileBase extends Block<typeof profileProps> {
   }
 
   callPopup() {
-    const popup = this.children.popup as Popup;
+    const popup = this.children.popup as Block;
     popup.show("flex");
   }
 

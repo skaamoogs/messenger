@@ -1,6 +1,6 @@
 const popupTemplate = `
 <div class="page-mask">
-  <form class="popup-content">
+  <form class="popup-content" id={{id}}>
     <p class="title">{{ title }}</p>
     {{{input}}}
     {{{text}}}
