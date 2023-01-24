@@ -11,7 +11,8 @@
     "dev": "webpack-dev-server --stats-error-details",
     "start": "npm run build && node ./server.js --open",
     "build": "NODE_ENV='production' webpack",
-    "test": "mocha"
+    "test": "mocha",
+    "prepare": "husky install"
   },
   "repository": "git+https://github.com/skaamoogs/middle.messenger.praktikum.yandex.git",
   "keywords": [],
