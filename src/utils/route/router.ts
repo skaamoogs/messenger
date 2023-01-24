@@ -1,7 +1,7 @@
 import { Indexed } from "../types";
 import Route, { BlockClass } from "./route";
 
-class Router {
+export class Router {
   routes: Route[];
 
   history: History;

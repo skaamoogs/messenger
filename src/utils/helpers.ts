@@ -47,17 +47,25 @@ export function isEqual(a: unknown, b: unknown): boolean {
           result = false;
         }
         break;
-      case "object":
       case "array":
+        if ((c as unknown[]).length !== (d as unknown[]).length) {
+          return false;
+        }
+        (c as unknown[]).forEach((_, index) => {
+          result = compare(
+            (c as unknown[])[index],
+            (d as unknown[])[index]
+          );
+        });
+        break;
+      case "object":
         if (
           Object.keys(c as object).length !== Object.keys(d as object).length
         ) {
           return false;
         }
         Object.keys(c as object).forEach((key) => {
-          if (c instanceof Object && d instanceof Object) {
-            result = compare(<object>c[key], d[key]);
-          }
+          result = compare((c as Indexed)[key], (d as Indexed)[key]);
         });
         break;
       default:

@@ -8,10 +8,11 @@
         "clean-cache": "rimraf .parcel-cache",
         "clean-dist": "rimraf dist && mkdir dist",
         "copy-files": "cp -v _redirects ./dist",
-        "prebuild": "npm run clean-dist && npm run clean-cache && npm run copy-files",
+        "prebuild": "npm run clean-dist && npm run clean-casche && npm run copy-files",
         "dev": "parcel --open",
         "start": "npm run build && node ./server.js --open",
-        "build": "npm run prebuild && parcel build"
+        "build": "npm run prebuild && parcel build",
+        "test": "mocha"
     },
     "repository": "git+https://github.com/skaamoogs/middle.messenger.praktikum.yandex.git",
     "keywords": [],
@@ -25,15 +26,23 @@
         "@anikin/parcel-transformer-handlebars": "1.0.9",
         "@inventory/parcel-plugin-handlebars": "1.0.0",
         "@parcel/transformer-sass": "2.7.0",
+        "@types/chai": "4.3.4",
+        "@types/jsdom": "20.0.1",
+        "@types/mocha": "10.0.1",
+        "@types/sinon": "10.0.13",
         "@typescript-eslint/eslint-plugin": "5.43.0",
         "@typescript-eslint/parser": "5.43.0",
+        "chai": "4.3.7",
         "eslint": "8.27.0",
         "eslint-config-airbnb": "19.0.4",
         "eslint-import-resolver-typescript": "3.5.2",
         "eslint-plugin-import": "2.26.0",
+        "jsdom": "21.1.0",
         "lodash": "4.17.21",
+        "mocha": "10.2.0",
         "parcel": "2.7.0",
         "sass": "1.56.1",
+        "sinon": "15.0.1",
         "stylelint": "14.15.0",
         "stylelint-config-standard": "29.0.0",
         "stylelint-config-standard-scss": "6.1.0",
@@ -43,7 +52,7 @@
     "dependencies": {
         "express": "4.18.2",
         "handlebars": "4.7.7",
-        "nanoid": "4.0.0"
+        "nanoid": "3.3.4"
     },
     "engines": {
         "node": ">=16.0.0"
