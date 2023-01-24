@@ -13,15 +13,8 @@ class AuthController {
   }
 
   async login(data: LoginData) {
-    try {
-      await this._api.login(data);
-      await this.getUser();
-      router.go(ROUTES.chat);
-    } catch (error: any) {
-      if (error && error.reason) {
-        console.log(error.reason);
-      }
-    }
+    await this._api.login(data);
+    await this.getUser();
   }
 
   async signUp(data: SignUpData) {

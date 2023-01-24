@@ -80,11 +80,27 @@ export default class Form extends Block<FormProps> {
       const pathname = router.getCurrentPathname();
       if (pathname === ROUTES.login) {
         const data = logData(this) as unknown as LoginData;
-        AuthController.login(data);
+        AuthController.login(data).then(
+          (_) => {
+            router.go(ROUTES.chat);
+          },
+          (reason) => {
+            error.setProps({ text: reason.reason });
+            error.show();
+          }
+        );
       }
       if (pathname === ROUTES.signUp) {
         const data = logData(this) as unknown as SignUpData;
-        AuthController.signUp(data);
+        AuthController.signUp(data).then(
+          (_) => {
+            router.go(ROUTES.chat);
+          },
+          (reason) => {
+            error.setProps({ text: reason.reason });
+            error.show();
+          }
+        );
       }
     }
   }

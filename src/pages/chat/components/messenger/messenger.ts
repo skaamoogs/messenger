@@ -32,6 +32,16 @@ class MessengerBase extends Block<IMessenger> {
     return true;
   }
 
+  componentDidRender(): boolean {
+    const messenger =
+      this.getContent()?.getElementsByClassName("messenger-main")[0];
+    if (messenger) {
+      messenger.scrollTop = messenger.scrollHeight;
+    }
+
+    return true;
+  }
+
   createMessages(props: IMessenger) {
     return props.messages.map(
       (message) =>

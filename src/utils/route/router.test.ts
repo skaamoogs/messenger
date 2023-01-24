@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { expect } from "chai";
 import sinon from "sinon";
 import { BlockClass } from "./route";
@@ -20,6 +21,7 @@ describe("Router", () => {
 
   const BlockMock = class {
     getContent = getContentFake;
+
     dispatchComponentDidMount = () => {};
   } as unknown as BlockClass;
 

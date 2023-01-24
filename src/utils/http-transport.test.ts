@@ -1,3 +1,5 @@
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable no-undef */
 import { expect } from "chai";
 import sinon, {
   SinonFakeXMLHttpRequest,
@@ -13,6 +15,7 @@ describe("HTTPTransport", () => {
   beforeEach(() => {
     xhr = sinon.useFakeXMLHttpRequest();
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     global.XMLHttpRequest = xhr;
 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
@@ -19,6 +20,9 @@ module.exports = {
     },
   },
   devServer: {
+    static: {
+      directory: path.join(__dirname, "./dist"),
+    },
     compress: true,
     port: 1234,
     open: true,
