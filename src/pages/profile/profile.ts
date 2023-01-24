@@ -51,7 +51,6 @@ class ProfileBase extends Block<typeof profileProps> {
 
   render() {
     const template = Handlebars.compile(profileTemplate);
-    throw new Error("Error on profile page");
     return this.compile(template, { ...this.props });
   }
 }
