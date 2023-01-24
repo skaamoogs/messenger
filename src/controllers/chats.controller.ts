@@ -72,7 +72,7 @@ class ChatsController {
       await this._api.changeVatar(data);
       this.getChats();
       router.go(ROUTES.chat);
-    } catch (error) {
+    } catch (error: any) {
       // eslint-disable-next-line no-console
       console.log(error.reason);
     }

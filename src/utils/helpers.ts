@@ -52,10 +52,7 @@ export function isEqual(a: unknown, b: unknown): boolean {
           return false;
         }
         (c as unknown[]).forEach((_, index) => {
-          result = compare(
-            (c as unknown[])[index],
-            (d as unknown[])[index]
-          );
+          result = compare((c as unknown[])[index], (d as unknown[])[index]);
         });
         break;
       case "object":

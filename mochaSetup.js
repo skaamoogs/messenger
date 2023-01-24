@@ -8,6 +8,7 @@ const { window } = new JSDOM('<div class=".root"></div>', {
 
 global.window = window;
 global.document = window.document;
+global.DocumentFragment = window.DocumentFragment;
 
 require.extensions[".scss"] = function _() {
   module.exports = () => ({});

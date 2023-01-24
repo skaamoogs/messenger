@@ -1,6 +1,6 @@
 import Block from "../modules/block";
 
-export const RULES = {
+export const RULES: {[k: string]: any} = {
   email: {
     pattern:
       /^[#!%$‘&+*–/=?^_`{|}~A-Za-z0-9][.#!%$‘&+*–/=?^_`{|}~A-Za-z0-9]*@[#!%$‘&+*–/=?^_`{|}~A-Za-z0-9]+\.[#!%$‘&+*–/=?^_`{|}~A-Za-z0-9]+$/,

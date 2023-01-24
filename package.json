@@ -1,67 +1,72 @@
 {
-    "name": "middle.messenger.praktikum.yandex",
-    "version": "1.0.0",
-    "description": "Start of sprint #1",
-    "source": "index.html",
-    "scripts": {
-        "eslint": "eslint",
-        "clean-cache": "rimraf .parcel-cache",
-        "clean-dist": "rimraf dist && mkdir dist",
-        "copy-files": "cp -v _redirects ./dist",
-        "prebuild": "npm run clean-dist && npm run clean-casche && npm run copy-files",
-        "dev": "parcel --open",
-        "start": "npm run build && node ./server.js --open",
-        "build": "npm run prebuild && parcel build",
-        "test": "mocha"
-    },
-    "repository": "git+https://github.com/skaamoogs/middle.messenger.praktikum.yandex.git",
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "bugs": {
-        "url": "https://github.com/skaamoogs/middle.messenger.praktikum.yandex/issues"
-    },
-    "homepage": "https://github.com/skaamoogs/middle.messenger.praktikum.yandex#readme",
-    "devDependencies": {
-        "@anikin/parcel-transformer-handlebars": "1.0.9",
-        "@inventory/parcel-plugin-handlebars": "1.0.0",
-        "@parcel/transformer-sass": "2.7.0",
-        "@types/chai": "4.3.4",
-        "@types/jsdom": "20.0.1",
-        "@types/mocha": "10.0.1",
-        "@types/sinon": "10.0.13",
-        "@typescript-eslint/eslint-plugin": "5.43.0",
-        "@typescript-eslint/parser": "5.43.0",
-        "chai": "4.3.7",
-        "eslint": "8.27.0",
-        "eslint-config-airbnb": "19.0.4",
-        "eslint-import-resolver-typescript": "3.5.2",
-        "eslint-plugin-import": "2.26.0",
-        "jsdom": "21.1.0",
-        "lodash": "4.17.21",
-        "mocha": "10.2.0",
-        "parcel": "2.7.0",
-        "sass": "1.56.1",
-        "sinon": "15.0.1",
-        "stylelint": "14.15.0",
-        "stylelint-config-standard": "29.0.0",
-        "stylelint-config-standard-scss": "6.1.0",
-        "ts-node": "10.9.1",
-        "typescript": "4.9.3"
-    },
-    "dependencies": {
-        "express": "4.18.2",
-        "handlebars": "4.7.7",
-        "nanoid": "3.3.4"
-    },
-    "engines": {
-        "node": ">=16.0.0"
-    },
-    "targets": {
-        "default": {
-            "engines": {
-                "browsers": ">= 50%"
-            }
-        }
+  "name": "middle.messenger.praktikum.yandex",
+  "version": "1.0.0",
+  "description": "Start of sprint #1",
+  "source": "index.html",
+  "scripts": {
+    "eslint": "eslint",
+    "clean-dist": "rimraf dist && mkdir dist",
+    "copy-files": "cp -v _redirects ./dist",
+    "prebuild": "npm run clean-dist && npm run copy-files",
+    "dev": "webpack-dev-server --stats-error-details",
+    "start": "npm run build && node ./server.js --open",
+    "build": "NODE_ENV='production' webpack",
+    "test": "mocha"
+  },
+  "repository": "git+https://github.com/skaamoogs/middle.messenger.praktikum.yandex.git",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/skaamoogs/middle.messenger.praktikum.yandex/issues"
+  },
+  "homepage": "https://github.com/skaamoogs/middle.messenger.praktikum.yandex#readme",
+  "devDependencies": {
+    "@types/chai": "4.3.4",
+    "@types/jsdom": "20.0.1",
+    "@types/mocha": "10.0.1",
+    "@types/sinon": "10.0.13",
+    "@typescript-eslint/eslint-plugin": "5.43.0",
+    "@typescript-eslint/parser": "5.43.0",
+    "chai": "4.3.7",
+    "css-loader": "6.7.3",
+    "eslint": "8.27.0",
+    "eslint-config-airbnb": "19.0.4",
+    "eslint-import-resolver-typescript": "3.5.2",
+    "eslint-plugin-import": "2.26.0",
+    "handlebars-loader": "1.7.3",
+    "html-webpack-plugin": "^5.5.0",
+    "jsdom": "21.1.0",
+    "lodash": "4.17.21",
+    "mocha": "10.2.0",
+    "sass": "1.56.1",
+    "sass-loader": "^13.2.0",
+    "sinon": "15.0.1",
+    "style-loader": "^3.3.1",
+    "stylelint": "14.15.0",
+    "stylelint-config-standard": "29.0.0",
+    "stylelint-config-standard-scss": "6.1.0",
+    "svg-inline-loader": "^0.8.2",
+    "ts-loader": "^9.4.2",
+    "ts-node": "10.9.1",
+    "typescript": "4.9.3",
+    "webpack": "5.75.0",
+    "webpack-cli": "5.0.1",
+    "webpack-dev-server": "4.11.1"
+  },
+  "dependencies": {
+    "express": "4.18.2",
+    "handlebars": "4.7.7",
+    "nanoid": "3.3.4"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "targets": {
+    "default": {
+      "engines": {
+        "browsers": ">= 50%"
+      }
     }
+  }
 }
