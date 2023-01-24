@@ -1,7 +1,7 @@
 import { Indexed } from "../types";
 import Route, { BlockClass } from "./route";
 
-class Router {
+export class Router {
   routes: Route[];
 
   history: History;
@@ -47,7 +47,7 @@ class Router {
       return;
     }
 
-    if (this._currentRoute) {
+    if (this._currentRoute && this._currentRoute !== route) {
       this._currentRoute.leave();
     }
 
