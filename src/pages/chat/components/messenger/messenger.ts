@@ -11,7 +11,7 @@ import sendMessageProps from "../send-message/send-message.props";
 
 export interface IMessenger {
   messages: IMessage[];
-  selectedChat: IChatExntended;
+  selectedChat?: IChatExntended;
   userId: number;
 }
 
@@ -72,7 +72,7 @@ function mapMessengerToProps(state: State) {
     };
   }
 
-  const messagesToChat = (messages || {})[selectedChat.id].filter(
+  const messagesToChat = ((messages || {})[selectedChat.id] || []).filter(
     (message) => message.type === "message"
   );
 

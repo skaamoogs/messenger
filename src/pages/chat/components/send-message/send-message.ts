@@ -47,6 +47,7 @@ class SendMessageBase extends Block<ISendMessage> {
     if (test && selectedChat) {
       MessageController.sendMessage(selectedChat.id, input.getValue());
       input.setValue("");
+      // ChatsController.getChats();
     }
   }
 

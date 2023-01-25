@@ -4,7 +4,7 @@ import Button from "../../../../components/button/button";
 import { resourceURL } from "../../../../const";
 import ChatsController from "../../../../controllers/chats.controller";
 import Block from "../../../../modules/block";
-import { IChatExntended } from "../../../../utils/interfaces";
+import { IChatExntended, IMessage } from "../../../../utils/interfaces";
 import { Events } from "../../../../utils/types";
 import chatTemplate from "./chat.tmpl";
 
@@ -13,10 +13,22 @@ interface ChatProps extends IChatExntended {
   events?: Events;
   userId: number;
   login: string;
+  message?: IMessage;
 }
 
 export default class Chat extends Block<ChatProps> {
   init() {
+    const { avatar } = this.props;
+    if (avatar) {
+      this.children.messageAvatar = new Avatar({
+        className: "chat-avatar-container",
+        imageClassName: "avatar author-avatar",
+        src: `${resourceURL}${avatar}`,
+        alt: "avatar",
+        id: "change_chat_avatar",
+      });
+    }
+
     this.children.delButton = new Button({
       type: "button",
       className:
@@ -25,10 +37,6 @@ export default class Chat extends Block<ChatProps> {
       events: {
         click: () => this.deleteChat(),
       },
-    });
-
-    ChatsController.getUsers(this.props.id).then((users) => {
-      this.setProps({ users });
     });
   }
 
@@ -59,7 +67,7 @@ export default class Chat extends Block<ChatProps> {
     return this.compile(template, {
       ...this.props,
       isLastMessageMine:
-        this.props.last_message?.user.login === this.props.login,
+        this.props.message?.user_id === this.props.userId,
       selected: this.props.id === this.props.selectedChatId,
       isDeleteAllowed: this.props.userId === this.props.created_by,
     });

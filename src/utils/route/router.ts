@@ -28,7 +28,10 @@ export class Router {
   }
 
   use(pathname: string, block: BlockClass, props?: Indexed) {
-    const route = new Route(pathname, block, { ...props, rootQuery: this._rootQuery });
+    const route = new Route(pathname, block, {
+      ...props,
+      rootQuery: this._rootQuery,
+    });
     this.routes.push(route);
     return this;
   }
