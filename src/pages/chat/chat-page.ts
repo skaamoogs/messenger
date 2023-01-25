@@ -8,8 +8,10 @@ import { resourceURL, ROUTES } from "../../const";
 import ChatsController from "../../controllers/chats.controller";
 import withStore from "../../hocs/with-store";
 import Block from "../../modules/block";
+import { isEqual } from "../../utils/helpers";
 import { IChatExntended, State, User } from "../../utils/interfaces";
 import router from "../../utils/route/router";
+import { Events } from "../../utils/types";
 import chatPageProps from "./chat-page.props";
 import chatPageTemplate from "./chat-page.tmpl";
 import ChatList from "./components/chat-list/chat-list";
@@ -21,8 +23,9 @@ import SettingsWindow from "./components/settings-window/settings-window";
 type ChatPageProps = typeof chatPageProps;
 export interface IChatPageProps extends ChatPageProps {
   chats: IChatExntended[];
-  selectedChat: IChatExntended;
+  selectedChat?: IChatExntended;
   user: User;
+  events?: Events;
 }
 
 class ChatPageBase extends Block<IChatPageProps> {
@@ -59,8 +62,9 @@ class ChatPageBase extends Block<IChatPageProps> {
       },
     });
 
-    const avatar = this.props.selectedChat?.avatar;
-
+    const avatar = this.props.chats.find(
+      (chat) => chat.id === this.props.selectedChat?.id
+    )?.avatar;
     if (avatar) {
       this.children.userAvatar = new Avatar({
         ...avatarProps,
@@ -101,7 +105,17 @@ class ChatPageBase extends Block<IChatPageProps> {
     (chatList as Block).setProps({
       filteredChats: this.getFilteredChats(_newProps),
     });
-    const avatar = _newProps.selectedChat?.avatar;
+    const avatar = _newProps.chats.find(
+      (chat) => chat.id === _newProps.selectedChat?.id
+    )?.avatar;
+
+    const newPopupProps = _newProps.popupProps;
+    const oldPopupProps = _oldProps.popupProps;
+    if (!isEqual(oldPopupProps, newPopupProps)) {
+      const { popup } = this.children;
+      (popup as Block).setProps({ ..._newProps.popupProps });
+    }
+
     if (avatar) {
       this.children.userAvatar = new Avatar({
         ..._newProps.avatarProps,

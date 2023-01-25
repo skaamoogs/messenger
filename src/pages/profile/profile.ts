@@ -12,7 +12,13 @@ import ProfileForm from "./components/profile-form/profile-form";
 import profileProps from "./profile.props";
 import profileTemplate from "./profile.tmpl";
 
-class ProfileBase extends Block<typeof profileProps> {
+type ProfileProps = typeof profileProps;
+
+class ProfileBase extends Block<ProfileProps> {
+  constructor(props: ProfileProps) {
+    super({ ...props });
+  }
+
   init() {
     const pathname = router.getCurrentPathname();
 
@@ -38,6 +44,17 @@ class ProfileBase extends Block<typeof profileProps> {
       this.children.config = new ConfigFields();
     }
     this.children.popup = new Popup({ ...popupProps });
+  }
+
+  componentDidUpdate(_oldProps: ProfileProps, _newProps: ProfileProps) {
+    this.children.avatar = new Avatar({
+      ..._newProps.avatarProps,
+      events: {
+        click: () => this.callPopup(),
+      },
+    });
+
+    return true;
   }
 
   callPopup() {

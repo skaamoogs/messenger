@@ -10,6 +10,10 @@ import SignUp from "./pages/sign-up/sign-up";
 import "./style.scss";
 import router from "./utils/route/router";
 
+window.addEventListener("error", () => {
+  router.go(ROUTES.page500);
+});
+
 window.addEventListener("DOMContentLoaded", async () => {
   router
     .use(ROUTES.login, Login)
@@ -42,5 +46,9 @@ window.addEventListener("DOMContentLoaded", async () => {
       break;
     default:
       break;
+  }
+
+  if (!Object.values(ROUTES).includes(window.location.pathname)) {
+    router.go(ROUTES.page404);
   }
 });

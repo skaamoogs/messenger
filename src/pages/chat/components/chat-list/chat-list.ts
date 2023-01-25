@@ -4,7 +4,7 @@ import ChatsController from "../../../../controllers/chats.controller";
 import withStore from "../../../../hocs/with-store";
 import Block from "../../../../modules/block";
 import { getTimeForChat } from "../../../../utils/helpers";
-import { IChatExntended } from "../../../../utils/interfaces";
+import { IChatExntended, IMessage } from "../../../../utils/interfaces";
 import { Events } from "../../../../utils/types";
 import Chat from "../chat/chat";
 import chatListProps from "./chat-list.props";
@@ -19,6 +19,7 @@ export interface IChatList extends ChatListProps {
   filteredChats: IChatExntended[];
   isLoaded: boolean;
   events?: Events;
+  messages?: Record<number, IMessage[]>;
 }
 
 class ChatListBase extends Block<IChatList> {
@@ -42,15 +43,20 @@ class ChatListBase extends Block<IChatList> {
   }
 
   createChats(props: IChatList) {
-    const { userId, selectedChatId, login } = this.props;
+    const { userId, selectedChatId, login, messages } = this.props;
+
     return props.filteredChats.map((chat) => {
-      const time = getTimeForChat(chat.last_message?.time || "") || "";
+      const messagesToChat = ((messages || {})[chat.id] || []).filter(
+        (message) => message.type === "message"
+      );
+      const message = messagesToChat ? messagesToChat.reverse()[0] : undefined;
+      const time = getTimeForChat(message?.time || "") || "";
       return new Chat({
         ...chat,
         userId,
         login,
         selectedChatId,
-        last_message: chat.last_message ? { ...chat.last_message, time } : null,
+        message: message ? { ...message, time } : undefined,
         events: {
           click: () => {
             if (chat.id !== selectedChatId) {
@@ -72,6 +78,7 @@ const withUserAndSelectedChat = withStore((state) => ({
   userId: state.user?.id,
   login: state.user?.login,
   selectedChatId: state.selectedChat?.id,
+  messages: state.messages,
 }));
 const ChatList = withUserAndSelectedChat(ChatListBase as typeof Block);
 

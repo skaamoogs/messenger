@@ -1,6 +1,4 @@
 import API, { ChatsAPI } from "../api/chats.api";
-import { ROUTES } from "../const";
-import router from "../utils/route/router";
 import store from "../utils/store";
 import MessageController from "./message.controller";
 
@@ -15,13 +13,10 @@ class ChatsController {
     await this._api.create(title);
 
     this.getChats();
-
-    router.go(ROUTES.chat);
   }
 
   async getChats() {
     const chats = await this._api.getChats();
-
     chats.map(async (chat) => {
       const token = await this.getToken(chat.id);
       await MessageController.connect(chat.id, token);
@@ -33,6 +28,7 @@ class ChatsController {
 
   async deleteChat(id: number) {
     await this._api.delete(id);
+    store.set("selectedChat", undefined);
 
     this.getChats();
   }
@@ -71,7 +67,6 @@ class ChatsController {
     try {
       await this._api.changeVatar(data);
       this.getChats();
-      router.go(ROUTES.chat);
     } catch (error: any) {
       // eslint-disable-next-line no-console
       console.log(error.reason);

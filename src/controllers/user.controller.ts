@@ -39,7 +39,6 @@ class UserController {
     try {
       const user = await this._api.changeAvatar(data);
       store.set("user", user);
-      router.go(ROUTES.profile);
     } catch (error: any) {
       if (error && error.reason) {
         console.log(error.reason);
