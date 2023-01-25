@@ -8,7 +8,7 @@ class Block<P extends Record<string, any> = any> {
     FLOW_CDU: "flow:component-did-update",
     FLOW_RENDER: "flow:render",
     FLOW_CDR: "flow:component-did-render",
-  };
+  } as const;
 
   id = nanoid(6);
 
