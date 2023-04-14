@@ -2,7 +2,6 @@ import Block from "../modules/block";
 import { Indexed } from "../utils/types";
 import store, { StoreEvents } from "../utils/store";
 import { State } from "../utils/interfaces";
-import { isEqual } from "../utils/helpers";
 
 function withStore(mapDataToProps: (state: State) => Indexed) {
   return function wrap(Component: typeof Block) {
@@ -14,10 +13,8 @@ function withStore(mapDataToProps: (state: State) => Indexed) {
 
         store.on(StoreEvents.Updated, () => {
           const stateProps = mapDataToProps(store.getState());
-          if (!isEqual(previousState, stateProps)) {
-            previousState = stateProps;
-            this.setProps({ ...stateProps });
-          }
+          previousState = stateProps;
+          this.setProps({ ...stateProps });
         });
       }
     };

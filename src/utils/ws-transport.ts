@@ -46,9 +46,11 @@ export default class WSTransport extends EventBus {
       this.send({ type: "ping" });
     }, 5000) as unknown as number;
 
-    this.on(WSTransportEvents.Close, () => clearInterval(this._pingInterval));
+    this.on(WSTransportEvents.Close, () => {
+      clearInterval(this._pingInterval);
 
-    this._pingInterval = 0;
+      this._pingInterval = 0;
+    });
   }
 
   _subscribe(socket: WebSocket) {

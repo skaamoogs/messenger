@@ -11,7 +11,7 @@ import sendMessageProps from "../send-message/send-message.props";
 
 export interface IMessenger {
   messages: IMessage[];
-  selectedChat: IChatExntended;
+  selectedChat?: IChatExntended;
   userId: number;
 }
 
@@ -28,6 +28,16 @@ class MessengerBase extends Block<IMessenger> {
     }
 
     this.children.messenger = this.createMessages(_newProps);
+
+    return true;
+  }
+
+  componentDidRender(): boolean {
+    const messenger =
+      this.getContent()?.getElementsByClassName("messenger-main")[0];
+    if (messenger) {
+      messenger.scrollTop = messenger.scrollHeight;
+    }
 
     return true;
   }
@@ -62,7 +72,7 @@ function mapMessengerToProps(state: State) {
     };
   }
 
-  const messagesToChat = (messages || {})[selectedChat.id].filter(
+  const messagesToChat = ((messages || {})[selectedChat.id] || []).filter(
     (message) => message.type === "message"
   );
 

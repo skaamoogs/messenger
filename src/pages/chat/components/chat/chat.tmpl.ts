@@ -10,7 +10,7 @@ const chatTemplate = `
     <div class="chat-header">
         <span class="bold-text message-author">{{title}}</span>
       <div class="chat-header-right-side">
-        <span class="message-time">{{last_message.time}}</span>
+        <span class="message-time">{{message.time}}</span>
         {{#if selected}}
           {{#if isDeleteAllowed}}
             {{{delButton}}}
@@ -23,7 +23,7 @@ const chatTemplate = `
         {{#if isLastMessageMine}}
           <span class="bold-black-text">Вы:</span>
         {{/if}}
-        {{last_message.content}}
+        {{message.content}}
       </p>
       {{#if unread_count}}
         <div class="unread-msg-count">

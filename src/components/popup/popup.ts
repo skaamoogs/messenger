@@ -1,10 +1,8 @@
 import Handlebars from "handlebars";
-import { ROUTES } from "../../const";
 import ChatsController from "../../controllers/chats.controller";
 import UserController from "../../controllers/user.controller";
 import withStore from "../../hocs/with-store";
 import Block from "../../modules/block";
-import router from "../../utils/route/router";
 import { Events, Indexed } from "../../utils/types";
 import { inputValidator } from "../../utils/validate";
 import Button, { ButtonProps } from "../button/button";
@@ -45,9 +43,10 @@ class PopupBase extends Block<PopupProps> {
   }
 
   componentDidUpdate(_oldProps: PopupProps, _newProps: PopupProps): boolean {
-    const { inputFieldProps, buttonProps } = _newProps;
+    const { inputFieldProps, buttonProps, textProps } = _newProps;
 
     this.children.input = new InputField(inputFieldProps);
+    this.children.text = new TextField(textProps);
     this.children.button = new Button(buttonProps);
 
     return true;
@@ -108,14 +107,14 @@ class PopupBase extends Block<PopupProps> {
   }
 
   createChat(value: string) {
-    ChatsController.create(value);
+    ChatsController.create(value).then(() => this.hide());
   }
 
   addUser(value: string) {
     UserController.searchUser(value).then((user) => {
       if (user) {
         ChatsController.addUser(this.props.selectedChatId, user.id);
-        router.go(ROUTES.chat);
+        this.hide();
       } else {
         this.showError({ text: "Пользователя с таким логином не существует." });
       }
@@ -126,7 +125,7 @@ class PopupBase extends Block<PopupProps> {
     UserController.searchUser(value).then((user) => {
       if (user) {
         ChatsController.deleteUser(this.props.selectedChatId, user.id);
-        router.go(ROUTES.chat);
+        this.hide();
       } else {
         this.showError({ text: "Пользователя с таким логином не существует." });
       }
